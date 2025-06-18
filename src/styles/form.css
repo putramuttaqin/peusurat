@@ -6,12 +6,20 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   background: #f9f9f9;
+  color: #222; /* ← Ensure default text color is dark */
+  font-family: sans-serif;
+}
+
+.form-container h2 {
+  color: #111; /* ← Darker heading */
+  margin-bottom: 1rem;
 }
 
 form label {
   display: block;
   margin-top: 1rem;
   font-weight: bold;
+  color: #333; /* ← Make labels readable */
 }
 
 form input,
@@ -21,6 +29,8 @@ form textarea {
   margin-top: 0.25rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+  color: #000;              /* ← Ensure input text is dark */
+  background-color: #fff;   /* ← Light background for contrast */
 }
 
 form button {

@@ -1,20 +1,20 @@
-import { useState } from 'preact/hooks'
-import preactLogo from './assets/preact.svg'
-import viteLogo from '/vite.svg'
-import '../styles/app.css'
-import logoMitalon from './assets/logo-mitalon.jpg';
+import { useState } from 'preact/hooks';
+import preactLogo from '../assets/preact.svg'; // corrected path
+import viteLogo from '/vite.svg'; // Vite alias path is fine
+import logoMitalon from '../assets/logo-mitalon.jpg'; // corrected path
+import '../styles/app.css'; // good
 
 export function HomePage() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
       <div>
-        <a href="https://putramuttaqin.pythonanywhere.com" target="_blank">
+        <a href="https://putramuttaqin.pythonanywhere.com" target="_blank" rel="noopener noreferrer">
           <img src={logoMitalon} class="logo" alt="Mitalon logo" />
         </a>
         <a href="/form">
-          <img src={preactLogo} class="logo preact" alt="Go to Home" />
+          <img src={preactLogo} class="logo preact" alt="Go to Form" />
         </a>
       </div>
       <h1>Vion + Preon</h1>
@@ -23,7 +23,7 @@ export function HomePage() {
           count is {count}
         </button>
         <p>
-          Edit <code>src/app.jsx</code> and save to test HMR
+          Edit <code>src/pages/HomePage.jsx</code> and save to test HMR
         </p>
       </div>
       <p>
@@ -31,6 +31,7 @@ export function HomePage() {
         <a
           href="https://preactjs.com/guide/v10/getting-started#create-a-vite-powered-preact-app"
           target="_blank"
+          rel="noopener noreferrer"
         >
           create-preact
         </a>
@@ -40,5 +41,5 @@ export function HomePage() {
         Click on the Vite and Preact logos to learn more
       </p>
     </>
-  )
+  );
 }
