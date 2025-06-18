@@ -1,10 +1,10 @@
 import { useState } from 'preact/hooks'
 import preactLogo from './assets/preact.svg'
 import viteLogo from '/vite.svg'
-import './app.css'
+import '../styles/app.css'
 import logoMitalon from './assets/logo-mitalon.jpg';
 
-export function App() {
+export function HomePage() {
   const [count, setCount] = useState(0)
 
   return (
@@ -13,8 +13,8 @@ export function App() {
         <a href="https://putramuttaqin.pythonanywhere.com" target="_blank">
           <img src={logoMitalon} class="logo" alt="Mitalon logo" />
         </a>
-        <a href="https://preactjs.com" target="_blank">
-          <img src={preactLogo} class="logo preact" alt="Preact logo" />
+        <a href="/form">
+          <img src={preactLogo} class="logo preact" alt="Go to Home" />
         </a>
       </div>
       <h1>Vion + Preon</h1>
