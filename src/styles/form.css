@@ -1,0 +1,169 @@
+/* src/styles/form.css */
+.form-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+  font-family: sans-serif;
+  color: #222;
+}
+
+.form-container h2 {
+  margin-bottom: 1rem;
+  color: #111;
+  text-align: center;
+}
+
+/* Ensure left-aligned labels */
+form label {
+  font-weight: bold;
+  color: #333;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  display: block;
+  text-align: left;
+}
+
+/* Input + Textarea styling */
+form input,
+form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #000;
+  font-family: sans-serif;
+  font-size: 0.95rem;
+  transition: background-color 0.2s, border-color 0.2s;
+  box-sizing: border-box;
+}
+
+form input:focus,
+form textarea:focus {
+  outline: none;
+  background-color: #e6f0ff;
+  border-color: #4d90fe;
+}
+
+form button {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Row and spacing styles */
+.inline-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  justify-content: center; /* Add this to center the buttons */
+  width: 100%; /* Ensure it takes full width */
+}
+
+/* Base button styles */
+.inline-row button, 
+.inline-row .back-button {
+  padding: 0.5rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  margin-top: 2rem; /* Consistent margin for both buttons */
+}
+
+/* Remove the individual margin-top from submit button */
+.inline-row button[type="submit"] {
+  background-color: #4CAF50; /* Green */
+  color: white;
+  /* margin-top: 2rem; Remove this line */
+}
+
+.inline-row button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.inline-row button[type="submit"]:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Back button styles */
+.back-button {
+  background-color: #f44336; /* Red */
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+}
+
+.back-button:hover {
+  background-color: #d32f2f;
+}
+
+.form-group.short {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 150px;
+}
+
+.form-group.full {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.form-group input,
+.form-group textarea {
+  margin-top: 0.3rem;
+}
+
+/* Preview box */
+.preview {
+  margin: 1rem 0;
+  padding: 0.6rem;
+  background: #eef;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.after-submit {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.after-submit button {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Improved calendar icon visibility */
+input[type="date"] {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  font-family: sans-serif;
+  font-size: 0.95rem;
+  width: 100%;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
