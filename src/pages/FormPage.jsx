@@ -3,8 +3,19 @@ import { route } from 'preact-router';
 import '../styles/form.css';
 
 export function FormPage() {
-  const jenisSuratOpsi = ['Surat Keluar Umum', 'Surat Keputusan', 'Nota Dinas'];
-  const wilayahOptions = ['W.1', 'W.2', 'W.3'];
+  const jenisSuratOpsi = [
+    'BUKU KELUAR UMUM',
+    'SK KAKANWIL',
+    'BUKU KELUAR YANKUM',
+    'BUKU MASUK UMUM',
+    'BUKU SURAT PERINTAH',
+    'BUKU CUTI',
+    'BUKU KELUAR PLH/PLT',
+    'BUKU KELUAR P2L',
+    'BUKU MASUK P2L',
+    'BUKU MASUK YANKUM'
+  ];
+  const wilayahOptions = ['W.1'];
   const masalahOptions = ['UM', 'PID', 'HT'];
   const klasifikasiOptions = ['01.01', '02.02', '03.03'];
   const divisiOptions = ['Kepegawaian', 'Keuangan', 'Umum'];
@@ -149,7 +160,7 @@ export function FormPage() {
             </div>
 
             <div className="form-group short">
-              <label htmlFor="divisi">Divisi</label>
+              <label htmlFor="divisi">Ruang</label>
               <input
                 list="divisiOptions"
                 id="divisi"
