@@ -69,13 +69,6 @@ export function FormPage() {
     shortName: val.name.split(' - ')[0].substring(0, 2)
   }));
 
-  useEffect(() => {
-    fetch('http://localhost:3001/last-number')
-      .then(res => res.json())
-      .then(data => setFormState(prev => ({ ...prev, nomorSurat: data.lastNumber + 1 })))
-      .catch(() => setFormState(prev => ({ ...prev, nomorSurat: 101 })));
-  }, []);
-
   // Initialize Choices.js only for pemohon field
   useEffect(() => {
     const initPemohonChoices = () => {
@@ -176,42 +169,41 @@ export function FormPage() {
     setFormState(prev => ({ ...prev, [field]: e.target.value }));
   };
 
+  // Modify the handleSubmit function
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const finalNomor = `W.1.${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-${formState.nomorSurat}`;
+    const nomorSurat = `W.1.${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-xyz`;
 
     try {
-      const res = await fetch('http://localhost:3001/submit', {
+      const res = await fetch('http://localhost:3001/submit-permohonan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          nomorSurat: finalNomor,
+          perihalSurat: formState.keterangan,
+          ruangPemohon: formState.divisi,
+          pemohon: formState.pemohon,
           tanggalSurat: formState.tanggalSurat,
-          divisi: formState.divisi,
-          keterangan: formState.keterangan,
-          pemohon: formState.pemohon
+          nomorSurat: nomorSurat // Send with xyz placeholder
         })
       });
 
-      const json = await res.json();
-      if (json.success) {
-        setFinalNomorSurat(finalNomor);
-        setFormState(prev => ({ ...prev, nomorSurat: prev.nomorSurat + 1 }));
+      if (res.ok) {
+        setFinalNomorSurat(nomorSurat); // Keep the xyz placeholder
         setSubmitted(true);
       } else {
-        alert('Gagal menyimpan: ' + json.error);
+        throw new Error('Failed to save data');
       }
     } catch (err) {
-      alert('Server error: ' + err.message);
+      alert('Error: ' + err.message);
     }
   };
 
   const renderSelectField = ({ id, label, value, options, onChange, disabled = false }) => (
     <div className="form-group short">
       <label htmlFor={id}>{label}</label>
-      <select 
-        id={id} 
-        value={value} 
+      <select
+        id={id}
+        value={value}
         onChange={onChange}
         disabled={disabled}
       >

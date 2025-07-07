@@ -64,37 +64,55 @@ app.get('/entries', (req, res) => {
     });
 });
 
-// GET /last-number → get last used nomorSurat number
-app.get('/last-number', (req, res) => {
-  if (!fs.existsSync(CSV_PATH)) {
-    return res.json({ lastNumber: 100 });
-  }
-
-  const results = [];
-
-  fs.createReadStream(CSV_PATH)
-    .pipe(csv())
-    .on('data', (data) => results.push(data))
-    .on('end', () => {
-      if (results.length === 0) {
-        return res.json({ lastNumber: 100 });
-      }
-
-      const lastEntry = results[results.length - 1];
-      const nomorSurat = lastEntry['Nomor Surat'];
-      const lastNumber = parseInt(nomorSurat?.split('-').pop(), 10);
-
-      res.json({ lastNumber: isNaN(lastNumber) ? 100 : lastNumber });
-    })
-    .on('error', (err) => {
-      console.error('Error reading CSV:', err);
-      res.status(500).json({ error: 'Failed to read CSV' });
-    });
-});
-
 // GET /download → download CSV file
 app.get('/download', (req, res) => {
   res.download(CSV_PATH, 'nomor-surat.csv');
+});
+
+const PERMOHONAN_CSV = path.join(__dirname, 'permohonan-surat.csv');
+
+// Ensure permohonan CSV exists
+if (!fs.existsSync(PERMOHONAN_CSV)) {
+  fs.writeFileSync(
+    PERMOHONAN_CSV,
+    'Tanggal,Jam,Perihal Surat,Ruang Pemohon,Pemohon,Tanggal Surat,Nomor Surat\n'
+  );
+}
+
+const permohonanWriter = createObjectCsvWriter({
+  path: PERMOHONAN_CSV,
+  header: [
+    { id: 'tanggal', title: 'Tanggal' },
+    { id: 'jam', title: 'Jam' },
+    { id: 'perihalSurat', title: 'Perihal Surat' },
+    { id: 'ruangPemohon', title: 'Ruang Pemohon' },
+    { id: 'pemohon', title: 'Pemohon' },
+    { id: 'tanggalSurat', title: 'Tanggal Surat' },
+    { id: 'nomorSurat', title: 'Nomor Surat' }
+  ],
+  append: true
+});
+
+// Modify the /submit-permohonan endpoint
+app.post('/submit-permohonan', async (req, res) => {
+  try {
+    const now = new Date();
+    const record = {
+      tanggal: now.toLocaleDateString('en-US'), // e.g. "6/19/2025"
+      jam: now.toLocaleTimeString('en-US', { hour12: false }), // e.g. "13:00:00"
+      perihalSurat: req.body.perihalSurat,
+      ruangPemohon: req.body.ruangPemohon,
+      pemohon: req.body.pemohon,
+      tanggalSurat: req.body.tanggalSurat,
+      nomorSurat: req.body.nomorSurat // Store exactly as received (with xyz)
+    };
+
+    await permohonanWriter.writeRecords([record]);
+    res.json({ message: 'OK' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
 });
 
 app.listen(PORT, () => {
