@@ -1,9 +1,9 @@
 import { useState } from 'preact/hooks';
-import preactLogo from '../assets/preact.svg'; // corrected path
+import preactLogo from '../assets/icons/preact.svg'; // corrected path
 import viteLogo from '/vite.svg'; // Vite alias path is fine
-import logoMitalon from '../assets/logo-mitalon.jpg'; // corrected path
-import logoEntries from '../assets/logo-entries.jpg'; // corrected path
-import logoForm from '../assets/logo-form.png'; // corrected path
+import logoMitalon from '../assets/images/logo-mitalon.jpg'; // corrected path
+import logoEntries from '../assets/images/logo-entries.jpg'; // corrected path
+import logoForm from '../assets/images/logo-form.png'; // corrected path
 import '../styles/app.css'; // good
 
 export function HomePage() {

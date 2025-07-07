@@ -1,0 +1,2704 @@
+{
+  "1326": {
+    "name": "PR - PERENCANAAN",
+    "children": {
+      "1327": {
+        "name": "01 - Program dan Anggaran",
+        "children": {
+          "1328": {
+            "name": "01 - Rencana Strategis"
+          },
+          "1329": {
+            "name": "02 - Trilateral Meeting"
+          },
+          "1330": {
+            "name": "03 - Rencana Kerja"
+          },
+          "1331": {
+            "name": "04 - Rencana Kerja dan Anggaran"
+          }
+        }
+      },
+      "1332": {
+        "name": "02 - Evaluasi",
+        "children": {
+          "1333": {
+            "name": "01 - Unit Utama"
+          },
+          "1334": {
+            "name": "02 - Kantor Wilayah"
+          }
+        }
+      },
+      "1335": {
+        "name": "03 - Laporan Akuntabilitas Kinerja Instansi Pemerintah (LAKIP)",
+        "children": {}
+      },
+      "1336": {
+        "name": "04 - Pelaporan",
+        "children": {
+          "1337": {
+            "name": "01 - Laporan Bulanan"
+          },
+          "1338": {
+            "name": "02 - Laporan Triwulan"
+          },
+          "1339": {
+            "name": "03 - Laporan Semester"
+          },
+          "1340": {
+            "name": "04 - Laporan Tahunan"
+          },
+          "1341": {
+            "name": "05 - Insidentil"
+          }
+        }
+      },
+      "1342": {
+        "name": "05 - Rapat Kerja",
+        "children": {
+          "1343": {
+            "name": "01 - Dengan DPR"
+          },
+          "1344": {
+            "name": "02 - Tingkat Kementerian"
+          },
+          "1345": {
+            "name": "03 - Tingkat Unit Utama (RAKERNIS)"
+          },
+          "1346": {
+            "name": "04 - Tingkat Kantor Wilayah"
+          },
+          "1347": {
+            "name": "05 - Rapat Pimpinan dan Rapat Staf"
+          }
+        }
+      },
+      "1348": {
+        "name": "06 - Sidang Kabinet",
+        "children": {
+          "1349": {
+            "name": "01 - Sidang Kabinet Terbatas"
+          },
+          "1350": {
+            "name": "02 - Sidang Kabinet Paripurna"
+          }
+        }
+      }
+    }
+  },
+  "1351": {
+    "name": "OT - ORGANISASI DAN TATA LAKSANA",
+    "children": {
+      "1352": {
+        "name": "01 - Organisasi dan Tata Kerja",
+        "children": {
+          "1353": {
+            "name": "01 - Organisasi dan Tata Kerja Kementerian"
+          },
+          "1354": {
+            "name": "02 - Organisasi dan Tata Kerja Kantor Wilayah"
+          },
+          "1355": {
+            "name": "03 - Organisasi dan Tata Kerja UPT"
+          },
+          "1356": {
+            "name": "04 - Evaluasi Kelembagaan"
+          }
+        }
+      },
+      "1357": {
+        "name": "02 - Ketatalaksanaan",
+        "children": {
+          "1358": {
+            "name": "01 - Standarisasi Sarana Kerja"
+          },
+          "1359": {
+            "name": "02 - Sistem, Prosedur dan Metoda Kerja"
+          },
+          "1360": {
+            "name": "03 - Analisa dan Uraian Jabatan"
+          }
+        }
+      },
+      "1361": {
+        "name": "03 - Reformasi Birokrasi",
+        "children": {
+          "1362": {
+            "name": "01 - Penilaian Mandiri Pelaksanaan Reformasi Birokrasi (PMPRB)"
+          },
+          "1363": {
+            "name": "02 - Zona Integritas (ZI)"
+          },
+          "1364": {
+            "name": "03 - Evaluasi Reformasi Birokrasi"
+          }
+        }
+      },
+      "1365": {
+        "name": "04 - Instruksi Menteri",
+        "children": {}
+      }
+    }
+  },
+  "1366": {
+    "name": "KP - KEPEGAWAIAN",
+    "children": {
+      "1367": {
+        "name": "01 - Formasi Pegawai",
+        "children": {
+          "1368": {
+            "name": "01 - Inventarisasi Jabatan/Peta Jabatan"
+          },
+          "1369": {
+            "name": "02 - Evaluasi Jabatan"
+          },
+          "1370": {
+            "name": "03 - Usulan Formasi"
+          },
+          "1371": {
+            "name": "04 - Alokasi Formasi"
+          }
+        }
+      },
+      "1372": {
+        "name": "02 - Penerimaan/Pengadaan Pegawai",
+        "children": {
+          "1373": {
+            "name": "01 - Proses Penerimaan Pegawai"
+          },
+          "1374": {
+            "name": "02 - Berkas Lamaran Yang Tidak Diterima"
+          },
+          "1375": {
+            "name": "03 - Surat Keputusan CPNS/PNS Kolektif"
+          },
+          "1376": {
+            "name": "04 - Penerimaan Pegawai dari Politeknik Ilmu Pemasyarakatan dan AIM"
+          },
+          "1377": {
+            "name": "05 - Ujian Dinas dan Ujian Penyusaian Ijazah"
+          }
+        }
+      },
+      "1378": {
+        "name": "03 - Pengangkatan Pegawai",
+        "children": {
+          "1379": {
+            "name": "01 - Pengangkatan CPNS"
+          },
+          "1380": {
+            "name": "02 - Pengangkatan PNS"
+          },
+          "1381": {
+            "name": "03 - Pengangkatan Jabatan Struktural"
+          },
+          "1382": {
+            "name": "04 - Pengangkatan Jabatan Fungsional"
+          }
+        }
+      },
+      "1383": {
+        "name": "04 - Mutasi Pegawai",
+        "children": {
+          "1384": {
+            "name": "01 - Alih Tugas/Diperbantukan/Dipekerjakan/Pelaksana"
+          },
+          "1385": {
+            "name": "02 - Pelaksana Harian/Pelaksana Tugas"
+          },
+          "1386": {
+            "name": "03 - Pencantuman gelar Akadmik"
+          },
+          "1387": {
+            "name": "04 - Kenaikan Gaji Berkala (KGB)"
+          },
+          "1388": {
+            "name": "05 - Kenaikan Pangkat/Golongan"
+          },
+          "1389": {
+            "name": "06 - Peninjauan Masa Kerja"
+          },
+          "1390": {
+            "name": "07 - Berkas Badan Pertimbangan Jabatan dan Kepangkatan (Baperjakat)"
+          },
+          "1391": {
+            "name": "08 - Pengaktifan Kembali dari CLTN dan Hukuman Disiplin"
+          }
+        }
+      },
+      "1392": {
+        "name": "05 - Pembinaan Pegawai",
+        "children": {
+          "1393": {
+            "name": "01 - Penilaian Prestasi Kerja Pegawai ( PPKP )"
+          },
+          "1394": {
+            "name": "02 - Pembinaan Disiplin dan Kode Etik"
+          },
+          "1395": {
+            "name": "03 - Pemberian Penghargaan dan Tanda Jasa"
+          }
+        }
+      },
+      "1396": {
+        "name": "06 - Pengembangan Pegawai",
+        "children": {
+          "1397": {
+            "name": "01 - Pengembangan Kompetensi Jabatan Pimpinan Tinggi dan Adminstrasi"
+          },
+          "1398": {
+            "name": "02 - Pengembangan Kompetensi Fungsional"
+          },
+          "1399": {
+            "name": "03 - Pengiriman Peserta Diklat"
+          },
+          "1400": {
+            "name": "04 - Beasiswa"
+          }
+        }
+      },
+      "1401": {
+        "name": "07 - Hukuman Disiplin",
+        "children": {
+          "1402": {
+            "name": "01 - Tingkat Ringan (Pernyataatnn Tidak Puas, Teguran Lisan, Teguran Tertulis)"
+          },
+          "1403": {
+            "name": "02 - Tingkat Sedang (Penundaan KGB, KP dan Penurunan Gaji)"
+          },
+          "1404": {
+            "name": "03 - Tingkat Berat (Penurunan Pangkat, Pembebasan Jabatan, Pemberhentian Dengan Hormat/Tidak Dengan Hormat)"
+          }
+        }
+      },
+      "1405": {
+        "name": "08 - Tata Usaha Kepegawaian",
+        "children": {
+          "1406": {
+            "name": "01 - Data Pegawai"
+          },
+          "1407": {
+            "name": "02 - Identitas Pegawai (Karpeg, Karsu, Karis)"
+          },
+          "1408": {
+            "name": "03 - Izin Kepegawaian (Izin Belajar, Tugas Belajar Dalam Negeri dan Luar Negeri)"
+          },
+          "1409": {
+            "name": "04 - Keanggotaan Pegawai Dalam Organisasi Sosial"
+          },
+          "1410": {
+            "name": "05 - Daftar Hadir/Absensi Pegawai"
+          }
+        }
+      },
+      "1411": {
+        "name": "09 - Kesejahteraan Pegawai",
+        "children": {
+          "1412": {
+            "name": "01 - Kesehatan"
+          },
+          "1413": {
+            "name": "02 - Perumahan (TAPERUM, Biaya Uang Muka)"
+          },
+          "1414": {
+            "name": "03 - Taspen"
+          },
+          "1415": {
+            "name": "04 - Cuti"
+          },
+          "1416": {
+            "name": "05 - Uang Duka Tewas"
+          },
+          "1417": {
+            "name": "06 - Pembekalan Purnabakti"
+          },
+          "1418": {
+            "name": "07 - Mutasi Keluarga (Nikah, Anak, Cerai, Kematian, Karsu, Karis)"
+          },
+          "1419": {
+            "name": "08 - Laporan Kekayaan (LP2P dan LHKPN)"
+          }
+        }
+      },
+      "1420": {
+        "name": "10 - Pembinaan Jabatan Fungsional",
+        "children": {
+          "1421": {
+            "name": "01 - Jabatan Fungsional Umum"
+          },
+          "1422": {
+            "name": "02 - Jabatan Fungsional Tertentu"
+          }
+        }
+      },
+      "1423": {
+        "name": "11 - Pemberhentian Pegawai",
+        "children": {
+          "1424": {
+            "name": "01 - Pemberhentian Atas Permintaan Sendiri"
+          },
+          "1425": {
+            "name": "02 - Pemberhentian Karena Batas Usia Pensiun"
+          },
+          "1426": {
+            "name": "03 - Pemberhentian Karena Keuzuran/Kondisi Jasmani dan Rohani"
+          },
+          "1427": {
+            "name": "04 - Pemberhentian Karena Hilang"
+          },
+          "1428": {
+            "name": "05 - Pemberhentian Sementara"
+          },
+          "1429": {
+            "name": "06 - Pensiun Janda/Duda dan Anak"
+          }
+        }
+      },
+      "1430": {
+        "name": "12 - Berkas PNS/ASN",
+        "children": {}
+      },
+      "1431": {
+        "name": "13 - Berkas Perseorangan Menteri, Wakil Menteri dan Pejabat Negara lainnya",
+        "children": {}
+      },
+      "1432": {
+        "name": "14 - Organisasi Non Kedinasan",
+        "children": {
+          "1433": {
+            "name": "01 - KORPRI"
+          },
+          "1434": {
+            "name": "02 - Dharma Wanita"
+          },
+          "1435": {
+            "name": "03 - Koperasi"
+          }
+        }
+      }
+    }
+  },
+  "1436": {
+    "name": "KU - KEUANGAN",
+    "children": {
+      "1437": {
+        "name": "01 - Pelaksanaan Anggaran",
+        "children": {
+          "1438": {
+            "name": "01 - Pedoman, Petunjuk, dan Administrasi Pelaksanaan Anggaran"
+          },
+          "1439": {
+            "name": "02 - Daftar Isian Pelaksanaan Anggaran (DIPA)"
+          },
+          "1440": {
+            "name": "03 - Penerimaan Negara Bukan Pajak (PNBP)"
+          }
+        }
+      },
+      "1441": {
+        "name": "02 - Tata Usaha Keuangan",
+        "children": {
+          "1442": {
+            "name": "01 - Pedoman dan Petunjuk Administrasi Keuangan"
+          },
+          "1443": {
+            "name": "02 - Penatausahaan Hibah"
+          },
+          "1444": {
+            "name": "03 - Pejabat Perbendaharaan Negara"
+          },
+          "1445": {
+            "name": "04 - Penyelesaian Kerugian Negara"
+          },
+          "1446": {
+            "name": "05 - Penatausahaan Rekening Pemerintah"
+          }
+        }
+      },
+      "1447": {
+        "name": "03 - Perbendaharaan",
+        "children": {
+          "1448": {
+            "name": "01 - Dokumen Pertanggungjawaban Belanja"
+          },
+          "1449": {
+            "name": "02 - Buku Kas Umum dan Buku Pembantu"
+          },
+          "1450": {
+            "name": "03 - LPJ Bendahara Pengeluaran"
+          },
+          "1451": {
+            "name": "04 - LPJ Bendahara Penerimaan"
+          },
+          "1452": {
+            "name": "05 - Penerimaan Negara Pajak"
+          }
+        }
+      },
+      "1453": {
+        "name": "04 - Akuntansi dan Pelaporan",
+        "children": {
+          "1454": {
+            "name": "01 - Laporan Keuangan"
+          },
+          "1455": {
+            "name": "02 - Rekonsiliasi dan Data Laporan Keuangan"
+          },
+          "1456": {
+            "name": "03 - Penyelesaian Tindak Lanjut Temuan Hasil Pemeriksaan BPK dan Inspektorat Jenderal."
+          }
+        }
+      }
+    }
+  },
+  "1457": {
+    "name": "PB - PENGELOLAAN BARANG MILIK NEGARA",
+    "children": {
+      "1458": {
+        "name": "01 - Perencanaan Barang Milik Negara",
+        "children": {
+          "1459": {
+            "name": "01 - Usulan Rencana Kebutuhan BMN"
+          },
+          "1460": {
+            "name": "02 - Rencana Kebutuhan BMN Kementerian"
+          },
+          "1461": {
+            "name": "03 - Hasil Analisis Kebutuhan BMN"
+          },
+          "1462": {
+            "name": "04 - Rencana Kebutuhan Aset Berwujud"
+          },
+          "1463": {
+            "name": "05 - Rencana Kebutuhan Aset tak Berwujud"
+          }
+        }
+      },
+      "1464": {
+        "name": "02 - Pengadaan Barang Milik Negara (Layanan Pengadaan)",
+        "children": {
+          "1465": {
+            "name": "01 - Pengelolaan Pengadaan Barang/Jasa"
+          },
+          "1466": {
+            "name": "02 - Pengelolaan layanan pengadaan secara elektronik dan data informasi pengadaan barang/jasa"
+          },
+          "1467": {
+            "name": "03 - Pembinaan, Bimbingan, Pendampingan, dan Konsultasi Teknis Pengadaan Barang/Jasa"
+          },
+          "1468": {
+            "name": "04 - Tindaklanjut Hasil Pemeriksaan"
+          },
+          "1469": {
+            "name": "05 - Laporan Pengadaan Barang/Jasa"
+          },
+          "1470": {
+            "name": "06 - Telaahan Permasalahan Pengadaan Barang/Jasa"
+          },
+          "1471": {
+            "name": "07 - Unit Kerja Pengadaan Barang dan Jasa (UKPBJ)"
+          },
+          "1472": {
+            "name": "08 - Pendistribusian Barang Milik Negara"
+          }
+        }
+      },
+      "1473": {
+        "name": "03 - Penetapan Status dan Pengamanan Barang Milik Negara (BMN)",
+        "children": {
+          "1474": {
+            "name": "01 - Penggunaan Barang Milik Negara (BMN)"
+          },
+          "1475": {
+            "name": "02 - Pemanfaatan Barang Milik Negara"
+          },
+          "1476": {
+            "name": "03 - Pengamanan dan Pemeliharaan"
+          },
+          "1477": {
+            "name": "04 - Rumah Negara"
+          }
+        }
+      },
+      "1478": {
+        "name": "04 - Penatausahaan Barang Milik Negara",
+        "children": {
+          "1479": {
+            "name": "01 - Pencatataan Barang Milik Negara"
+          },
+          "1480": {
+            "name": "02 - Inventarisasi"
+          },
+          "1481": {
+            "name": "03 - Opname fisik"
+          },
+          "1482": {
+            "name": "04 - Rekonsiliasi data Barang Milik Negara"
+          },
+          "1483": {
+            "name": "05 - Pengawasan dan Pengedalian BMN"
+          },
+          "1484": {
+            "name": "06 - Laporan Barang Milik Negara"
+          }
+        }
+      },
+      "1485": {
+        "name": "05 - Pemindahtanganan dan Penghapusan",
+        "children": {
+          "1486": {
+            "name": "01 - Penjualan"
+          },
+          "1487": {
+            "name": "02 - Tukar Menukar"
+          },
+          "1488": {
+            "name": "03 - Hibah"
+          },
+          "1489": {
+            "name": "04 - Pemusnahan"
+          },
+          "1490": {
+            "name": "05 - Penghapusan"
+          }
+        }
+      }
+    }
+  },
+  "1491": {
+    "name": "HH - KEHUMASAN DAN HUKUM",
+    "children": {
+      "1492": {
+        "name": "01 - Informasi dan Komunikasi",
+        "children": {
+          "1493": {
+            "name": "01 - Media Massa (Cetak, Elektronik, Media Sosial)"
+          },
+          "1494": {
+            "name": "02 - Sosialisasi dan Diseminasi"
+          },
+          "1495": {
+            "name": "03 - Pejabat Pengelola Informasi dan Dokumentasi (PPID)"
+          },
+          "1496": {
+            "name": "04 - Badan Koordinasi Hubungan Masyarakat (Bakohumas)"
+          },
+          "1497": {
+            "name": "05 - Peliputan"
+          },
+          "1498": {
+            "name": "06 - Konferensi Pers"
+          },
+          "1499": {
+            "name": "07 - Siaran Pers"
+          }
+        }
+      },
+      "1500": {
+        "name": "02 - Dokumentasi",
+        "children": {
+          "1501": {
+            "name": "01 - Produk Informasi (Media Cetak,Elektronik, Media Sosial)"
+          },
+          "1502": {
+            "name": "02 - Rekapitulasi Pemberitaan"
+          }
+        }
+      },
+      "1503": {
+        "name": "03 - Kepustakaan",
+        "children": {
+          "1504": {
+            "name": "01 - Akusisi (Pembelian, Hadiah, Hibah, Tukar Menukar, Pendistribusian Bahan Pustaka Surplus, Inventarisasi Bahan Pustaka (Buku Induk))"
+          },
+          "1505": {
+            "name": "02 - Pegolahan Bahan Pustaka"
+          },
+          "1506": {
+            "name": "03 - Pangkalan Data Koleksi"
+          },
+          "1507": {
+            "name": "04 - Layanan Perpustakaan"
+          },
+          "1508": {
+            "name": "05 - Preservasi Bahan Pustaka"
+          },
+          "1509": {
+            "name": "06 - Pengembangan Perpustakaan"
+          },
+          "1510": {
+            "name": "07 - Pendidikan dan Pelatihan Perpustakaan"
+          },
+          "1511": {
+            "name": "08 - Tenaga Perpustakaan"
+          }
+        }
+      },
+      "1512": {
+        "name": "04 - Kerja Sama/Hubungan Lembaga dan Organisasi Kemasyarakatan",
+        "children": {
+          "1513": {
+            "name": "01 - Lembaga Tinggi Negara (dalam negeri dan luar negeri)"
+          },
+          "1514": {
+            "name": "02 - Lembaga Pemerintah (dalam negeri dan luar negeri)"
+          },
+          "1515": {
+            "name": "03 - Organisasi Kemasyarakatan/Lembaga Swasta (dalam negeri dan luar negeri)"
+          },
+          "1516": {
+            "name": "04 - Perguruan Tinggi/Sekolah (dalam negeri dan luar negeri)"
+          },
+          "1517": {
+            "name": "05 - Penyusunan Dokumen Kerja Sama (dalam negeri dan luar negeri)"
+          },
+          "1518": {
+            "name": "06 - Permintaan dan Pengelolaan Data Kerja Sama (dalam negeri dan luar negeri)"
+          },
+          "1519": {
+            "name": "07 - Audiensi/Kunjungan (Kementerian/Lembaga, Organisasi Kemasyarakatan/Lembaga Swasta, Organisasi Internasional/Organisasi Internasional Non Pemerintah)"
+          },
+          "1520": {
+            "name": "08 - Pemantauan dan Evaluasi"
+          },
+          "1521": {
+            "name": "09 - Administrasi Kerja Sama"
+          }
+        }
+      },
+      "1522": {
+        "name": "05 - Layanan Advokasi Hukum",
+        "children": {
+          "1523": {
+            "name": "01 - Advokasi Hukum Litigasi"
+          },
+          "1524": {
+            "name": "02 - Advokasi Hukum Non Litigasi"
+          },
+          "1525": {
+            "name": "03 - Pengaduan Hukum"
+          },
+          "1526": {
+            "name": "04 - Bantuan Hukum"
+          },
+          "1527": {
+            "name": "05 - Layanan Aspirasi Dan Pengaduan Online Rakyat (LAPOR)"
+          },
+          "1528": {
+            "name": "06 - Sistem Informasi Pelayanan Publik (SIPP)"
+          }
+        }
+      }
+    }
+  },
+  "1529": {
+    "name": "UM - UMUM",
+    "children": {
+      "1530": {
+        "name": "01 - Ketatausahaan",
+        "children": {
+          "1531": {
+            "name": "01 - Persuratan"
+          },
+          "1532": {
+            "name": "02 - Ucapan Terima Kasih/Ucapan Selamat"
+          }
+        }
+      },
+      "1533": {
+        "name": "02 - Kearsipan",
+        "children": {
+          "1534": {
+            "name": "01 - Pemindahan Arsip"
+          },
+          "1535": {
+            "name": "02 - Pemusnahan Arsip"
+          },
+          "1536": {
+            "name": "03 - Penyerahan Arsip"
+          }
+        }
+      },
+      "1537": {
+        "name": "03 - Kerumahtanggaan",
+        "children": {
+          "1538": {
+            "name": "01 - Penggunaan Ruang dan Peralatan Kantor"
+          },
+          "1539": {
+            "name": "02 - Penggunaan dan penghunian Rumah Negara serta Wisma Pengayoman"
+          },
+          "1540": {
+            "name": "03 - Penggunaan dan Pemeliharaan Kendaraan Dinas"
+          },
+          "1541": {
+            "name": "04 - Penggunaan dan Pemeliharaan Barang Elektronik serta Mesin"
+          },
+          "1542": {
+            "name": "05 - Pemeliharaan Gedung dan bangunan serta Area Kantor"
+          },
+          "1543": {
+            "name": "06 - Pemeliharaan Alat Kesehatan"
+          },
+          "1544": {
+            "name": "07 - Perjalanan Dinas (Dalam Negeri/Luar Negeri)"
+          },
+          "1545": {
+            "name": "08 - Penghematan Energi dan air"
+          }
+        }
+      },
+      "1546": {
+        "name": "04 - Keprotokolan",
+        "children": {
+          "1547": {
+            "name": "01 - Penyelenggaraan Upacara"
+          },
+          "1548": {
+            "name": "02 - Pelayanan Tamu, Acara Kedinasan, Jamuan dan Ramah Tamah"
+          },
+          "1549": {
+            "name": "03 - Daftar Nama Pejabat dan Alamat"
+          }
+        }
+      },
+      "1550": {
+        "name": "05 - Pengamanan",
+        "children": {
+          "1551": {
+            "name": "01 - Pengamanan Personil ( VVIP/VIP )"
+          },
+          "1552": {
+            "name": "02 - Pengamanan Lingkungan, Fisik dan Instalasi"
+          },
+          "1553": {
+            "name": "03 - Pengamanan Dokumen dan Informasi Rahasia"
+          },
+          "1554": {
+            "name": "04 - Laporan Keamanan"
+          },
+          "1555": {
+            "name": "05 - Laporan Kejadian"
+          },
+          "1556": {
+            "name": "06 - Bantuan Pengamanan"
+          }
+        }
+      },
+      "1557": {
+        "name": "06 - Pembinaan Sikap Mental dan Layanan Kesehatan",
+        "children": {
+          "1558": {
+            "name": "01 - Layanan Keagamaan dan Sosial"
+          },
+          "1559": {
+            "name": "02 - Layanan Kesehatan Jasmani"
+          },
+          "1560": {
+            "name": "03 - Pelayanan Kesehatan"
+          }
+        }
+      }
+    }
+  },
+  "1561": {
+    "name": "PW - PENGAWASAN",
+    "children": {
+      "1562": {
+        "name": "01 - Perencanaan",
+        "children": {
+          "1563": {
+            "name": "01 - Kebijakan Pengawasan"
+          },
+          "1564": {
+            "name": "02 - Perjanjian Kinerja"
+          },
+          "1565": {
+            "name": "03 - Program Kerja Pengawasan Tahunan (PKPT)"
+          },
+          "1566": {
+            "name": "04 - Program Kerja Administrasi Umum (PKAU)"
+          },
+          "1567": {
+            "name": "05 - Rapat Koordinasi Pengawasan (RAKORWAS)"
+          },
+          "1568": {
+            "name": "06 - Ikhtisar Hasil Pengawasan"
+          }
+        }
+      },
+      "1569": {
+        "name": "02 - Pelaksanaan Pengawasan",
+        "children": {
+          "1570": {
+            "name": "01 - Audit Kinerja & Informasi, Reviu dan Evaluasi"
+          },
+          "1571": {
+            "name": "02 - Audit Tujuan Tertentu / Khusus"
+          },
+          "1572": {
+            "name": "03 - Pemantauan / Monitoring (BPK RI, BPKP , OMBUDSMAN, ITJEN)"
+          },
+          "1573": {
+            "name": "04 - Pengawasan lainnya, Pendampingan, Sosialisasi, RDK, PKS dll"
+          }
+        }
+      },
+      "1574": {
+        "name": "03 - Pelaporan",
+        "children": {
+          "1575": {
+            "name": "01 - Laporan Hasil Audit Kinerja (LHA/LHP), Informasi Data Pendukung Pemeriksaan (Dalam/Luar Negeri)"
+          },
+          "1576": {
+            "name": "02 - Laporan Hasil Audit Tujuan Tertentu (Audit Khusus)"
+          },
+          "1577": {
+            "name": "03 - Pemantauan/Monitoring Badan Pemeriksan Keuangan (BPK RI), Badan Pengawasan Keuangan dan Pembangunan Republik Indonesia (BPKP RI),Ombudsman Republik Indonesia (ORI), Inspektorat Jenderal"
+          },
+          "1578": {
+            "name": "04 - Pengawasan lainnya, Pendampingan, Sosialisasi, RDK, PKS dll"
+          },
+          "1579": {
+            "name": "05 - Ombudsman Republik Indonesia (ORI) (Dikonsultasikan terlebih dahulu)"
+          },
+          "1580": {
+            "name": "06 - Inspektorat Jenderal"
+          }
+        }
+      },
+      "1581": {
+        "name": "04 - Tindak Lanjut",
+        "children": {
+          "1582": {
+            "name": "01 - Laporan Tindak Lanjut Hasil Audit Kinerja"
+          },
+          "1583": {
+            "name": "02 - Laporan Tindak Lanjut Hasil Audit Khusus"
+          },
+          "1584": {
+            "name": "03 - Tindak Lanjut Badan Pengawasan Keuangan dan Pembangunan Republik Indonesia (BPKP RI),BPK RI, ITJEN"
+          }
+        }
+      },
+      "1585": {
+        "name": "05 - Reviu dan Tindak Lanjut Reviu",
+        "children": {
+          "1586": {
+            "name": "01 - Reviu"
+          },
+          "1587": {
+            "name": "02 - Tindak Lanjut Reviu"
+          }
+        }
+      },
+      "1588": {
+        "name": "06 - Tindak Lanjut Pengaduan",
+        "children": {
+          "1589": {
+            "name": "01 - Whistle Blowing System (WBS)"
+          },
+          "1590": {
+            "name": "02 - Gratifikasi"
+          },
+          "1591": {
+            "name": "03 - Pengaduan Tertulis (SMS, PO Box, email)"
+          },
+          "1592": {
+            "name": "05 - Pengaduan melalui aplikasi LAPOR (Layanan Pengaduan Secara Online Rakyat)"
+          },
+          "1593": {
+            "name": "06 - Pengaduan Ombudsman"
+          }
+        }
+      },
+      "1594": {
+        "name": "07 - Tindak Lanjut Atensi dan Telaahan",
+        "children": {
+          "1595": {
+            "name": "01 - Tanggapan/Telaahan Hukuman Disiplin Yang Tidak Ditindaklanjuti"
+          },
+          "1596": {
+            "name": "02 - Tanggapan/Telaahan Hukuman Disiplin Yang Ditindaklanjuti"
+          },
+          "1597": {
+            "name": "03 - Daftar nama Pegawai Kementerian Hukum dan HAM yang dikenakan sanksi Hukuman disiplin/kartu cela"
+          }
+        }
+      }
+    }
+  },
+  "1598": {
+    "name": "TI - TEKNOLOGI DAN INFORMASI",
+    "children": {
+      "1599": {
+        "name": "01 - Pengamanan Data (Kuesioner, Data Dukung, Analisis)",
+        "children": {}
+      },
+      "1600": {
+        "name": "02 - Pengamanan Jaringan (Pemeliharaan Jaringan, Audit Jaringan, Laporan Hasil Audit)",
+        "children": {}
+      },
+      "1601": {
+        "name": "03 - Standarisasi",
+        "children": {
+          "1602": {
+            "name": "01 - Standarisasi Teknologi dan Informasi"
+          },
+          "1603": {
+            "name": "02 - Implementasi Aplikasi"
+          },
+          "1604": {
+            "name": "03 - Implementasi Situs Internet, Portal Internet dan Surat Elektronik"
+          },
+          "1605": {
+            "name": "04 - Uji Coba Infrastruktur"
+          }
+        }
+      },
+      "1606": {
+        "name": "04 - Kerjasama",
+        "children": {
+          "1607": {
+            "name": "01 - Kerjasama Internal"
+          },
+          "1608": {
+            "name": "02 - Kerjasama Eksternal"
+          }
+        }
+      },
+      "1609": {
+        "name": "05 - Perencanaan Pengembangan Teknologi Informasi",
+        "children": {
+          "1610": {
+            "name": "01 - Penyusunan Program Perencanaan Teknologi dan Informasi"
+          },
+          "1611": {
+            "name": "02 - Pengembangan Infrastruktur Teknologi dan Informasi"
+          },
+          "1612": {
+            "name": "03 - Pengembangan Aplikasi"
+          },
+          "1613": {
+            "name": "04 - Pengembangan Database, Situs Internet dan Surat Elektronik"
+          }
+        }
+      },
+      "1614": {
+        "name": "06 - Pengelolaan Sistem Teknologi Informasi",
+        "children": {
+          "1615": {
+            "name": "01 - Pengelolaan Jaringan"
+          },
+          "1616": {
+            "name": "02 - Pengelolaan Jaringan Sistem Informasi"
+          },
+          "1617": {
+            "name": "03 - Pengelolaan Database"
+          },
+          "1618": {
+            "name": "04 - Pengelolaan Situs Internet, Portal Internet dan Surat Elektronik"
+          },
+          "1619": {
+            "name": "05 - Pengelolaan Aplikasi"
+          },
+          "1620": {
+            "name": "06 - Pengelolaan Alat Pendukung"
+          }
+        }
+      },
+      "1621": {
+        "name": "07 - Layanan Sistem Teknologi dan Informasi",
+        "children": {
+          "1622": {
+            "name": "01 - Layanan Keluhan LPSE (Layanan Pengadaan Secara Elektronik)"
+          },
+          "1623": {
+            "name": "02 - Tindak Lanjut Keluhan"
+          },
+          "1624": {
+            "name": "03 - Monitoring/Pemantauan Layanan Keluhan"
+          },
+          "1625": {
+            "name": "04 - Evaluasi"
+          }
+        }
+      }
+    }
+  },
+  "1626": {
+    "name": "PP - PERATURAN PERUNDANG-UNDANGAN",
+    "children": {
+      "1627": {
+        "name": "01 - Perancangan Peraturan Perundang-undangan",
+        "children": {
+          "1628": {
+            "name": "01 - Perencanaan dan Penyiapan Konsepsi Rancangan Peraturan\nPerundang-undangan"
+          },
+          "1629": {
+            "name": "02 - Penyusunan Rancangan Undang-Undang, Rancangan Peraturan Pemerintah Pengganti Undang-Undang, dan\nRancangan Peraturan Pemerintah"
+          },
+          "1630": {
+            "name": "03 - Penyusunan Rancangan Peraturan Presiden dan Rancangan\nPeraturan Menteri Hukum dan Hak Asasi Manusia"
+          },
+          "1631": {
+            "name": "04 - Pembahasan Rancangan Undang-Undang"
+          },
+          "1632": {
+            "name": "05 - Pengharmonisasian Rancangan Peraturan Menteri/Lembaga"
+          }
+        }
+      },
+      "1633": {
+        "name": "02 - Harmonisasi Peraturan Perundang-undangan I",
+        "children": {
+          "1634": {
+            "name": "01 - Harmonisasi Bidang Politik dan Pemerintahan"
+          },
+          "1635": {
+            "name": "02 - Harmonisasi Bidang Pertahanan dan Keamanan"
+          },
+          "1636": {
+            "name": "03 - Harmonisasi Bidang Hukum dan Hak Asasi Manusia (HAM)"
+          },
+          "1637": {
+            "name": "04 - Harmonisasi Bidang Sumber Daya Manusia (SDM),\nKelembagaan dan Kesejahteraan Rakyat"
+          }
+        }
+      },
+      "1638": {
+        "name": "03 - Harmonisasi Peraturan Perundang-undangan II",
+        "children": {
+          "1639": {
+            "name": "01 - Harmonisasi Bidang Moneter, Jasa Keuangan, Badan Usaha\nMilik Negara (BUMN) dan Penanaman Modal"
+          },
+          "1640": {
+            "name": "02 - Harmonisasi Bidang Perencanaan Pembangunan Nasional\ndan Fiskal"
+          },
+          "1641": {
+            "name": "03 - Harmonisasi Bidang Sumber Daya Alam (SDA), Lingkungan\nhidup, Kehutanan, Prasarana, Agraria dan Tata Ruang"
+          },
+          "1642": {
+            "name": "04 - Harmonisasi Bidang Perindustrian, Perdagangan, Riset dan\nTeknologi"
+          }
+        }
+      },
+      "1643": {
+        "name": "04 - Fasilitasi Perancangan Peraturan Daerah dan Pembinaan\nPerancang Peraturan Perundang-undangan",
+        "children": {
+          "1644": {
+            "name": "01 - Perencanaan, Penyusunan Kebijakan Teknis dan Akreditasi"
+          },
+          "1645": {
+            "name": "02 - Fasilitasi Perancangan Peraturan Daerah"
+          },
+          "1646": {
+            "name": "03 - Standardisasi dan Bimbingan Perancang Peraturan\nPerundang-undangan"
+          },
+          "1647": {
+            "name": "04 - Sistem Informasi, Manajemen dan Penilaian Angka Kredit\nPerancang Peraturan Perundang-undangan"
+          }
+        }
+      },
+      "1648": {
+        "name": "05 - Pengundangan, Penerjemahan, dan Publikasi Peraturan\nPerundang-undangan",
+        "children": {
+          "1649": {
+            "name": "01 - Pengundangan Peraturan Perundang-undangan"
+          },
+          "1650": {
+            "name": "02 - Penerjemahan Peraturan Perundang-undangan"
+          },
+          "1651": {
+            "name": "03 - Sistem Informasi Peraturan Perundang-undangan"
+          },
+          "1652": {
+            "name": "04 - Publikasi, Dokumentasi, dan Perpustakaan"
+          }
+        }
+      },
+      "1653": {
+        "name": "06 - Litigasi Peraturan Perundang-undangan",
+        "children": {
+          "1654": {
+            "name": "01 - Penyiapan dan Pendampingan Persidangan Bidang Politik,\nHukum, Hak Asasi Manusia dan Keamanan"
+          },
+          "1655": {
+            "name": "02 - Penyiapan dan Pendampingan Persidangan Bidang\nKesejahteraan Rakyat"
+          },
+          "1656": {
+            "name": "03 - Penyiapan dan Pendampingan Persidangan Bidang\nPerekonomian"
+          }
+        }
+      }
+    }
+  },
+  "1657": {
+    "name": "AH - ADMINISTRASI HUKUM UMUM",
+    "children": {
+      "1658": {
+        "name": "01 - Badan Hukum",
+        "children": {
+          "1659": {
+            "name": "01 - Pendaftaran Pendirian Perseroan Terbatas"
+          },
+          "1660": {
+            "name": "02 - Pendaftaran Persetujuan Perubahan Anggaran Dasar"
+          },
+          "1661": {
+            "name": "03 - Pendaftaran Pemberitahuan Anggaran Dasar dan Perubahan Data Persero"
+          },
+          "1662": {
+            "name": "04 - Pendirian Yayasan"
+          },
+          "1663": {
+            "name": "05 - Persetujuan Perubahan Anggaran Dasar Yayasan"
+          },
+          "1664": {
+            "name": "06 - Pemberitahuan Anggaran Dasar dan Perubahan Data"
+          },
+          "1665": {
+            "name": "07 - Pendirian Perkumpulan"
+          },
+          "1666": {
+            "name": "08 - Persetujuan Perubahan Anggaran Dasar Perkumpulan"
+          },
+          "1667": {
+            "name": "09 - Penggabungan, Pengambilalihan, Pemisahan PT"
+          },
+          "1668": {
+            "name": "10 - Pembubaran Perseroan Terbatas"
+          },
+          "1669": {
+            "name": "11 - Likuidasi / Berakhirnya Status Badan Hukum PT"
+          },
+          "1670": {
+            "name": "12 - Pembubaran Yayasan"
+          },
+          "1671": {
+            "name": "13 - Pembubaran Perkumpulan"
+          },
+          "1672": {
+            "name": "14 - Pendaftaran Persekutuan Komanditer"
+          },
+          "1673": {
+            "name": "15 - Pencatatan Pendaftaran Persekutuan Komanditer"
+          },
+          "1674": {
+            "name": "16 - Perubahan Persekutuan Komanditer"
+          },
+          "1675": {
+            "name": "17 - Pencatatan Perubahan Persekutuan Komanditer"
+          },
+          "1676": {
+            "name": "18 - Pendaftaran Firma"
+          },
+          "1677": {
+            "name": "19 - Pencatatan Pendaftaran Firma"
+          },
+          "1678": {
+            "name": "20 - Perubahan Firma"
+          },
+          "1679": {
+            "name": "21 - Pencatatan Perubahan Firma"
+          },
+          "1680": {
+            "name": "22 - Pendaftaran Persekutuan Perdata"
+          },
+          "1681": {
+            "name": "23 - Pencatatan Pendaftaran Persekutuan Perdata"
+          },
+          "1682": {
+            "name": "24 - Perubahan Persekutuan Perdata"
+          },
+          "1683": {
+            "name": "25 - Pencatatan Perubahan Persekutuan Perdata"
+          },
+          "1684": {
+            "name": "26 - Pembubaran Persekutuan Komanditer"
+          },
+          "1685": {
+            "name": "27 - Pembubaran Firma"
+          },
+          "1686": {
+            "name": "28 - Pembubaran Persekutuan Perdata"
+          },
+          "1687": {
+            "name": "29 - Pengesahan Pendirian Badan Hukum Koperasi"
+          },
+          "1688": {
+            "name": "30 - Pendaftaran Pendirian Perseroan Perorangan"
+          },
+          "1689": {
+            "name": "31 - Pendaftaran Perubahan Perseroan Perorangan"
+          },
+          "1690": {
+            "name": "32 - Pembubaran Perseroan Perorangan"
+          },
+          "1691": {
+            "name": "33 - Pendaftaran Pendirian BUM Des"
+          },
+          "1692": {
+            "name": "34 - Pendaftaran Perubahan BUM Des"
+          },
+          "1693": {
+            "name": "35 - Pendaftaran Pendirian BUM Des Bersama"
+          },
+          "1694": {
+            "name": "36 - Pendaftaran Perubahan BUM Des Bersama"
+          },
+          "1695": {
+            "name": "37 - Pencabutan Status Badan Hukum Perseroan Perorangan"
+          },
+          "1696": {
+            "name": "38 - Pengesahan Perubahan Anggaran Dasar Koperasi"
+          },
+          "1697": {
+            "name": "39 - Penerimaan Pemberitahuan Perubahan Data Koperasi"
+          },
+          "1698": {
+            "name": "40 - Pemberitahuan Pembubaran Koperasi"
+          },
+          "1699": {
+            "name": "41 - Pencabutan/Pembatalan Status Badan Hukum PT"
+          },
+          "1700": {
+            "name": "42 - Pencabutan/Pembatalan Status Badan Hukum Yayasan"
+          },
+          "1701": {
+            "name": "43 - Pencabutan/Pembatalan Status Badan Hukum Perkumpulan"
+          },
+          "1702": {
+            "name": "44 - Pencabutan/Pembatalan Status Badan Hukum Koperasi"
+          },
+          "1703": {
+            "name": "45 - Pencabutan/Pembatalan Status Persekutuan Komanditer, Persekutuan Firma, Persekutuan Perdata"
+          },
+          "1704": {
+            "name": "46 - Penerimaan pemberitahuan perubahan anggaran dasar BUM Desa"
+          },
+          "1705": {
+            "name": "47 - Penerimaan pemberitahuan perubahan anggaran dasar BUM Desa Bersama"
+          }
+        }
+      },
+      "1706": {
+        "name": "02 - Notariat",
+        "children": {
+          "1707": {
+            "name": "01 - Pengangkatan Notaris"
+          },
+          "1708": {
+            "name": "02 - Perpindahan Notaris"
+          },
+          "1709": {
+            "name": "03 - Perpanjangan Masa Jabatan Notaris"
+          },
+          "1710": {
+            "name": "04 - Pemberhentian Notaris"
+          },
+          "1711": {
+            "name": "05 - Surat Keputusan Cuti"
+          },
+          "1712": {
+            "name": "06 - Penunjukan Pemegang Protokol"
+          },
+          "1713": {
+            "name": "07 - Majelis Pengawas Pusat Notaris"
+          },
+          "1719": {
+            "name": "08 - Sertifikat Ujian Pengangkatan Notaris"
+          },
+          "1720": {
+            "name": "09 - Majelis Kehormatan Notaris Pusat"
+          }
+        }
+      },
+      "1721": {
+        "name": "03 - Hukum Perdata Umum",
+        "children": {
+          "1722": {
+            "name": "01 - Legalisasi Spesimen Tanda Tangan Pejabat"
+          },
+          "1723": {
+            "name": "02 - Surat Keputusan Ganti Nama"
+          },
+          "1724": {
+            "name": "03 - Advokat Asing"
+          },
+          "1727": {
+            "name": "04 - Pendapat Hukum (Legal Opinion) yang diminta oleh Pemerintah"
+          },
+          "1728": {
+            "name": "05 - Pendapat Hukum (Legal Opinion) yang diminta oleh Masyarakat"
+          },
+          "1729": {
+            "name": "06 - Formulir Permohonan Legalisir"
+          },
+          "1730": {
+            "name": "07 - Pengangkatan Penerjemah Tersumpah"
+          },
+          "1731": {
+            "name": "08 - Pemberhentian Penerjemah Tersumpah"
+          },
+          "1732": {
+            "name": "09 - Advokasi Keperdataan\nDokumen advokasi keperdataan adalah dokumen yang terkait dengan penanganan perkara sehubungan adanya gugatan yang ditujukan kepada Menteri Hukum dan HAM RI\ncq. Direktorat Jenderal AHU cq. Direktorat Perdata"
+          },
+          "1733": {
+            "name": "10 - Database"
+          }
+        }
+      },
+      "1734": {
+        "name": "04 - Wasiat",
+        "children": {
+          "1735": {
+            "name": "01 - Penerbitan Surat Keterangan Wasiat"
+          },
+          "1736": {
+            "name": "02 - Pelaporan Wasiat"
+          },
+          "1737": {
+            "name": "03 - Laporan Bulanan Wasiat"
+          },
+          "1738": {
+            "name": "04 - Perubahan Permohonan/Perbaikan Surat Keterangan Wasiat"
+          },
+          "1739": {
+            "name": "05 - Pendaftaran Kurator dan Pengurus"
+          },
+          "1740": {
+            "name": "06 - Perpanjangan Tanda Terdaftar Kurator dan Pengurus"
+          },
+          "1741": {
+            "name": "07 - Perpanjangan Sementara Kurator dan Pengurus"
+          },
+          "1742": {
+            "name": "08 - Izin Jual Boedel, Persetujuan, Penelitian dan Penelaahan"
+          },
+          "1743": {
+            "name": "09 - Daftar harta peninggalan/boedel of wezig"
+          }
+        }
+      },
+      "1744": {
+        "name": "05 - Pendaftaran Fidusia",
+        "children": {
+          "1745": {
+            "name": "01 - Pendaftaran Sertifikat Jaminan Fidusia"
+          },
+          "1746": {
+            "name": "02 - Perubahan Sertifikat Jaminan Fidusia"
+          },
+          "1747": {
+            "name": "03 - Penghapusan/Pencoretan Sertifikat Jaminan Fidusia"
+          }
+        }
+      },
+      "1748": {
+        "name": "06 - Harta Peninggalan",
+        "children": {
+          "1749": {
+            "name": "01 - Pendaftaran Wasiat"
+          },
+          "1750": {
+            "name": "02 - Perwalian Pengawas"
+          },
+          "1751": {
+            "name": "03 - Pengampu Pengawas"
+          },
+          "1752": {
+            "name": "04 - Pengampu Anak Dalam Kandungan"
+          },
+          "1753": {
+            "name": "05 - Pengampu Harta Peninggalan yang tidak ada kuasanya\n(Onbeheerde Nalatenschap)"
+          },
+          "1754": {
+            "name": "06 - Kurator Dalam Kepailitan"
+          },
+          "1755": {
+            "name": "07 - Wali Sementara"
+          },
+          "1756": {
+            "name": "08 - Pengurus Harta Kekayaan Orang yang Dinyatakan Tidak\nHadir (afwijzig)"
+          },
+          "1757": {
+            "name": "09 - Surat Keterangan Hak Waris"
+          },
+          "1758": {
+            "name": "10 - Transfer Dana"
+          }
+        }
+      },
+      "1759": {
+        "name": "07 - Pelayanan Hukum Pidana dan Grasi",
+        "children": {
+          "1760": {
+            "name": "01 - Pendapat Hukum tentang Pelayanan Pidana"
+          },
+          "1761": {
+            "name": "02 - Pendapat Hukum tentang Grasi"
+          },
+          "1762": {
+            "name": "03 - Pendapat Hukum tentang Saksi Ahli"
+          },
+          "1763": {
+            "name": "04 - Kajian dan Telaah tentang Pemantauan dan Evaluasi Hukum\nPidana"
+          }
+        }
+      },
+      "1764": {
+        "name": "08 - Sidik Jari/Daktiloskopi",
+        "children": {
+          "1765": {
+            "name": "01 - Sidik Jari"
+          },
+          "1768": {
+            "name": "02 - Data dan Informasi Sidik Jari"
+          }
+        }
+      },
+      "1769": {
+        "name": "09 - Penyidik Pegawai Negeri Sipil (PPNS)",
+        "children": {
+          "1770": {
+            "name": "01 - Seleksi Administrasi Calon PPNS"
+          },
+          "1771": {
+            "name": "02 - Pengangkatan PPNS"
+          },
+          "1772": {
+            "name": "03 - Pengangkatan Kembali PPNS"
+          },
+          "1773": {
+            "name": "04 - Pelantikan PPNS"
+          },
+          "1774": {
+            "name": "05 - Mutasi PPNS"
+          },
+          "1775": {
+            "name": "06 - Pemberhentian Non Teknis Operasional"
+          },
+          "1776": {
+            "name": "07 - Pemberhentian Sebagai PPNS"
+          },
+          "1777": {
+            "name": "08 - Pemberhentian atas Permintaan Sendiri"
+          },
+          "1778": {
+            "name": "09 - Perpanjangan KTP"
+          },
+          "1779": {
+            "name": "10 - Penerbitan KTP yang Hilang/Rusak"
+          }
+        }
+      },
+      "1780": {
+        "name": "10 - Hukum Tata Negara",
+        "children": {
+          "1781": {
+            "name": "01 - Kewarganegaraan"
+          },
+          "1794": {
+            "name": "02 - Pewarganegaraan"
+          }
+        }
+      },
+      "1798": {
+        "name": "11 - Partai Politik",
+        "children": {
+          "1799": {
+            "name": "01 - Keputusan Menteri Hukum dan HAM tentang Pengesahan Badan Hukum Partai Politik dan salinan akta notaris"
+          },
+          "1800": {
+            "name": "02 - Keputusan Menteri Hukum dan HAM tentang Pengesahan Kepengurusan Partai Politik dan salinan akta notaris"
+          },
+          "1801": {
+            "name": "03 - Keputusan Menteri Hukum dan HAM tentang Pengesahan AD/ART Partai Politik dan salinan akta notaris"
+          },
+          "1802": {
+            "name": "04 - Dokumen Persyaratan Pendirian Badan Hukum Partai Politik kecuali salinan akta notaris"
+          },
+          "1803": {
+            "name": "05 - Dokumen Persyaratan Pengesahan Kepengurusan Partai Politik kecuali salinan akta notaris"
+          },
+          "1804": {
+            "name": "06 - Dokumen Persyaratan Pengesahan AD/ART Partai Politik kecuali salinan akta notaris"
+          },
+          "1805": {
+            "name": "07 - Dokumen Advokasi Partai Politik"
+          },
+          "1806": {
+            "name": "08 - Keputusan Menteri Hukum dan HAM tentang Pembubaran Partai Politik"
+          }
+        }
+      },
+      "1807": {
+        "name": "12 - Otoritas Pusat dan Hukum Internasional",
+        "children": {
+          "1808": {
+            "name": "01 - Perjanjian Bantuan Hukum Timbal Balik Dalam Masalah Pidana"
+          },
+          "1809": {
+            "name": "02 - Surat Rekomendasi Penanganan Bantuan Hukum Timbal Balik Dalam Masalah Pidana"
+          },
+          "1810": {
+            "name": "03 - Perjanjian Ekstradisi dan Pemindahan Narapidana"
+          },
+          "1811": {
+            "name": "04 - Surat Rekomendasi Penanganan Ekstradisi dan Pemindahan\nNarapidana"
+          },
+          "1812": {
+            "name": "05 - Hukum Ekonomi dan Lembaga Internasional"
+          },
+          "1814": {
+            "name": "06 - Hukum Perdata Internasional"
+          },
+          "1815": {
+            "name": "07 - Hukum Laut, Udara, Angkasa dan Lingkungan"
+          },
+          "1816": {
+            "name": "08 - Hukum Humaniter"
+          },
+          "1817": {
+            "name": "09 - Produk yang diterbitkan Atase Hukum"
+          }
+        }
+      },
+      "1818": {
+        "name": "13 - Teknologi Informasi",
+        "children": {
+          "1819": {
+            "name": "01 - Perencanaan dan Pengembangan Teknologi Informasi"
+          },
+          "1820": {
+            "name": "02 - Pembangunan Aplikasi"
+          },
+          "1821": {
+            "name": "03 - Implementasi dan Perubahan Sistem Teknologi Informasi"
+          },
+          "1822": {
+            "name": "04 - Layanan Sistem Teknologi Informasi"
+          },
+          "1823": {
+            "name": "05 - Pengelolaan dan Pemeliharaan Perangkat Keras dan\nPerangkat Lunak"
+          },
+          "1824": {
+            "name": "06 - Monitoring dan Evaluasi"
+          }
+        }
+      }
+    }
+  },
+  "1825": {
+    "name": "PK - PEMASYARAKATAN",
+    "children": {
+      "1826": {
+        "name": "01 - Pelayanan Pemasyarakatan",
+        "children": {
+          "1827": {
+            "name": "01 - Registrasi Tahanan"
+          },
+          "1828": {
+            "name": "02 - Registrasi Narapidana"
+          },
+          "1829": {
+            "name": "03 - Registrasi Anak"
+          },
+          "1830": {
+            "name": "04 - Registrasi Klien Pemasyarakatan"
+          },
+          "1831": {
+            "name": "05 - Registrasi Titipan"
+          },
+          "1832": {
+            "name": "06 - Admisi Orientasi"
+          }
+        }
+      },
+      "1833": {
+        "name": "02 - Assesment dan Klasifikasi",
+        "children": {
+          "1834": {
+            "name": "01 - Tahanan"
+          },
+          "1835": {
+            "name": "02 - Narapidana dan Anak"
+          },
+          "1836": {
+            "name": "03 - Anak"
+          },
+          "1837": {
+            "name": "04 - Klien"
+          }
+        }
+      },
+      "1838": {
+        "name": "03 - Statistik Pelayanan Pemasyarakatan",
+        "children": {
+          "1839": {
+            "name": "01 - Tahanan"
+          },
+          "1840": {
+            "name": "02 - Narapidana"
+          },
+          "1841": {
+            "name": "03 - Anak"
+          },
+          "1842": {
+            "name": "04 - Klien Pemasyarakatan"
+          },
+          "1843": {
+            "name": "05 - Titipan"
+          },
+          "1844": {
+            "name": "06 - Benda Sitaan/Barang Rampasan"
+          }
+        }
+      },
+      "1845": {
+        "name": "04 - Bimbingan Kemasyarakatan dan Pengentasan Anak",
+        "children": {
+          "1846": {
+            "name": "01 - Penelitian Kemasyarakatan (LITMAS)"
+          },
+          "1847": {
+            "name": "02 - Pidana Bersyarat (PiB)"
+          },
+          "1848": {
+            "name": "03 - Diversi"
+          },
+          "1849": {
+            "name": "04 - Pembimbingan"
+          },
+          "1850": {
+            "name": "05 - Pembimbingan Lanjutan"
+          }
+        }
+      },
+      "1851": {
+        "name": "05 - Pelayanan Tahanan, Pembinaan Narapidana/Anak dan\nLatihan Kerja Produksi",
+        "children": {
+          "1852": {
+            "name": "01 - Pembinaan Kepribadian dan Pendidikan Narapidana dan\nAnak"
+          },
+          "1853": {
+            "name": "02 - Bimbingan Kepribadian dan Keterampilan Tahanan"
+          },
+          "1854": {
+            "name": "03 - Pelatihan Keterampilan Narapidana dan Anak"
+          },
+          "1855": {
+            "name": "04 - Remisi"
+          },
+          "1856": {
+            "name": "05 - Pemindahan/Mutasi WBP"
+          },
+          "1857": {
+            "name": "06 - Peminjaman/Bon Tahanan, Narapidana dan Anak"
+          },
+          "1858": {
+            "name": "07 - Ijin Keluar Lapas"
+          },
+          "1859": {
+            "name": "08 - Kegiatan Kerja dan Tenaga Kerja"
+          },
+          "1860": {
+            "name": "09 - Integrasi Narapidana dan Anak"
+          },
+          "1861": {
+            "name": "10 - Sidang Tim Pengamat Pemasyarakatan"
+          },
+          "1862": {
+            "name": "11 - Bantuan/Penyuluhan Hukum"
+          },
+          "1863": {
+            "name": "12 - Pengeluaran WBP"
+          }
+        }
+      },
+      "1864": {
+        "name": "06 - Perawatan Kesehatan dan Rehabilitasi",
+        "children": {
+          "1865": {
+            "name": "01 - Penyuluhan dan Pencegahan"
+          },
+          "1866": {
+            "name": "02 - Perawatan Dasar dan Kelompok Rentan"
+          },
+          "1867": {
+            "name": "03 - Perawatan Mental dan Paliatif"
+          },
+          "1868": {
+            "name": "04 - Rujukan"
+          },
+          "1869": {
+            "name": "05 - Rehabilitasi Ketergantungan Napza"
+          },
+          "1870": {
+            "name": "06 - Perawatan HIV/AIDS"
+          },
+          "1871": {
+            "name": "07 - Perawatan Pencegahan Penyakit Menular"
+          },
+          "1872": {
+            "name": "08 - Pelayanan Makanan dan Gizi"
+          },
+          "1873": {
+            "name": "09 - Pelayanan Dasar Sanitasi dan Kesehatan Lingkungan"
+          }
+        }
+      },
+      "1874": {
+        "name": "07 - Pengelolaan Benda Sitaan dan Barang Rampasan",
+        "children": {
+          "1875": {
+            "name": "01 - Registrasi Benda Sitaan/Rampasan Negara"
+          },
+          "1876": {
+            "name": "02 - Penilaian dan Klasifikasi Benda Sitaan/Barang Rampasan Negara"
+          },
+          "1877": {
+            "name": "03 - Pemeliharaan dan Pemusnahan Benda Sitaan/Barang Rampasan Negara"
+          },
+          "1878": {
+            "name": "04 - Keamanan dan Pengawasan Benda Sitaan/Barang Rampasan Negara"
+          },
+          "1879": {
+            "name": "05 - Klarifikasi dan Mutasi Benda Sitaan/Barang Rampasan\nNegara"
+          }
+        }
+      },
+      "1880": {
+        "name": "08 - Keamanan dan Ketertiban",
+        "children": {
+          "1881": {
+            "name": "01 - Keamanan dan Kepatuhan Internal Kode Etik"
+          },
+          "1882": {
+            "name": "02 - Layanan Pengaduan"
+          },
+          "1883": {
+            "name": "03 - Intelijen"
+          },
+          "1884": {
+            "name": "04 - Pembinaan dan Penyelenggaraan Layanan Intelijen"
+          },
+          "1885": {
+            "name": "05 - Pencegahan dan Pemeliharaan Keamanan dan Ketertiban"
+          },
+          "1886": {
+            "name": "06 - Penindakan dan Penanggulangan"
+          }
+        }
+      }
+    }
+  },
+  "1887": {
+    "name": "GR - KEIMIGRASIAN",
+    "children": {
+      "1888": {
+        "name": "01 - Lalu Lintas Keimigrasian",
+        "children": {
+          "1889": {
+            "name": "01 - Kebijakan Imigrasi meliputi kebijakan di bidang: Lalu Lintas Keimigrasian, Izin Tinggal Orang Asing dan Status Keimigrasian, Penindakan Keimigrasian dan Pendetensian, Kerjasama Keimigrasian, Pembinaan bidang Keimigrasian,\nIntelijen Keimigrasian, Lintas In"
+          },
+          "1890": {
+            "name": "02 - Dokumen Perjalanan Republik Indonesia (DPRI)"
+          },
+          "1891": {
+            "name": "03 - Pas Lintas Batas"
+          },
+          "1892": {
+            "name": "04 - Surat Pejalanan Laksana Paspor (SPLP) Warga Negara Asing"
+          },
+          "1893": {
+            "name": "05 - Fasilitas Keimigrasian antara lain ABTC (Asia Pacific Economic Corporation Business Travel Card) dan Smart Card"
+          },
+          "1894": {
+            "name": "06 - Persetujuan Visa"
+          },
+          "1895": {
+            "name": "07 - Bebas Visa Kunjungan (BVK)"
+          },
+          "1896": {
+            "name": "08 - Tanda Masuk dan Tanda Keluar"
+          },
+          "1897": {
+            "name": "09 - Rekomendasi Untuk Mendapatkan Work and Holiday Visa"
+          },
+          "1898": {
+            "name": "10 - Pengelolaan Dokumen Blangko DPRI, Visa, dan Perdim"
+          }
+        }
+      },
+      "1899": {
+        "name": "02 - Izin Tinggal Keimigrasian",
+        "children": {
+          "1900": {
+            "name": "01 - Izin Tinggal Kunjungan (ITK)"
+          },
+          "1901": {
+            "name": "02 - Izin Tinggal Terbatas (ITAS)"
+          },
+          "1902": {
+            "name": "03 - Izin Tinggal Tetap (ITAP)"
+          },
+          "1903": {
+            "name": "04 - Alih Status (Konversi) Izin Tinggal Termasuk Penolakannya"
+          },
+          "1904": {
+            "name": "05 - Surat Keterangan Keimigrasian (SKIM)"
+          },
+          "1905": {
+            "name": "06 - Skip Alur Pengambilan Data Biometrik"
+          },
+          "1906": {
+            "name": "07 - Penelaahan Status Keimigrasian"
+          },
+          "1907": {
+            "name": "08 - Pengelolaan Dokumen Izin Tinggal Keimigrasian"
+          },
+          "1908": {
+            "name": "09 - Permohonan Exit Permit Only (EPO)"
+          },
+          "1909": {
+            "name": "10 - Permohonan Izin Masuk Kembali (IMK)"
+          }
+        }
+      },
+      "1910": {
+        "name": "03 - Pengawasan dan Penindakan Keimigrasian (WASDAKIM)",
+        "children": {
+          "1911": {
+            "name": "01 - Penyelidikan dan Penyidikan Keimigrasian"
+          },
+          "1912": {
+            "name": "02 - Pencegahan dan Penangkalan"
+          },
+          "1913": {
+            "name": "03 - Imigran Ilegal"
+          },
+          "1914": {
+            "name": "04 - Pencabutan, Pembatalan, Penahanan Doklan dan DOKIM termasuk Siar Paspor Yang Dibatalkan"
+          },
+          "1915": {
+            "name": "05 - Pengawasan Terhadap WNI"
+          },
+          "1916": {
+            "name": "06 - Pengawasan Terhadap WNA"
+          },
+          "1917": {
+            "name": "07 - Kepatuhan Internal"
+          },
+          "1918": {
+            "name": "08 - Pendeportasian"
+          },
+          "1919": {
+            "name": "09 - Tindakan Administratif Keimigrasian"
+          },
+          "1920": {
+            "name": "10 - Daftar Pencarian Orang (DPO)"
+          },
+          "1921": {
+            "name": "11 - Pendetensian"
+          }
+        }
+      },
+      "1922": {
+        "name": "04 - Intelijen Keimigrasian",
+        "children": {
+          "1923": {
+            "name": "01 - Penyelidikan dan Operasi Intelijen Keimigrasian"
+          },
+          "1924": {
+            "name": "02 - Pengamanan Keimigrasian"
+          },
+          "1925": {
+            "name": "03 - Kerjasama Intelijen Keimigrasian"
+          },
+          "1926": {
+            "name": "04 - Produk Intelijen Keimigrasian"
+          }
+        }
+      },
+      "1927": {
+        "name": "05 - Kerjasama Keimigrasian",
+        "children": {
+          "1928": {
+            "name": "01 - Kerja Sama Antar Lembaga (Dalam Negeri)"
+          },
+          "1929": {
+            "name": "02 - Kerja Sama Antar negara"
+          },
+          "1930": {
+            "name": "03 - Kerja Sama dengan Organisasi Internasional"
+          },
+          "1931": {
+            "name": "04 - Pembinaan Perwakilan RI di Luar Negeri"
+          }
+        }
+      },
+      "1932": {
+        "name": "06 - Sistem dan Teknologi Informasi Keimigrasian",
+        "children": {
+          "1933": {
+            "name": "01 - Lintas Informasi Internal termasuk Tukar Menukar Informasi\ndan Pelaporan Kegiatan Keimigrasian"
+          },
+          "1934": {
+            "name": "02 - Lintas Informasi External termasuk Pertukaran Informasi\ndengan Institusi di Luar Imigrasi"
+          },
+          "1935": {
+            "name": "03 - Data Keimigrasian"
+          },
+          "1936": {
+            "name": "04 - Permohonan Data Keimigrasian"
+          },
+          "1937": {
+            "name": "05 - Perubahan Data Status Keimigrasian WNA"
+          },
+          "1938": {
+            "name": "06 - Data Permohonan Ditolak Sistem"
+          }
+        }
+      },
+      "1939": {
+        "name": "07 - Dokumen Keimigrasian Perwakilan Luar Negeri",
+        "children": {
+          "1940": {
+            "name": "01 - Warga Negara Indonesia"
+          },
+          "1941": {
+            "name": "02 - Warga Negara Asing"
+          }
+        }
+      }
+    }
+  },
+  "1942": {
+    "name": "KI - KEKAYAAN INTELEKTUAL",
+    "children": {
+      "1943": {
+        "name": "01 - Hak Cipta",
+        "children": {
+          "1944": {
+            "name": "01 - Proses Penyelesaian Permohonan Pencatatan Ciptaan"
+          },
+          "1948": {
+            "name": "02 - Pasca Pencatatan Ciptaan"
+          },
+          "1959": {
+            "name": "03 - Pelayanan Hukum/Pendapat Hukum"
+          },
+          "1967": {
+            "name": "04 - Lembaga Manajemen Kolektif"
+          }
+        }
+      },
+      "1968": {
+        "name": "01 - Desain Industri",
+        "children": {
+          "1969": {
+            "name": "01 - Proses Penyelesaian Permohonan Pendaftaran Desain Industri"
+          },
+          "1982": {
+            "name": "02 - Bukti Prioritas"
+          },
+          "1983": {
+            "name": "03 - Pasca Pendaftaran Desain Industri"
+          },
+          "1993": {
+            "name": "04 - Pelayanan Hukum/Pendapat Hukum"
+          },
+          "2000": {
+            "name": "05 - Komisi Banding Desain Industri"
+          },
+          "2001": {
+            "name": "06 - Pendaftaran Desain Industri Internasional"
+          },
+          "2002": {
+            "name": "07 - Proses Penyelesaian Permohonan Pencatatan Desain Industri"
+          }
+        }
+      },
+      "2003": {
+        "name": "03 - Desain Tata Letak Sirkuit Terpadu (DTLST)",
+        "children": {
+          "2004": {
+            "name": "01 - Proses Penyelesaian Permohonan Pendaftaran"
+          },
+          "2015": {
+            "name": "02 - Sertifikat/Kutipan"
+          },
+          "2020": {
+            "name": "03 - Bukti Prioritas"
+          },
+          "2021": {
+            "name": "04 - Keterangan Status Permohonan Pendaftaran"
+          },
+          "2022": {
+            "name": "05 - Permohonan Petikan Resmi"
+          },
+          "2023": {
+            "name": "06 - Lisensi"
+          },
+          "2028": {
+            "name": "07 - Pelanggaran/Penegakan Hukum"
+          },
+          "2029": {
+            "name": "08 - Pendapat Hukum/Saksi Ahli"
+          }
+        }
+      },
+      "2030": {
+        "name": "04 - Rahasia Dagang",
+        "children": {
+          "2031": {
+            "name": "01 - Pencatatan Lisensi Rahasia Dagang"
+          },
+          "2034": {
+            "name": "02 - Pengalihan Hak"
+          },
+          "2035": {
+            "name": "03 - Pendapat Hukum/Saksi Ahli"
+          }
+        }
+      },
+      "2036": {
+        "name": "05 - Paten",
+        "children": {
+          "2037": {
+            "name": "01 - Proses Penyelesaian Permohonan Pendaftaran"
+          },
+          "2051": {
+            "name": "02 - Sertifikat"
+          },
+          "2055": {
+            "name": "03 - Bukti Prioritas"
+          },
+          "2056": {
+            "name": "04 - Pemeliharaan Paten"
+          },
+          "2071": {
+            "name": "05 - Penelusuran"
+          },
+          "2082": {
+            "name": "06 - Keterangan Status Permohonan Pendaftaran"
+          },
+          "2083": {
+            "name": "07 - Petikan Daftar Umum Paten"
+          },
+          "2089": {
+            "name": "08 - Lisensi"
+          },
+          "2092": {
+            "name": "09 - Pelanggaran/Penegakan Hukum di Bidang Paten"
+          },
+          "2093": {
+            "name": "10 - Pendapat Hukum/Saksi Ahli"
+          },
+          "2094": {
+            "name": "11 - Komisi Banding"
+          },
+          "2099": {
+            "name": "12 - Pengalihan"
+          },
+          "2106": {
+            "name": "13 - Perbaikan"
+          }
+        }
+      },
+      "2111": {
+        "name": "06 - Merek",
+        "children": {
+          "2112": {
+            "name": "01 - Proses Penyelesaian Permohonan Pendaftaran"
+          },
+          "2133": {
+            "name": "02 - Sertifikat/Kutipan"
+          },
+          "2135": {
+            "name": "03 - Bukti Prioritas"
+          },
+          "2136": {
+            "name": "04 - Keterangan Status Permohonan Pendaftaran"
+          },
+          "2137": {
+            "name": "05 - Permohonan Petikan Resmi"
+          },
+          "2138": {
+            "name": "06 - Lisensi"
+          },
+          "2139": {
+            "name": "07 - Penyelesaian/Pertimbangan Hukum atas Merek"
+          },
+          "2146": {
+            "name": "08 - Pendapat Hukum/Tanggapan/Analisa Hukum"
+          },
+          "2149": {
+            "name": "09 - Perpanjangan Merek"
+          },
+          "2153": {
+            "name": "10 - Monitoring Merek Terdaftar"
+          },
+          "2154": {
+            "name": "11 - Keterangan Tertulis"
+          },
+          "2155": {
+            "name": "12 - Komisi Banding Merek"
+          },
+          "2156": {
+            "name": "13 - Banding terhadap Penolakan Perpanjangan Merek"
+          },
+          "2157": {
+            "name": "14 - Penghapusan Merek Terdaftar atas Prakarsa Menteri"
+          },
+          "2158": {
+            "name": "15 - Pengadilan"
+          },
+          "2159": {
+            "name": "16 - Keputusan Ketua Komisi Banding Merek"
+          },
+          "2162": {
+            "name": "17 - Banding Indikasi Geografis"
+          },
+          "2165": {
+            "name": "18 - Pendaftaran Merek Internasional"
+          },
+          "2166": {
+            "name": "19 - Statement of Grant Protection"
+          },
+          "2167": {
+            "name": "20 - Provisional Refusal"
+          },
+          "2168": {
+            "name": "21 - Statement of Grant Protection Following Provisional Refusal"
+          },
+          "2169": {
+            "name": "22 - Final Refusal"
+          },
+          "2170": {
+            "name": "23 - Notifikasi Transformasi"
+          },
+          "2171": {
+            "name": "24 - Notifikasi Penggantian"
+          }
+        }
+      },
+      "2172": {
+        "name": "07 - Indikasi Geografis",
+        "children": {
+          "2173": {
+            "name": "01 - Proses Penyelesaian Permohonan Pendaftaran"
+          },
+          "2187": {
+            "name": "02 - Sertifikat/Kutipan"
+          },
+          "2188": {
+            "name": "03 - Keterangan Status Permohonan Pendaftaran"
+          },
+          "2189": {
+            "name": "04 - Permohonan Petikan Resmi"
+          },
+          "2190": {
+            "name": "05 - Pengawasan Indikasi Geografis Terdaftar"
+          },
+          "2191": {
+            "name": "06 - Keterangan Tertulis Indikasi Geografis"
+          },
+          "2192": {
+            "name": "07 - Pemakai Indikasi Geografis Terdaftar"
+          },
+          "2193": {
+            "name": "08 - Pertimbangan/Rekomendasi Tim Ahli Indikasi Geografis"
+          }
+        }
+      },
+      "2194": {
+        "name": "08 - Penyidikan dan Penyelesaian Sengketa",
+        "children": {
+          "2195": {
+            "name": "01 - Pemberkasan"
+          },
+          "2227": {
+            "name": "02 - Pemantauan (Sprint)"
+          },
+          "2228": {
+            "name": "03 - Pencegahan dan Penyelesaian Sengketa Alternatif (Sprint, Surat Panggilan, Berita Acara Mediasi)"
+          },
+          "2229": {
+            "name": "04 - Seleksi Administrasi Calon PPNS Kekayaan Intelektual"
+          },
+          "2230": {
+            "name": "05 - Pengangkatan PPNS Kekayaan Intelektual"
+          },
+          "2231": {
+            "name": "06 - Pengangkatan Kembali PPNS Kekayaan Intelektual"
+          },
+          "2232": {
+            "name": "07 - Pelantikan PPNS Kekayaan Intelektual"
+          },
+          "2233": {
+            "name": "08 - Mutasi PPNS Kekayaan Intelektual"
+          },
+          "2234": {
+            "name": "09 - Pemberhentian PPNS Non Teknis Operasional Kekayaan\nIntelektual"
+          },
+          "2235": {
+            "name": "10 - Pemberhentian PPNS Atas Permintaan Sendiri Kekayaan\nIntelektual"
+          },
+          "2236": {
+            "name": "11 - Perpanjangan Kartu Tanda Penyidik Kekayaan Intelektual"
+          },
+          "2237": {
+            "name": "12 - Penerbitan Kartu Tanda Penyidik yang Hilang/Rusak PPNS\nKekayaan Intelektual"
+          }
+        }
+      },
+      "2238": {
+        "name": "09 - Kerjasama dan Pemberdayaan Kekayaan Intelektual",
+        "children": {
+          "2239": {
+            "name": "01 - Konsultan Kekayaan Intelektual"
+          },
+          "2240": {
+            "name": "02 - Inventarisasi Kekayaan Intelektual Komunal (KIK)"
+          },
+          "2241": {
+            "name": "03 - Pendampingan Inventarisasi KIK"
+          },
+          "2242": {
+            "name": "04 - Studi Lapangan"
+          },
+          "2243": {
+            "name": "05 - Pertukaran Data"
+          },
+          "2244": {
+            "name": "06 - Mediasi KIK"
+          },
+          "2245": {
+            "name": "07 - Keberatan"
+          },
+          "2246": {
+            "name": "08 - Mengubah Data KIK"
+          },
+          "2247": {
+            "name": "09 - Menghapus Data KIK"
+          },
+          "2248": {
+            "name": "10 - Pendokumentasian/Pengarsipan KIK"
+          }
+        }
+      }
+    }
+  },
+  "2249": {
+    "name": "HA - HAK ASASI MANUSIA",
+    "children": {
+      "2250": {
+        "name": "01 - Pelayanan Komunikasi Masyarakat",
+        "children": {
+          "2251": {
+            "name": "01 - Telaahan/Analisis Dugaan Pelanggaran HAM"
+          },
+          "2252": {
+            "name": "02 - Klarifikasi/Koordinasi/Konsultasi"
+          },
+          "2253": {
+            "name": "03 - Informasi/Pemberitahuan/Ucapan Terima Kasih"
+          },
+          "2254": {
+            "name": "04 - Rekomendasi"
+          },
+          "2255": {
+            "name": "05 - HAM Aktual/Penanganan Pemulihan Korban Dugaan Pelanggaran Hak Asasi Manusia Yang Berat Secara Nonyudisial"
+          },
+          "2256": {
+            "name": "06 - Pemantauan, Evaluasi dan Pelaporan Yankomas"
+          }
+        }
+      },
+      "2257": {
+        "name": "02 - Kerja Sama Hak Asasi Manusia",
+        "children": {
+          "2258": {
+            "name": "01 - Kerja Sama Dalam Negeri Dan Rencana Aksi Nasional Hak Asasi Manusia"
+          },
+          "2263": {
+            "name": "02 - Kerja Sama Luar Negeri"
+          },
+          "2268": {
+            "name": "03 - Pemantauan, Evaluasi, dan Pelaporan di bidang Kerja Sama Hak Asasi Manusia"
+          }
+        }
+      },
+      "2269": {
+        "name": "03 - Diseminasi dan Penguatan HAM",
+        "children": {
+          "2270": {
+            "name": "01 - Perencanaan Teknis dan Pengembangan Tenaga Diseminasi\ndan Penguatan Hak Asasi Manusia"
+          },
+          "2271": {
+            "name": "02 - Diseminasi dan Penguatan HAM bagi Aparatur"
+          },
+          "2272": {
+            "name": "03 - Diseminasi dan Penguatan HAM bagi Masyarakat"
+          },
+          "2273": {
+            "name": "04 - Pemantauan, Evaluasi, dan Pelaporan di Bidang Diseminasi\ndan Penguatan Hak Asasi Manusia"
+          }
+        }
+      },
+      "2274": {
+        "name": "04 - Instrumen HAM",
+        "children": {
+          "2275": {
+            "name": "01 - Analisis Peraturan Perundang-undangan Berperspektif Hak\nAsasi Manusia"
+          },
+          "2278": {
+            "name": "02 - Penyiapan dan Evaluasi Instrumen Hak Asasi Manusia/\nIndikator Pembangunan Hak Asasi Manusia"
+          },
+          "2279": {
+            "name": "03 - Pemantauan dan Pelaporan Implementasi Instrumen\nHak Asasi Manusia."
+          }
+        }
+      },
+      "2280": {
+        "name": "05 - Fasilitasi dan Informasi Hak Asasi Manusia",
+        "children": {
+          "2281": {
+            "name": "01 - Fasilitasi dan Informasi HAM Ekosob Penyusunan profil Pembangunan HAM bidang Ekosob Pengumpul bahan - Pendokumentasi bahan"
+          },
+          "2282": {
+            "name": "02 - Fasilitasi dan Informasi HAM Sipol"
+          },
+          "2283": {
+            "name": "03 - Pemantauan, evaluasi, dan pelaporan di bidang fasilitasi hak asasi manusia, informasi hak asasi manusia, serta profil\nPembangunan Hak Asasi Manusia."
+          }
+        }
+      }
+    }
+  },
+  "2284": {
+    "name": "HN - PEMBINAAN HUKUM NASIONAL",
+    "children": {
+      "2285": {
+        "name": "01 - Analisis  dan  Evaluasi",
+        "children": {
+          "2286": {
+            "name": "01 - Dokumen Analisis dan Evaluasi Hukum"
+          },
+          "2287": {
+            "name": "02 - Dokumen Pembangunan Hukum Nasional"
+          },
+          "2288": {
+            "name": "03 - Pedoman Analisis dan Evaluasi Hukum"
+          },
+          "2289": {
+            "name": "04 - Pemantauan  Tindak  Lanjut  Rekomendasi  Hasil  Analisis  dan\nEvaluasi Hukum"
+          },
+          "2290": {
+            "name": "05 - Jurnal Analisis dan Evaluasi Hukum"
+          },
+          "2291": {
+            "name": "06 - Penyusunan Pedoman Audit Hukum"
+          }
+        }
+      },
+      "2292": {
+        "name": "02 - Perencanaan  Hukum  Nasional",
+        "children": {
+          "2293": {
+            "name": "01 - Program Legislasi Nasional"
+          },
+          "2294": {
+            "name": "02 - Program Legislasi Daerah"
+          },
+          "2295": {
+            "name": "03 - Naskah Akademik Peraturan Perundang-undangan"
+          },
+          "2296": {
+            "name": "04 - Penyelarasan Naskah Akademik"
+          }
+        }
+      },
+      "2297": {
+        "name": "03 - Dokumentasi  dan  Jaringan  Informasi  Hukum",
+        "children": {
+          "2298": {
+            "name": "01 - Inventarisasi    Peraturan    Perundang-undangan    dan    Bahan\nHukum Lainnya"
+          },
+          "2299": {
+            "name": "02 - Pengolahan Peraturan Perundang-undangan"
+          },
+          "2300": {
+            "name": "03 - Pengolahan     Peraturan     Perundang-undangan     dan     Bahan\nHukum Lainnya Bentuk Offline dan Online"
+          },
+          "2301": {
+            "name": "04 - Sosialisasi/Penyebarluasan   Peraturan   Perundang-undangan\ndan Bahan Hukum Lainnya"
+          },
+          "2302": {
+            "name": "05 - Evaluasi  dan  Pemantauan  Pengelola  Jaringan  Dokumentasi\ndan Informasi Hukum"
+          },
+          "2303": {
+            "name": "06 - Publikasi Hasil Kegiatan Badan Pembinaan Hukum Nasional"
+          },
+          "2304": {
+            "name": "07 - Bimbingan      Teknis      Pusat      Dokumentasi      dan      Jaringan\nInformasi Hukum Nasional"
+          },
+          "2305": {
+            "name": "08 - Pertemuan   Nasional   Pengelola   Jaringan   Dokumentasi   dan\nInformasi Hukum"
+          }
+        }
+      },
+      "2306": {
+        "name": "04 - Penyuluhan  dan  Bantuan  Hukum",
+        "children": {
+          "2307": {
+            "name": "01 - Penyusunan       Kebijakan       Teknis       Pembentukan       Tenaga\nFungsional Penyuluh Hukum"
+          },
+          "2308": {
+            "name": "02 - Penyuluhan Hukum Melalui Media Elektronik dan Cetak"
+          },
+          "2309": {
+            "name": "03 - Konsultasi dan Bantuan Hukum"
+          },
+          "2310": {
+            "name": "04 - Pengelolaan dan Pengembangan Keluarga Sadar Hukum"
+          },
+          "2311": {
+            "name": "05 - Forum  Koordinasi  Pelaksanaan  Penyuluhan  Hukum  Seluruh\nIndonesia"
+          }
+        }
+      }
+    }
+  },
+  "2312": {
+    "name": "SM - SUMBER DAYA MANUSIA",
+    "children": {
+      "2313": {
+        "name": "01 - Diklat  Kepemimpinan",
+        "children": {
+          "2314": {
+            "name": "01 - Perencanaan Program Diklat"
+          },
+          "2315": {
+            "name": "02 - Kurikulum, Metode Standar/Mutu dan Pedoman Diklat"
+          },
+          "2316": {
+            "name": "03 - Penyelenggaraan"
+          },
+          "2317": {
+            "name": "04 - Evaluasi"
+          }
+        }
+      },
+      "2318": {
+        "name": "02 - Diklat  Teknis",
+        "children": {
+          "2319": {
+            "name": "01 - Perencanaan Program Diklat"
+          },
+          "2320": {
+            "name": "02 - Kurikulum, Metode Standar/Mutu dan Pedoman Diklat"
+          },
+          "2321": {
+            "name": "03 - Penyelenggaraan"
+          },
+          "2322": {
+            "name": "04 - Evaluasi"
+          }
+        }
+      },
+      "2323": {
+        "name": "03 - Diklat  Fungsional  dan  HAM",
+        "children": {
+          "2324": {
+            "name": "01 - Perencanaan Program Diklat"
+          },
+          "2325": {
+            "name": "02 - Kurikulum, Metode Standar/Mutu dan Pedoman Diklat"
+          },
+          "2326": {
+            "name": "03 - Penyelenggaraan"
+          },
+          "2327": {
+            "name": "04 - Evaluasi"
+          }
+        }
+      },
+      "2328": {
+        "name": "04 - Bimbingan  Teknis/Fokus  Grup  Diskusi  (FGD)",
+        "children": {
+          "2329": {
+            "name": "01 - Fasilitatif"
+          },
+          "2330": {
+            "name": "02 - Subtantif"
+          }
+        }
+      },
+      "2331": {
+        "name": "05 - Pertemuan  Ilmiah",
+        "children": {
+          "2332": {
+            "name": "01 - Seminar"
+          },
+          "2333": {
+            "name": "02 - Lokakarya"
+          },
+          "2334": {
+            "name": "03 - Diskusi"
+          },
+          "2335": {
+            "name": "04 - Simposium"
+          },
+          "2336": {
+            "name": "05 - Temu Karya"
+          },
+          "2337": {
+            "name": "06 - Bedah Buku"
+          }
+        }
+      },
+      "2338": {
+        "name": "06 - Penilaian  Kompetensi",
+        "children": {
+          "2339": {
+            "name": "01 - Penyusunan Program"
+          },
+          "2340": {
+            "name": "02 - Standarisasi Kompetensi"
+          },
+          "2341": {
+            "name": "03 - Penilaian Kompetensi"
+          },
+          "2342": {
+            "name": "04 - Evaluasi"
+          }
+        }
+      },
+      "2343": {
+        "name": "07 - Kerjasama  Pengembangan  SDM",
+        "children": {
+          "2344": {
+            "name": "01 - Internasional"
+          },
+          "2345": {
+            "name": "02 - Institusi/Lembaga"
+          },
+          "2346": {
+            "name": "03 - Universitas/Perguruan Tinggi"
+          }
+        }
+      },
+      "2347": {
+        "name": "08 - Data  dan  Informasi  Pengembangan  SDM",
+        "children": {
+          "2348": {
+            "name": "01 - Pengelolaan Data"
+          },
+          "2349": {
+            "name": "02 - Pengelolaan Jaringan"
+          }
+        }
+      },
+      "2350": {
+        "name": "09 - Akademi/Politeknik  Ilmu  Pemasyarakatan",
+        "children": {
+          "2351": {
+            "name": "01 - Perencanaan Program   Perkuliahan"
+          },
+          "2352": {
+            "name": "02 - Kurikulum, Metode Standar/Mutu dan Pedoman Perkuliahan"
+          },
+          "2353": {
+            "name": "03 - Penyelenggaraan"
+          },
+          "2354": {
+            "name": "04 - Evaluasi"
+          }
+        }
+      },
+      "2355": {
+        "name": "10 - Akademi/Politeknik  Imigrasi",
+        "children": {
+          "2356": {
+            "name": "01 - Perencanaan Program   Perkuliahan"
+          },
+          "2357": {
+            "name": "02 - Kurikulum, Metode Standar/Mutu dan Pedoman Perkuliahan"
+          },
+          "2358": {
+            "name": "03 - Penyelenggaraan"
+          },
+          "2359": {
+            "name": "04 - Evaluasi"
+          }
+        }
+      }
+    }
+  },
+  "2360": {
+    "name": "LT - PENELITIAN DAN PENGEMBANGAN",
+    "children": {
+      "2361": {
+        "name": "01 - Penelitian  dan  Pengembangan  Hukum",
+        "children": {
+          "2362": {
+            "name": "01 - Kelompok       Substansi       Penelitian       dan       Pengembangan\nPembentukan Regulasi"
+          },
+          "2363": {
+            "name": "02 - Kelompok       Substansi       Penelitian       Dan       Pengembangan\nPenegakan Hukum"
+          },
+          "2364": {
+            "name": "03 - Kelompok       Substansi       Penelitian       dan       Pengembangan\nPelayanan Hukum"
+          }
+        }
+      },
+      "2365": {
+        "name": "02 - Penelitian  dan  Pengembangan  HAM",
+        "children": {
+          "2366": {
+            "name": "01 - Kelompok    Substansi    Penelitian    dan    Pengembangan    Sipil, Politik, dan Pembentukan Regulasi."
+          },
+          "2367": {
+            "name": "02 - Kelompok  Substansi  Penelitian  dan  Pengembangan  Ekonomi, Sosial, Budaya, dan Pembentukan Regulasi."
+          },
+          "2368": {
+            "name": "03 - Kelompok  Substansi  Penelitian  dan  Pengembangan  Resolusi Konflik dan Pembentukan Regulasi."
+          }
+        }
+      },
+      "2369": {
+        "name": "03 - Pusat  Penelitian  dan  Pengembangan  Kebijakan",
+        "children": {
+          "2370": {
+            "name": "01 - Kelompok       Substansi       Penelitian       dan       Pengembangan\nAdministrasi Fasilitatif"
+          },
+          "2371": {
+            "name": "02 - Kelompok  Substansi  Penelitian  dan  Pengembangan  Sumber\nDaya Manusia"
+          },
+          "2372": {
+            "name": "03 - Kelompok       Substansi       Penelitian       dan       Pengembangan\nPengawasan."
+          }
+        }
+      },
+      "2373": {
+        "name": "04 - Pusat     Pengembangan     Data     dan     Informasi     Penelitian\nHukum  dan  Hak  Asasi  Manusia",
+        "children": {
+          "2374": {
+            "name": "01 - Kelompok  Substansi  Analisis  Data  dan  Informasi  Penelitian\nHukum dan Hak Asasi Manusia"
+          },
+          "2375": {
+            "name": "02 - Kelompok   Substansi   Pengembangan   Teknologi   dan   Sistem\nInformasi Penelitian Hukum dan Hak Asasi Manusia"
+          },
+          "2376": {
+            "name": "03 - Kelompok  Substansi  Pengelolaan  Publikasi  Ilmiah  Penelitian\nHukum dan Hak Asasi Manusia"
+          }
+        }
+      }
+    }
+  }
+}
