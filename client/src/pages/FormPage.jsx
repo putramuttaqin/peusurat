@@ -19,29 +19,54 @@ const JENIS_SURAT_OPTIONS = [
   'BUKU MASUK YANKUM'
 ];
 
-const KLASIFIKASI_OPTIONS = ['01.01', '02.02', '03.03'];
+const RUANG_OPTIONS = [
+  'PERENCANAAN',
+  'ORGANISASI DAN TATA LAKSANA',
+  'KEPEGAWAIAN',
+  'KEUANGAN',
+  'PENGELOLAAN BARANG MILIK NEGARA',
+  'KEHUMASAN DAN HUKUM',
+  'UMUM',
+  'PENGAWASAN',
+  'TEKNOLOGI DAN INFORMASI',
+  'PERATURAN PERUNDANG-UNDANGAN',
+  'ADMINISTRASI HUKUM UMUM',
+  'PEMASYARAKATAN',
+  'KEIMIGRASIAN',
+  'KEKAYAAN INTELEKTUAL',
+  'HAK ASASI MANUSIA',
+  'PEMBINAAN HUKUM NASIONAL',
+  'SUMBER DAYA MANUSIA',
+  'PENELITIAN DAN PENGEMBANGAN'
+];
 
 export function FormPage() {
   const [formState, setFormState] = useState({
     nomorSurat: null,
     jenisSurat: '',
     wilayah: 'W.1',
-    masalahId: '',
-    kode1 : '',
-    klasifikasi: '',
-    klasifikasiDetail: '',
+    kode1: '',
+    kode2: '',
+    kode3: '',
+    kode1Short: '',
+    kode2Short: '',
+    kode3Short: '',
     tanggalSurat: '',
     divisi: '',
     keterangan: '',
     pemohon: ''
   });
+
+  const [kode2Options, setKode2Options] = useState([]);
+  const [kode3Options, setKode3Options] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [finalNomorSurat, setFinalNomorSurat] = useState(null);
 
-  const klass1 = Object.entries(kodeSurat).map(([id, val]) => ({
+  // Process kode-surat data for kode1
+  const kode1Options = Object.entries(kodeSurat).map(([id, val]) => ({
     id,
-    name: `${val.name}`,
-    kode: `${val.name.split(' - ')[0]}`
+    name: val.name,
+    shortName: val.name.split(' - ')[0].substring(0, 2)
   }));
 
   useEffect(() => {
@@ -51,9 +76,10 @@ export function FormPage() {
       .catch(() => setFormState(prev => ({ ...prev, nomorSurat: 101 })));
   }, []);
 
+  // Initialize Choices.js only for pemohon field
   useEffect(() => {
-    ['divisi', 'masalah', 'klasifikasi', 'klasifikasiDetail', 'pemohon'].forEach(id => {
-      const el = document.getElementById(id);
+    const initPemohonChoices = () => {
+      const el = document.getElementById('pemohon');
       if (el && !el.dataset.choices) {
         new Choices(el, {
           shouldSort: false,
@@ -62,18 +88,97 @@ export function FormPage() {
         });
         el.dataset.choices = 'true';
       }
-    });
+    };
+
+    initPemohonChoices();
   }, []);
 
+  // Update kode2 options when kode1 changes
+  useEffect(() => {
+    if (formState.kode1) {
+      const selectedKode1 = kodeSurat[formState.kode1];
+      const options = Object.entries(selectedKode1.children || {}).map(([id, val]) => ({
+        id,
+        name: val.name,
+        shortName: val.name.split(' - ')[0].substring(0, 2)
+      }));
+
+      setKode2Options(options);
+      setFormState(prev => ({
+        ...prev,
+        kode2: '',
+        kode3: '',
+        kode2Short: '',
+        kode3Short: ''
+      }));
+      setKode3Options([]);
+    } else {
+      setKode2Options([]);
+      setKode3Options([]);
+    }
+  }, [formState.kode1]);
+
+  // Update kode3 options when kode2 changes
+  useEffect(() => {
+    if (formState.kode1 && formState.kode2) {
+      const selectedKode1 = kodeSurat[formState.kode1];
+      const selectedKode2 = selectedKode1.children[formState.kode2];
+      const options = Object.entries(selectedKode2.children || {}).map(([id, val]) => ({
+        id,
+        name: val.name,
+        shortName: val.name.split(' - ')[0].substring(0, 2)
+      }));
+
+      setKode3Options(options);
+      setFormState(prev => ({ ...prev, kode3: '', kode3Short: '' }));
+    } else {
+      setKode3Options([]);
+    }
+  }, [formState.kode2]);
+
+  const handleKode1Change = (e) => {
+    const selectedId = e.target.value;
+    const selectedOption = kode1Options.find(opt => opt.id === selectedId);
+    setFormState(prev => ({
+      ...prev,
+      kode1: selectedId,
+      kode1Short: selectedOption?.shortName || '',
+      kode2: '',
+      kode3: '',
+      kode2Short: '',
+      kode3Short: ''
+    }));
+  };
+
+  const handleKode2Change = (e) => {
+    const selectedId = e.target.value;
+    const selectedOption = kode2Options.find(opt => opt.id === selectedId);
+    setFormState(prev => ({
+      ...prev,
+      kode2: selectedId,
+      kode2Short: selectedOption?.shortName || '',
+      kode3: '',
+      kode3Short: ''
+    }));
+  };
+
+  const handleKode3Change = (e) => {
+    const selectedId = e.target.value;
+    const selectedOption = kode3Options.find(opt => opt.id === selectedId);
+    setFormState(prev => ({
+      ...prev,
+      kode3: selectedId,
+      kode3Short: selectedOption?.shortName || ''
+    }));
+  };
+
   const handleChange = (field) => (e) => {
-    console.log("field: " + field);
-    console.log("value e: " + e.target.value);
     setFormState(prev => ({ ...prev, [field]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const finalNomor = `W.1.${formState.masalahId}.${formState.klasifikasi}-${formState.nomorSurat}`;
+    const finalNomor = `W.1.${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-${formState.nomorSurat}`;
 
     try {
       const res = await fetch('http://localhost:3001/submit', {
@@ -83,7 +188,8 @@ export function FormPage() {
           nomorSurat: finalNomor,
           tanggalSurat: formState.tanggalSurat,
           divisi: formState.divisi,
-          keterangan: formState.keterangan
+          keterangan: formState.keterangan,
+          pemohon: formState.pemohon
         })
       });
 
@@ -100,16 +206,21 @@ export function FormPage() {
     }
   };
 
-  const renderSelectField = ({ id, label, value, options, onChange }) => (
+  const renderSelectField = ({ id, label, value, options, onChange, disabled = false }) => (
     <div className="form-group short">
       <label htmlFor={id}>{label}</label>
-      <select id={id} value={value} onChange={onChange}>
+      <select 
+        id={id} 
+        value={value} 
+        onChange={onChange}
+        disabled={disabled}
+      >
         <option value="" disabled>Pilih...</option>
-        {options.map(item =>
-          typeof item === 'string'
-            ? <option key={item} value={item}>{item}</option>
-            : <option key={item.id} value={item.id}>{item.name}</option>
-        )}
+        {options.map(item => (
+          <option key={item.id || item} value={item.id || item}>
+            {item.name || item}
+          </option>
+        ))}
       </select>
     </div>
   );
@@ -149,16 +260,18 @@ export function FormPage() {
               id: 'divisi',
               label: 'Ruang',
               value: formState.divisi,
-              options: klass1,
+              options: RUANG_OPTIONS,
               onChange: handleChange('divisi')
             })}
-            {renderSelectField({
-              id: 'pemohon',
-              label: 'Pemohon',
-              value: formState.pemohon,
-              options: namaPemohon.map(name => ({ id: name, name })),
-              onChange: handleChange('pemohon')
-            })}
+            <div className="form-group short">
+              <label htmlFor="pemohon">Pemohon</label>
+              <select id="pemohon" value={formState.pemohon} onChange={handleChange('pemohon')}>
+                <option value="" disabled>Pilih...</option>
+                {namaPemohon.map(name => (
+                  <option key={name} value={name}>{name}</option>
+                ))}
+              </select>
+            </div>
           </div>
 
           <div className="form-group full">
@@ -178,30 +291,32 @@ export function FormPage() {
               <input id="wilayah" value={formState.wilayah} readOnly />
             </div>
             {renderSelectField({
-              id: 'masalah',
+              id: 'kode1',
               label: 'Kode 1',
-              value: formState.masalahId,
-              options: klass1,
-              onChange: handleChange('masalahId')
+              value: formState.kode1,
+              options: kode1Options,
+              onChange: handleKode1Change
             })}
             {renderSelectField({
-              id: 'klasifikasi',
+              id: 'kode2',
               label: 'Kode 2',
-              value: formState.klasifikasi,
-              options: KLASIFIKASI_OPTIONS,
-              onChange: handleChange('klasifikasi')
+              value: formState.kode2,
+              options: kode2Options,
+              onChange: handleKode2Change,
+              disabled: !formState.kode1
             })}
             {renderSelectField({
-              id: 'klasifikasiDetail',
+              id: 'kode3',
               label: 'Kode 3',
-              value: formState.klasifikasiDetail,
-              options: KLASIFIKASI_OPTIONS,
-              onChange: handleChange('klasifikasiDetail')
+              value: formState.kode3,
+              options: kode3Options,
+              onChange: handleKode3Change,
+              disabled: !formState.kode2
             })}
           </div>
 
           <div className="preview">
-            <strong>Preview:</strong> {`W.1.${formState.masalahId}.${formState.klasifikasi}-...`}
+            <strong>Preview:</strong> {`W.1.${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-...`}
           </div>
 
           <div className="inline-row">

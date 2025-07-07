@@ -21,7 +21,6 @@ form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  text-align: left;
 }
 
 .inline-row {
@@ -29,7 +28,6 @@ form {
   flex-wrap: wrap;
   gap: 1.5rem;
   justify-content: center;
-  text-align: left;
 }
 
 .form-group {
@@ -37,12 +35,12 @@ form {
   flex-direction: column;
   flex: 1;
   min-width: 150px;
-  text-align: left;
   position: relative;
+  text-align: left;
 }
 
 .form-group.full {
-  width: 100%;
+  flex: 0 0 100%;
 }
 
 /* Labels */
@@ -51,7 +49,6 @@ label {
   font-size: 0.9rem;
   margin-bottom: 0.3rem;
   color: #333;
-  text-align: left;
 }
 
 /* Inputs, selects, textareas */
@@ -89,7 +86,7 @@ select {
 
 /* Date picker icon contrast fix */
 input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
+  filter: invert(0);
 }
 
 /* Buttons */
@@ -143,74 +140,64 @@ button[type="submit"]:disabled {
 
 /* Choices.js customization */
 .choices {
-  width: 100% !important;
-  display: block !important;
-  position: relative !important;
-  margin-bottom: 0 !important;
+  width: 100%;
+  display: block;
+  position: relative;
+  margin-bottom: 0;
 }
 
 .choices__inner {
-  width: 100% !important;
-  border: 1px solid #ccc !important;
-  border-radius: 6px !important;
-  padding: 0.5rem !important;
-  font-size: 0.95rem !important;
-  background-color: #fff !important;
-  box-shadow: none !important;
-  min-height: auto !important;
-  height: auto !important;
-  line-height: 1.2 !important;
-  display: block !important;
-  box-sizing: border-box !important;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.5rem;
+  font-size: 0.95rem;
+  background-color: #fff;
+  box-shadow: none;
+  min-height: auto;
+  height: auto;
+  line-height: 1.2;
+  display: block;
+  box-sizing: border-box;
+  text-align: left;
 }
 
 .choices__list--single {
-  padding: 0 !important;
+  padding: 0;
 }
 
 .choices[data-type*=select-one] .choices__inner {
-  cursor: text !important;
+  cursor: text;
 }
 
 .choices__list--dropdown {
-  position: absolute !important;
-  top: 100% !important;
-  left: 0 !important;
-  right: auto !important;
-  width: auto !important;
-  min-width: 100% !important;
-  max-width: none !important;
-  overflow-x: auto !important;
-  white-space: nowrap !important;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
   z-index: 100;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   background-color: #fff;
 }
 
-/* Make items fit content width */
 .choices__list--dropdown .choices__item {
-  /* display: inline-block !important; */
-  width: auto !important;
-  white-space: nowrap !important;
   padding: 0.5rem 1rem;
 }
 
-/* Optional: Prevent dropdown from wrapping items vertically */
-.choices__list--dropdown .choices__list {
-  /* display: inline-flex; */
-  flex-wrap: nowrap;
-}
-
-/* Caret icon override */
 .choices[data-type*=select-one]::after {
-  border-color: black transparent transparent transparent !important;
-  top: 45% !important;
+  border-color: black transparent transparent transparent;
+  top: 45%;
 }
 
 /* Dark mode */
 @media (prefers-color-scheme: light) {
   .form-container {
     background: #222;
+    color: #eee;
+    border-color: #555;
+  }
+
+  .form-container h2 {
     color: #eee;
   }
 
@@ -227,23 +214,27 @@ button[type="submit"]:disabled {
   }
 
   select {
-    filter: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6H0z' fill='white'/%3E%3C/svg%3E");
   }
 
+  input:focus,
+  select:focus,
+  textarea:focus {
+    background-color: #1a3d7a;
+  }
+
   .choices__inner {
-    background-color: #333 !important;
-    color: #fff !important;
-    border-color: #555 !important;
+    background-color: #333;
+    color: #fff;
+    border-color: #555;
   }
 
   .choices__list--dropdown {
-    background-color: #444 !important;
-    color: #fff !important;
+    background-color: #444;
   }
 
   .choices__list--dropdown .choices__item {
-    color: #fff !important;
+    color: #fff;
   }
 
   .preview {
@@ -251,11 +242,7 @@ button[type="submit"]:disabled {
     color: #eee;
   }
 
-  .back-button {
-    background-color: #b71c1c;
-  }
-
-  .back-button:hover {
-    background-color: #d32f2f;
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
   }
 }
