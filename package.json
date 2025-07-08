@@ -1,22 +1,19 @@
 {
   "name": "sinomor",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "concurrently -n CLIENT,SERVER -c bgBlue.bold,bgGreen.bold \"npm run dev-client\" \"npm run dev-server\"",
     "dev-client": "vite --force",
-    "dev-server": "nodemon --watch server server/src/index.js",
+    "dev-server": "nodemon --watch server/src --delay 1500ms -e js,json --exec \"node server/src/server.js\"",
     "build": "vite build",
-    "start": "node server/src/index.js",
-    "preview": "vite preview --port 3000"
+    "start": "node server/src/server.js",
+    "preview": "vite preview --port 3000",
+    "prepare": "husky install"
   },
   "dependencies": {
     "choices.js": "^11.1.0",
-    "cors": "^2.8.5",
-    "csv-parser": "^3.2.0",
-    "csv-writer": "^1.6.0",
-    "express": "^5.1.0",
     "preact": "^10.26.5",
     "preact-router": "^4.1.2"
   },
@@ -24,6 +21,8 @@
     "@preact/preset-vite": "^2.10.1",
     "concurrently": "^9.2.0",
     "nodemon": "^3.1.0",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2"
   }
 }
