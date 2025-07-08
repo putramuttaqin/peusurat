@@ -1,13 +1,19 @@
-const path = require('path');
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const { app, security, storage } = require('./config/server-config');
 const documentRoutes = require('./routes/permohonan');
 
 const server = express();
 
+// Allow requests from your frontend origin
+const corsOptions = {
+  origin: 'http://localhost:3000', // Change to your frontend URL
+  optionsSuccessStatus: 200
+};
+
 // Middleware
-server.use(cors({ origin: security.cors.origin }));
+server.use(cors(corsOptions));
 server.use(express.json());
 
 // Routes

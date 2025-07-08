@@ -4,14 +4,18 @@ logs/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # Runtime data
 *.pid
 *.seed
 *.pid.lock
+*.sock
 
 # Dependency directories
 node_modules/
+**/node_modules/  # Double protection
 jspm_packages/
 
 # Build directories
@@ -19,11 +23,13 @@ dist/
 dist-ssr/
 build/
 coverage/
+.out/
+.next/
 
 # Environment files
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example  # Keep example file
 
 # Editor
 .vscode/
@@ -34,10 +40,28 @@ coverage/
 *.sln
 *.sw?
 .DS_Store
+*.code-workspace
 
 # Server-specific
-server/data/       # ← Add this (where CSV files are stored)
-temp/             # ← For any temporary processing files
+server/data/**/*  # All contents of data directory
+!server/data/.gitkeep  # Optional: keep empty file to maintain folder
+temp/
+*.tmp
 
 # Client cache
 .cache/
+.temp/
+.history/  # For IDE history
+
+# System Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Testing
+cypress/screenshots/
+cypress/videos/
+
+# Optional
+package-lock.json  # If using yarn
+yarn.lock  # If using npm

@@ -2,165 +2,119 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
-const { Transform } = require('stream');
 const csv = require('csv-parser');
 const { storage } = require('../config/server-config');
 
 const DOCUMENTS_CSV = path.join(storage.documents.directory, storage.documents.filename);
 
-// Initialize document storage
-const initDocumentStorage = () => {
+// 1. ENSURE HEADER EXISTS ======================================
+const initCsvFile = () => {
   try {
     if (!fs.existsSync(storage.documents.directory)) {
       fs.mkdirSync(storage.documents.directory, { recursive: true });
-      console.log(`Created storage directory: ${storage.documents.directory}`);
+      console.log(`Created directory: ${storage.documents.directory}`);
     }
 
-    if (!fs.existsSync(DOCUMENTS_CSV)) {
-      fs.writeFileSync(DOCUMENTS_CSV, 
-        'Tanggal,Jam,Perihal Surat,Ruang Pemohon,Pemohon,Tanggal Surat,Nomor Surat\n'
-      );
-      console.log(`Initialized new CSV file: ${DOCUMENTS_CSV}`);
+    // Check if file is empty or doesn't exist
+    const needsHeader = !fs.existsSync(DOCUMENTS_CSV) ||
+      fs.statSync(DOCUMENTS_CSV).size === 0;
+
+    if (needsHeader) {
+      const header = [
+        '\uFEFF', // UTF-8 BOM
+        'Timestamp,Perihal Surat,Ruang Pemohon,Pemohon,Tanggal Surat,Nomor Surat\n'
+      ].join('');
+      fs.writeFileSync(DOCUMENTS_CSV, header);
+      console.log('Initialized CSV with headers');
     }
   } catch (err) {
-    console.error('Document storage initialization failed:', err);
-    throw err; // Fail fast during startup
-  }
-};
-
-// Stream processor for prepending records
-const prependDocumentRecord = async (newRecord) => {
-  const tempFile = `${DOCUMENTS_CSV}.tmp`;
-  
-  try {
-    // 1. Write new record to temp file
-    const headers = Object.keys(newRecord).join(',');
-    fs.writeFileSync(tempFile, `${headers}\n${Object.values(newRecord).join(',')}\n`);
-
-    // 2. Stream existing content (skip header)
-    if (fs.existsSync(DOCUMENTS_CSV)) {
-      await new Promise((resolve, reject) => {
-        const headerRemover = new Transform({
-          transform(chunk, _, callback) {
-            if (!this._headerSkipped) {
-              this._headerSkipped = true;
-              const str = chunk.toString();
-              const newlinePos = str.indexOf('\n');
-              callback(null, newlinePos >= 0 ? str.slice(newlinePos + 1) : '');
-            } else {
-              callback(null, chunk);
-            }
-          }
-        });
-
-        fs.createReadStream(DOCUMENTS_CSV)
-          .pipe(headerRemover)
-          .pipe(fs.createWriteStream(tempFile, { flags: 'a' }))
-          .on('finish', resolve)
-          .on('error', reject);
-      });
-    }
-
-    // 3. Atomic replacement
-    fs.renameSync(tempFile, DOCUMENTS_CSV);
-  } catch (err) {
-    // Clean up temp file on failure
-    if (fs.existsSync(tempFile)) {
-      fs.unlinkSync(tempFile).catch(() => {});
-    }
+    console.error('Failed to initialize CSV:', err);
     throw err;
   }
 };
 
-// Initialize on module load
-initDocumentStorage();
+// 2. RECORD FORMATTING ========================================
+const formatTimestamp = () => {
+  const now = new Date();
+  const pad = num => num.toString().padStart(2, '0');
+  return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+};
 
-/**
- * @api {post} /api/documents Submit new document
- * @apiName SubmitDocument
- */
+const escapeCsv = (value) => {
+  if (value == null) return '';
+  const str = String(value);
+  if (/[",\n]/.test(str)) return `"${str.replace(/"/g, '""')}"`;
+  return str;
+};
+
+// 3. RECORD WRITING ===========================================
+const appendRecord = async (record) => {
+  const line = [
+    escapeCsv(formatTimestamp()),
+    escapeCsv(record.perihalSurat),
+    escapeCsv(record.ruangPemohon),
+    escapeCsv(record.pemohon),
+    escapeCsv(record.tanggalSurat),
+    escapeCsv(record.nomorSurat)
+  ].join(',') + '\n';
+
+  await fs.promises.appendFile(DOCUMENTS_CSV, line);
+};
+
+// 4. INITIALIZE ON STARTUP ====================================
+initCsvFile();
+
+// 5. API ENDPOINTS ============================================
 router.post('/submit', async (req, res) => {
   try {
-    const now = new Date();
-    const document = {
-      Tanggal: now.toLocaleDateString('en-US'),
-      Jam: now.toLocaleTimeString('en-US', { hour12: false }),
-      'Perihal Surat': req.body.perihalSurat,
-      'Ruang Pemohon': req.body.ruangPemohon,
-      Pemohon: req.body.pemohon,
-      'Tanggal Surat': req.body.tanggalSurat,
-      'Nomor Surat': req.body.nomorSurat || 'TEMP-' + Date.now()
-    };
-
-    await prependDocumentRecord(document);
-    res.status(201).json({ 
-      success: true,
-      document: {
-        ...document,
-        _links: {
-          view: `/api/documents/${encodeURIComponent(document['Nomor Surat'])}`
-        }
-      }
+    await appendRecord({
+      perihalSurat: req.body.perihalSurat || '',
+      ruangPemohon: req.body.ruangPemohon || '',
+      pemohon: req.body.pemohon || '',
+      tanggalSurat: req.body.tanggalSurat || '',
+      nomorSurat: req.body.nomorSurat || `TEMP-${Date.now()}`
     });
+    res.status(201).json({ success: true });
   } catch (err) {
-    console.error('Document submission failed:', err);
-    res.status(500).json({ 
-      success: false,
-      error: 'Failed to save document',
-      details: process.env.NODE_ENV === 'development' ? err.message : undefined
-    });
+    console.error('Submission failed:', err);
+    res.status(500).json({ error: 'Failed to save document' });
   }
 });
 
-/**
- * @api {get} /api/documents List all documents
- * @apiName GetDocuments
- */
 router.get('/entries', (req, res) => {
-  const documents = [];
-  let hasError = false;
-
+  const results = [];
+  
   fs.createReadStream(DOCUMENTS_CSV)
-    .pipe(csv())
-    .on('data', (data) => documents.push(data))
-    .on('end', () => {
-      if (!hasError) {
-        res.json({
-          count: documents.length,
-          documents: documents.map(doc => ({
-            ...doc,
-            _links: {
-              download: `/api/documents/download/${encodeURIComponent(doc['Nomor Surat'])}`
-            }
-          }))
-        });
+    .pipe(csv({
+      headers: [
+        'Timestamp', 
+        'Perihal Surat', 
+        'Ruang Pemohon', 
+        'Pemohon', 
+        'Tanggal Surat', 
+        'Nomor Surat'
+      ],
+      skipLines: 1, // Skip header
+      strict: false // Tolerate formatting issues
+    }))
+    .on('data', (data) => {
+      // Ensure all fields exist
+      if (data.Timestamp) {
+        results.push(data);
       }
     })
+    .on('end', () => res.json({ documents: results }))
     .on('error', (err) => {
-      hasError = true;
-      console.error('Document read error:', err);
-      res.status(500).json({ 
-        success: false,
-        error: 'Failed to retrieve documents'
-      });
+      console.error('CSV error:', err);
+      res.status(500).json({ error: 'CSV processing failed' });
     });
 });
 
-/**
- * @api {get} /api/documents/download Download CSV
- * @apiName DownloadDocuments
- */
 router.get('/download', (req, res) => {
-  const downloadName = `permohonan-${new Date().toISOString().split('T')[0]}.csv`;
-  
-  res.download(DOCUMENTS_CSV, downloadName, (err) => {
-    if (err) {
-      console.error('Download failed:', err);
-      if (!res.headersSent) {
-        res.status(500).json({ error: 'Download failed' });
-      }
-    }
-  });
+  if (!fs.existsSync(DOCUMENTS_CSV)) {
+    return res.status(404).json({ error: 'No documents found' });
+  }
+  res.download(DOCUMENTS_CSV, `permohonan-${new Date().toISOString().slice(0, 10)}.csv`);
 });
 
 module.exports = router;

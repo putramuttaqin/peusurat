@@ -1,26 +1,16 @@
 {
   "name": "sinomor-server",
   "version": "1.0.0",
-  "type": "module",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon --watch src --delay 1500ms -e js,json --exec \"node src/server.js\"",
-    "test": "jest --watchAll",
-    "lint": "eslint src/"
+    "dev": "nodemon src/server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "csv-parser": "^3.2.0",
     "csv-writer": "^1.6.0",
     "dotenv": "^16.4.1",
-    "express": "^5.1.0",
-    "helmet": "^7.1.0"
-  },
-  "devDependencies": {
-    "jest": "^29.7.0",
-    "supertest": "^6.3.4",
-    "eslint": "^8.56.0",
-    "nodemon": "^3.1.0"
+    "express": "^5.1.0"
   }
 }

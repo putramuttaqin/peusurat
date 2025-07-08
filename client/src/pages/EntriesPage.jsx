@@ -8,26 +8,36 @@ export function EntriesPage() {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:3001/entries')
-      .then(res => res.json())
-      .then(data => {
-        setEntries(data);
-        setLoading(false);
-      })
-      .catch(err => {
+    const fetchEntries = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/documents/entries');
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setEntries(data.documents || []); // Ensure we always have an array
+      } catch (err) {
         console.error('Error loading entries:', err);
+        setEntries([]); // Fallback to empty array
+        alert('Server connection failed. Please ensure the backend is running.');
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchEntries();
   }, []);
 
   const handleDownload = () => {
-    window.open('http://localhost:3001/download', '_blank');
+    window.open('http://localhost:3001/api/documents/download', '_blank');
   };
 
   const highlight = (text, keyword) => {
-    if (!keyword) return text;
+    if (!keyword || !text) return text;
     const regex = new RegExp(`(${keyword})`, 'gi');
-    return text.split(regex).map((part, i) =>
+    return text.toString().split(regex).map((part, i) =>
       regex.test(part) ? <mark key={i}>{part}</mark> : part
     );
   };
@@ -35,10 +45,10 @@ export function EntriesPage() {
   const filtered = entries
     .filter((entry) =>
       Object.values(entry).some((val) =>
-        val.toLowerCase().includes(search.toLowerCase())
+        val && val.toString().toLowerCase().includes(search.toLowerCase())
       )
     )
-    .slice(0, 20); // limit to 20 rows
+    .slice(0, 20);
 
   return (
     <div className="form-container">
@@ -67,22 +77,24 @@ export function EntriesPage() {
           <thead>
             <tr>
               <th>No</th>
-              <th>Tanggal</th> {/* Add this */}
-              <th>Nomor Surat</th>
+              <th>Timestamp</th>
+              <th>Perihal Surat</th>
+              <th>Ruang</th>
+              <th>Pemohon</th>
               <th>Tanggal Surat</th>
-              <th>Divisi</th>
-              <th>Keterangan</th>
+              <th>Nomor Surat</th>
             </tr>
           </thead>
           <tbody>
             {filtered.map((entry, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
-                <td>{highlight(entry.Tanggal, search)}</td> {/* Add this */}
-                <td>{highlight(entry['Nomor Surat'], search)}</td>
+                <td>{highlight(entry['Timestamp'], search)}</td>
+                <td>{highlight(entry['Perihal Surat'], search)}</td>
+                <td>{highlight(entry['Ruang Pemohon'], search)}</td>
+                <td>{highlight(entry['Pemohon'], search)}</td>
                 <td>{highlight(entry['Tanggal Surat'], search)}</td>
-                <td>{highlight(entry.Divisi, search)}</td>
-                <td>{highlight(entry.Keterangan, search)}</td>
+                <td>{highlight(entry['Nomor Surat'], search)}</td>
               </tr>
             ))}
           </tbody>

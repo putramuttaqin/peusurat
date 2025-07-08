@@ -175,7 +175,7 @@ export function FormPage() {
     const nomorSurat = `W.1.${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-xyz`;
 
     try {
-      const res = await fetch('http://localhost:3001/submit-permohonan', {
+      const res = await fetch('http://localhost:3001/api/documents/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -313,7 +313,7 @@ export function FormPage() {
 
           <div className="inline-row">
             <button type="button" className="back-button" onClick={() => route('/')}>Kembali</button>
-            <button type="submit" disabled={formState.nomorSurat === null}>Submit</button>
+            <button type="submit">Submit</button>
           </div>
         </form>
       ) : (
