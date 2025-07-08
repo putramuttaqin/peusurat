@@ -78,6 +78,7 @@ export function EntriesPage() {
             <tr>
               <th>No</th>
               <th>Timestamp</th>
+              <th>Jenis Surat</th>
               <th>Perihal Surat</th>
               <th>Ruang</th>
               <th>Pemohon</th>
@@ -90,8 +91,9 @@ export function EntriesPage() {
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{highlight(entry['Timestamp'], search)}</td>
+                <td>{highlight(entry['Jenis Surat'], search)}</td>
                 <td>{highlight(entry['Perihal Surat'], search)}</td>
-                <td>{highlight(entry['Ruang Pemohon'], search)}</td>
+                <td>{highlight(entry['Ruang'], search)}</td>
                 <td>{highlight(entry['Pemohon'], search)}</td>
                 <td>{highlight(entry['Tanggal Surat'], search)}</td>
                 <td>{highlight(entry['Nomor Surat'], search)}</td>

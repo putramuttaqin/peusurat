@@ -7,33 +7,27 @@ const { storage } = require('../config/server-config');
 
 const DOCUMENTS_CSV = path.join(storage.documents.directory, storage.documents.filename);
 
-// 1. ENSURE HEADER EXISTS ======================================
+// 1. INITIALIZATION ===========================================
 const initCsvFile = () => {
   try {
     if (!fs.existsSync(storage.documents.directory)) {
       fs.mkdirSync(storage.documents.directory, { recursive: true });
-      console.log(`Created directory: ${storage.documents.directory}`);
     }
 
-    // Check if file is empty or doesn't exist
-    const needsHeader = !fs.existsSync(DOCUMENTS_CSV) ||
-      fs.statSync(DOCUMENTS_CSV).size === 0;
-
-    if (needsHeader) {
+    if (!fs.existsSync(DOCUMENTS_CSV) || fs.statSync(DOCUMENTS_CSV).size === 0) {
       const header = [
         '\uFEFF', // UTF-8 BOM
-        'Timestamp,Perihal Surat,Ruang Pemohon,Pemohon,Tanggal Surat,Nomor Surat\n'
+        'Timestamp,Jenis Surat,Perihal Surat,Ruang,Pemohon,Tanggal Surat,Nomor Surat\n'
       ].join('');
       fs.writeFileSync(DOCUMENTS_CSV, header);
-      console.log('Initialized CSV with headers');
     }
   } catch (err) {
-    console.error('Failed to initialize CSV:', err);
+    console.error('CSV initialization failed:', err);
     throw err;
   }
 };
 
-// 2. RECORD FORMATTING ========================================
+// 2. FORMATTING HELPERS =======================================
 const formatTimestamp = () => {
   const now = new Date();
   const pad = num => num.toString().padStart(2, '0');
@@ -47,10 +41,11 @@ const escapeCsv = (value) => {
   return str;
 };
 
-// 3. RECORD WRITING ===========================================
+// 3. APPEND RECORD (NEW IMPLEMENTATION) =======================
 const appendRecord = async (record) => {
   const line = [
     escapeCsv(formatTimestamp()),
+    escapeCsv(record.jenisSurat),
     escapeCsv(record.perihalSurat),
     escapeCsv(record.ruangPemohon),
     escapeCsv(record.pemohon),
@@ -61,13 +56,14 @@ const appendRecord = async (record) => {
   await fs.promises.appendFile(DOCUMENTS_CSV, line);
 };
 
-// 4. INITIALIZE ON STARTUP ====================================
+// Initialize on startup
 initCsvFile();
 
-// 5. API ENDPOINTS ============================================
+// 4. API ENDPOINTS ============================================
 router.post('/submit', async (req, res) => {
   try {
     await appendRecord({
+      jenisSurat: req.body.jenisSurat || '',
       perihalSurat: req.body.perihalSurat || '',
       ruangPemohon: req.body.ruangPemohon || '',
       pemohon: req.body.pemohon || '',
@@ -81,17 +77,19 @@ router.post('/submit', async (req, res) => {
   }
 });
 
+// ... keep the existing /entries and /download endpoints exactly the same ...
 router.get('/entries', (req, res) => {
   const results = [];
-  
+
   fs.createReadStream(DOCUMENTS_CSV)
     .pipe(csv({
       headers: [
-        'Timestamp', 
-        'Perihal Surat', 
-        'Ruang Pemohon', 
-        'Pemohon', 
-        'Tanggal Surat', 
+        'Timestamp',
+        'Jenis Surat',
+        'Perihal Surat',
+        'Ruang',
+        'Pemohon',
+        'Tanggal Surat',
         'Nomor Surat'
       ],
       skipLines: 1, // Skip header
