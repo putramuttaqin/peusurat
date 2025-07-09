@@ -1,5 +1,6 @@
 # Exclude sensitive data files
 client/src/data/pemohon.json
+server/data/permohonan-surat.csv
 
 # Logs
 logs/
