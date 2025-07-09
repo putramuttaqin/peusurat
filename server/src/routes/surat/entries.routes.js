@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { readAllDocuments } = require('./utils/csvUtils');
 
-router.get('/entries', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const documents = await readAllDocuments();
     res.json({ documents });

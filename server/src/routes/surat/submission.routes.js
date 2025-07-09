@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { appendRecord } = require('./utils/csvUtils');
 
-router.post('/submit', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     await appendRecord({
       jenisSurat: req.body.jenisSurat || '',

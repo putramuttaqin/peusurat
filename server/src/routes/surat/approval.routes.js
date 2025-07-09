@@ -5,7 +5,7 @@ const path = require('path');
 const { readAllDocuments, DOCUMENTS_CSV } = require('./utils/csvUtils');
 const { escapeCsv } = require('./utils/formatUtils');
 
-router.post('/approve/:id', async (req, res) => {
+router.post('/:id', async (req, res) => {
   try {
     const docId = req.params.id;
     const REGISTERS_JSON = path.join(path.dirname(DOCUMENTS_CSV), 'registers.json');
