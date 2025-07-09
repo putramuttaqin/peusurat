@@ -4,7 +4,7 @@ const submissionRoutes = require('./submission.routes');
 const entriesRoutes = require('./entries.routes');
 const approvalRoutes = require('./approval.routes');
 const downloadRoutes = require('./download.routes');
-const { initCsvFile } = require('./utils/csvUtils');
+const { initCsvFile } = require('../utils/csvUtils');
 
 // Initialize CSV file on startup
 initCsvFile();

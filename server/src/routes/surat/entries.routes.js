@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { readAllDocuments } = require('./utils/csvUtils');
+const { checkAdmin } = require('../utils/authUtils');
+const { readAllDocuments } = require('../utils/csvUtils');
 
-router.get('/', async (req, res) => {
+// Protected route
+router.get('/', checkAdmin, async (req, res) => {
   try {
     const documents = await readAllDocuments();
     res.json({ documents });
   } catch (err) {
-    console.error('CSV error:', err);
-    res.status(500).json({ error: 'CSV processing failed' });
+    res.status(500).json({ error: 'Server error' });
   }
 });
 

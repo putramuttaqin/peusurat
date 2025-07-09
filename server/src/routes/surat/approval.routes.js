@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
-const { readAllDocuments, DOCUMENTS_CSV } = require('./utils/csvUtils');
-const { escapeCsv } = require('./utils/formatUtils');
+const { readAllDocuments, DOCUMENTS_CSV } = require('../utils/csvUtils');
+const { escapeCsv } = require('../utils/formatUtils');
 
 router.post('/:id', async (req, res) => {
   try {

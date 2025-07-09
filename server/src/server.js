@@ -2,13 +2,17 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const { app, security, storage } = require('./config/server-config');
-const documentRoutes = require('./routes/surat/index');
+const documentRoutes = require('./routes/surat');
+const authRoutes = require('./routes/auth.routes');
 
 const server = express();
+const cookieParser = require('cookie-parser');
+server.use(cookieParser());
 
 // Allow requests from your frontend origin
 const corsOptions = {
   origin: 'http://localhost:3000', // Change to your frontend URL
+  credentials: true,
   optionsSuccessStatus: 200
 };
 
@@ -17,14 +21,15 @@ server.use(cors(corsOptions));
 server.use(express.json());
 
 // Routes
-server.use('/api/documents', documentRoutes);
+server.use('/api/surat', documentRoutes);
+server.use('/api/auth', authRoutes);
 
 // Health Check
 server.get('/health', (req, res) => {
-  res.json({ 
+  res.json({
     status: 'healthy',
     app: app.name,
-    environment: app.env 
+    environment: app.env
   });
 });
 

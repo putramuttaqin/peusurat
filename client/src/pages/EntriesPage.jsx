@@ -7,10 +7,21 @@ export function EntriesPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
 
+  // For Admin Login
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginStatus, setLoginStatus] = useState(null); // 'success', 'error', null
+  const [isAdmin, setIsAdmin] = useState(false);
+
   useEffect(() => {
     const fetchEntries = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/documents/entries');
+        const response = await fetch('http://localhost:3001/api/surat/entries', {
+          credentials: 'include'
+        })
+          .then(res => setIsAdmin(res.ok))
+          .catch(() => setIsAdmin(false));
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         setEntries(data.documents || []);
@@ -25,24 +36,54 @@ export function EntriesPage() {
     fetchEntries();
   }, []);
 
+  // Modify handleLogin
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/api/auth/login', {
+        method: 'POST',
+        credentials: 'include', // Required for cookies
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+
+      if (response.ok) {
+        setIsAdmin(true);
+        setLoginStatus('success');
+        setTimeout(() => setIsModalOpen(false), 1000);
+      } else {
+        setLoginStatus('error');
+      }
+    } catch (err) {
+      setLoginStatus('error');
+    }
+  };
+
+  // Add logout handler
+  const handleLogout = async () => {
+    await fetch('http://localhost:3001/api/auth/logout', {
+      credentials: 'include'
+    });
+    setIsAdmin(false);
+  };
+
   const handleDownload = () => {
-    window.open('http://localhost:3001/api/documents/download', '_blank');
+    window.open('http://localhost:3001/api/surat/download', '_blank');
   };
 
   const handleApprove = async (id) => {
     if (!confirm('Anda yakin ingin menyetujui surat ini?')) return;
-    
+
     try {
-      const response = await fetch(`http://localhost:3001/api/documents/approve/${id}`, {
+      const response = await fetch(`http://localhost:3001/api/surat/approve/${id}`, {
         method: 'POST'
       });
-      
+
       if (!response.ok) throw new Error('Approval failed');
-      
-      const updatedResponse = await fetch('http://localhost:3001/api/documents/entries');
+
+      const updatedResponse = await fetch('http://localhost:3001/api/surat/entries');
       const updatedData = await updatedResponse.json();
       setEntries(updatedData.documents || []);
-      
+
       alert('Surat berhasil disetujui!');
     } catch (err) {
       console.error('Approval error:', err);
@@ -67,8 +108,8 @@ export function EntriesPage() {
   };
 
   const filtered = entries
-    .filter(entry => 
-      Object.values(entry).some(val => 
+    .filter(entry =>
+      Object.values(entry).some(val =>
         val && val.toString().toLowerCase().includes(search.toLowerCase())
       )
     )
@@ -86,8 +127,59 @@ export function EntriesPage() {
           onInput={(e) => setSearch(e.target.value)}
           className="search-input"
         />
-        {!loading && entries.length > 0 && (
-          <button onClick={handleDownload}>Download CSV</button>
+        {isAdmin ? (
+          <>
+            <button onClick={handleLogout}>Logout</button>
+          </>
+        ) : (
+          <button onClick={() => setIsModalOpen(true)}>
+            Admin Login
+          </button>
+        )}
+        {isModalOpen && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <h3>Admin Login</h3>
+
+              <div className={`login-feedback ${loginStatus}`}>
+                {loginStatus === 'success' && 'Login berhasil!'}
+                {loginStatus === 'error' && 'Login gagal!'}
+              </div>
+
+              <div className="form-group">
+                <label>Username:</label>
+                <input
+                  type="text"
+                  value={username}
+                  onInput={(e) => setUsername(e.target.value)}
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Password:</label>
+                <input
+                  type="password"
+                  value={password}
+                  onInput={(e) => setPassword(e.target.value)}
+                />
+              </div>
+
+              <div className="modal-actions">
+                <button onClick={handleLogin} className="login-button">
+                  Login
+                </button>
+                <button
+                  onClick={() => {
+                    setIsModalOpen(false);
+                    setLoginStatus(null);
+                  }}
+                  className="cancel-button"
+                >
+                  Kembali
+                </button>
+              </div>
+            </div>
+          </div>
         )}
       </div>
 
@@ -125,7 +217,7 @@ export function EntriesPage() {
                 <td>{stateToStr(entry.Status)}</td>
                 <td>
                   {entry.Status === 'proposed' && (
-                    <button 
+                    <button
                       onClick={() => handleApprove(entry.ID)}
                       className="approve-button"
                     >

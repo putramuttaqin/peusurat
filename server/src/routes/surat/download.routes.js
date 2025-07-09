@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { DOCUMENTS_CSV } = require('./utils/csvUtils');
+const { DOCUMENTS_CSV } = require('../utils/csvUtils');
 
 router.get('/', (req, res) => {
   if (!fs.existsSync(DOCUMENTS_CSV)) {
