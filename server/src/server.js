@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const { app, security, storage } = require('./config/server-config');
-const documentRoutes = require('./routes/permohonan');
+const documentRoutes = require('./routes/surat');
 
 const server = express();
 
