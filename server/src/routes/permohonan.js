@@ -185,8 +185,6 @@ router.post('/approve/:id', async (req, res) => {
       return res.status(404).json({ error: 'Document not found' });
     }
 
-    console.log("log1: "+targetRow);
-
     // 3. Update document number and status
     const jenisSurat = targetRow['Jenis Surat'];
     if (!registers[jenisSurat]) {
@@ -212,13 +210,13 @@ router.post('/approve/:id', async (req, res) => {
       return row;
     });
 
-    const csvContent = headerLine + updatedRows.map(row => 
+    const csvContent = headerLine + updatedRows.map(row =>
       Object.values(row).map(field => escapeCsv(field)).join(',')
     ).join('\n');
 
     fs.writeFileSync(DOCUMENTS_CSV, '\uFEFF' + csvContent, 'utf8');
 
-    res.status(200).json({ 
+    res.status(200).json({
       success: true,
       newNumber: currentNumber,
       updatedDocument: targetRow
