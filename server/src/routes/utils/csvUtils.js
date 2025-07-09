@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const csv = require('csv-parser');
 const { storage } = require('../../config/server-config');
-const { formatTimestamp, escapeCsv } = require('../formatUtils');
+const { formatTimestamp, escapeCsv } = require('./formatUtils');
 
 const DOCUMENTS_CSV = path.join(storage.documents.directory, storage.documents.filename);
 

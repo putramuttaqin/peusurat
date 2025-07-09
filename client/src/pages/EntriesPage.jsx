@@ -17,18 +17,19 @@ export function EntriesPage() {
   useEffect(() => {
     const fetchEntries = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/surat/entries', {
-          credentials: 'include'
-        })
-          .then(res => setIsAdmin(res.ok))
-          .catch(() => setIsAdmin(false));
+        const response = await fetch('http://localhost:3001/api/surat/entries');
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         setEntries(data.documents || []);
+
+        // Check admin status separately
+        const adminCheck = await fetch('http://localhost:3001/api/auth/check-admin', {
+          credentials: 'include'
+        });
+        setIsAdmin(adminCheck.ok);
       } catch (err) {
         console.error('Error loading entries:', err);
         setEntries([]);
-        alert('Server connection failed. Please ensure the backend is running.');
       } finally {
         setLoading(false);
       }
@@ -71,15 +72,28 @@ export function EntriesPage() {
   };
 
   const handleApprove = async (id) => {
+    if (!isAdmin) {
+      alert('Hanya admin yang dapat menyetujui surat');
+      setIsModalOpen(true); // Show login modal if not admin
+      return;
+    }
+
     if (!confirm('Anda yakin ingin menyetujui surat ini?')) return;
 
     try {
       const response = await fetch(`http://localhost:3001/api/surat/approve/${id}`, {
-        method: 'POST'
+        method: 'POST',
+        credentials: 'include'
       });
+
+      if (response.status === 403) {
+        setIsAdmin(false);
+        throw new Error('Sesi admin telah berakhir');
+      }
 
       if (!response.ok) throw new Error('Approval failed');
 
+      // Refresh entries
       const updatedResponse = await fetch('http://localhost:3001/api/surat/entries');
       const updatedData = await updatedResponse.json();
       setEntries(updatedData.documents || []);
@@ -87,7 +101,7 @@ export function EntriesPage() {
       alert('Surat berhasil disetujui!');
     } catch (err) {
       console.error('Approval error:', err);
-      alert('Gagal menyetujui surat');
+      alert(err.message || 'Gagal menyetujui surat');
     }
   };
 
@@ -220,8 +234,9 @@ export function EntriesPage() {
                     <button
                       onClick={() => handleApprove(entry.ID)}
                       className="approve-button"
+                      disabled={!isAdmin}
                     >
-                      Setujui
+                      {isAdmin ? 'Setujui' : 'Login untuk Setujui'}
                     </button>
                   )}
                 </td>
