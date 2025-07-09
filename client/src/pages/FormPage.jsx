@@ -179,6 +179,7 @@ export function FormPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          jenisSurat: formState.jenisSurat,
           perihalSurat: formState.keterangan,
           ruangPemohon: formState.divisi,
           pemohon: formState.pemohon,

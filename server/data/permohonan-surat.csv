@@ -1,2 +1,4 @@
-﻿Timestamp,Perihal Surat,Ruang Pemohon,Pemohon,Tanggal Surat,Nomor Surat
-2025-07-08 11:30:16,"SPMT a.n. Tohari, Akbar",KEPEGAWAIAN,"MAYA PERMATASARI, S.H.",2025-07-04,W.1.KP.03.01-xyz
+﻿ID,Timestamp,Jenis Surat,Perihal Surat,Ruang,Pemohon,Tanggal Surat,Nomor Surat,Status
+1,2025-07-08 15:03:10,BUKU KELUAR UMUM,SPMT a.n. Hari Hora,KEPEGAWAIAN,"MAYA PERMATASARI, S.H.",2025-07-03,W.1.KP.03.01-xyz,proposed
+2,2025-07-08 15:03:41,BUKU KELUAR UMUM,SPMT a.n. Kora Tio,KEPEGAWAIAN,"MAYA PERMATASARI, S.H.",2025-07-03,W.1.KP.03.01-xyz,proposed
+3,2025-07-08 15:13:29,BUKU KELUAR UMUM,SPMT a.n. Jia Julia,KEPEGAWAIAN,"MAYA PERMATASARI, S.H.",2025-07-04,W.1.KP.03.01-xyz,proposed

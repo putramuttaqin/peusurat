@@ -1,3 +1,6 @@
+# Exclude sensitive data files
+client/src/data/pemohon.json
+
 # Logs
 logs/
 *.log
@@ -44,6 +47,7 @@ coverage/
 
 # Server-specific
 server/data/**/*  # All contents of data directory
+!server/data/registers.json  # Necessary and not sensitive
 !server/data/.gitkeep  # Optional: keep empty file to maintain folder
 temp/
 *.tmp
