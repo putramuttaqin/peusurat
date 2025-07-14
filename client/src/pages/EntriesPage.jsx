@@ -67,14 +67,14 @@ export function EntriesPage() {
     setIsAdmin(false);
   };
 
-  const handleApprove = async (id) => {
+  const handleState = async (id, aksi) => {
     if (!isAdmin) {
       alert('Hanya admin yang dapat menyetujui surat');
       setIsModalOpen(true); // Show login modal if not admin
       return;
     }
-
-    if (!confirm('Anda yakin ingin menyetujui surat ini?')) return;
+    const aksiTeks = aksi == "approve" ? "menyutujui" : "menolak";
+    if (!confirm(`Anda yakin ingin ${aksiTeks} surat ini?`)) return;
 
     try {
       const response = await fetch(`http://localhost:3001/api/surat/entries/${id}`, {
@@ -83,7 +83,7 @@ export function EntriesPage() {
         headers: {
           'Content-Type': 'application/json' // Required for CORS preflight
         },
-        body: JSON.stringify({ action: 'approve' }) // Send minimal data
+        body: JSON.stringify({ action: aksi }) // Send minimal data
       });
 
       if (response.status === 403) {
@@ -91,14 +91,14 @@ export function EntriesPage() {
         throw new Error('Sesi admin telah berakhir');
       }
 
-      if (!response.ok) throw new Error('Approval failed');
+      if (!response.ok) throw new Error('Approval Gagal');
 
       // Refresh entries
       const updatedResponse = await fetch('http://localhost:3001/api/surat/entries');
       const updatedData = await updatedResponse.json();
       setEntries(updatedData.documents || []);
 
-      alert('Surat berhasil disetujui!');
+      alert(`Berhasil ${aksiTeks} Surat!`);
     } catch (err) {
       console.error('Approval error:', err);
       alert(err.message || 'Gagal menyetujui surat');
@@ -215,7 +215,7 @@ export function EntriesPage() {
               <th>Tanggal Surat</th>
               <th>Nomor Surat</th>
               <th>Status</th>
-              <th>Aksi</th>
+              <th hidden={!isAdmin}>Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -230,29 +230,40 @@ export function EntriesPage() {
                 <td>{highlight(entry['Tanggal Surat'], search)}</td>
                 <td>{highlight(entry['Nomor Surat'], search)}</td>
                 <td>{stateToStr(entry.Status)}</td>
-                <td>
+                <td hidden={!isAdmin}>
                   {entry.Status === '0' && (
-                    <button
-                      onClick={() => handleApprove(entry.ID)}
-                      className="approve-button"
-                      disabled={!isAdmin}
-                      hidden={!isAdmin}
-                    >
-                      {isAdmin ? 'Setujui' : 'Login untuk Setujui'}
-                    </button>
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => handleState(entry.ID, "approve")}
+                        className="action-button"
+                        hidden={!isAdmin}
+                      >
+                        Setujui
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleState(entry.ID, "reject")}
+                        className="action-button"
+                        hidden={!isAdmin}
+                      >
+                        Tolak
+                      </button>
+                    </>
                   )}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      )}
+      )
+      }
 
       <div style={{ marginTop: '2rem', textAlign: 'center' }}>
         <button className="back-button" onClick={() => route('/')}>
           Kembali
         </button>
       </div>
-    </div>
+    </div >
   );
 }

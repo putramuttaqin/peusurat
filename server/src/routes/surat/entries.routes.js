@@ -75,8 +75,10 @@ router.patch('/:id', limiter, checkAdmin, async (req, res) => {
       targetDoc['Status'] = STATUS.APPROVED;
       registers[jenisSurat] = currentNumber + 1;
       fs.writeFileSync(REGISTERS_JSON, JSON.stringify(registers, null, 2));
-    } else {
+    } else if (action === "reject") {
       targetDoc['Status'] = STATUS.REJECTED;
+    } else {
+      return res.status(422).json({ error: `Invalid State ${action}` });
     }
 
     // Save changes (using utility)
