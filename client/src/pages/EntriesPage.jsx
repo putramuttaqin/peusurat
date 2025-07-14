@@ -6,36 +6,95 @@ export function EntriesPage() {
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [filterOptions, setFilterOptions] = useState({
+    jenisSuratOptions: [],
+    ruangOptions: []
+  });
+  const today = new Date().toISOString().split('T')[0];
+  const [filters, setFilters] = useState({
+    startDate: today,
+    endDate: today,
+    status: 'Status Surat',
+    jenisSurat: 'Jenis Surat',
+    ruang: 'Semua Ruang'
+  });
 
   // For Admin Login
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loginStatus, setLoginStatus] = useState(null); // 'success', 'error', null
+  const [loginStatus, setLoginStatus] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const fetchEntries = async () => {
+    const fetchInitialData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/surat/entries');
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.json();
-        setEntries(data.documents || []);
+        // Fetch entries
+        const entriesResponse = await fetch('http://localhost:3001/api/surat/entries');
+        if (!entriesResponse.ok) throw new Error(`HTTP error! status: ${entriesResponse.status}`);
+        const entriesData = await entriesResponse.json();
+        setEntries(entriesData.documents || []);
 
-        // Check admin status separately
+        // Fetch filter options
+        const optionsResponse = await fetch('http://localhost:3001/api/surat/filter-options');
+        if (optionsResponse.ok) {
+          const optionsData = await optionsResponse.json();
+          setFilterOptions({
+            jenisSuratOptions: optionsData.jenisSuratOptions || [],
+            ruangOptions: optionsData.ruangOptions || []
+          });
+        }
+
+        // Check admin status
         const adminCheck = await fetch('http://localhost:3001/api/auth/check-admin', {
           credentials: 'include'
         });
         setIsAdmin(adminCheck.ok);
       } catch (err) {
-        console.error('Error loading entries:', err);
-        setEntries([]);
+        console.error('Error loading data:', err);
       } finally {
         setLoading(false);
       }
     };
-    fetchEntries();
+    fetchInitialData();
   }, []);
+
+  const handleFilter = async () => {
+    setLoading(true);
+    try {
+      const queryParams = new URLSearchParams();
+
+      if (search) queryParams.append('search', search);
+      if (filters.startDate) queryParams.append('startDate', filters.startDate);
+      if (filters.endDate) queryParams.append('endDate', filters.endDate);
+      if (filters.status) queryParams.append('status', filters.status);
+      if (filters.jenisSurat) queryParams.append('jenisSurat', filters.jenisSurat);
+      if (filters.ruang) queryParams.append('ruang', filters.ruang);
+
+      const response = await fetch(`http://localhost:3001/api/surat/entries?${queryParams.toString()}`);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      const data = await response.json();
+      setEntries(data.documents || []);
+    } catch (err) {
+      console.error('Error filtering entries:', err);
+      alert('Gagal memfilter data');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResetFilter = async () => {
+    setSearch('');
+    setFilters({
+      startDate: '',
+      endDate: '',
+      status: '',
+      jenisSurat: '',
+      ruang: ''
+    });
+    // Refetch all entries
+    await handleFilter();
+  };
 
   // Modify handleLogin
   const handleLogin = async () => {
@@ -132,25 +191,20 @@ export function EntriesPage() {
 
   return (
     <div className="form-container">
-      <h2>Daftar Nomor Surat</h2>
-
-      <div className="top-bar">
-        <input
-          type="text"
-          placeholder="Cari..."
-          value={search}
-          onInput={(e) => setSearch(e.target.value)}
-          className="search-input"
-        />
+      <div className="entries-header">
+        <button className="back-button" onClick={() => route('/')}>
+          Kembali
+        </button>
         {isAdmin ? (
-          <>
-            <button onClick={handleLogout}>Logout</button>
-          </>
+          <button onClick={handleLogout} className="admin-button">
+            Logout Admin
+          </button>
         ) : (
-          <button onClick={() => setIsModalOpen(true)}>
-            Admin Login
+          <button onClick={() => setIsModalOpen(true)} className="admin-button">
+            Login Admin
           </button>
         )}
+
         {isModalOpen && (
           <div className="modal-overlay">
             <div className="modal-content">
@@ -198,64 +252,143 @@ export function EntriesPage() {
         )}
       </div>
 
+      <h2>Daftar Nomor Surat</h2>
+
       {loading ? (
         <p>Memuat data...</p>
       ) : filtered.length === 0 ? (
         <p>Tidak ada data ditemukan.</p>
       ) : (
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Timestamp</th>
-              <th>Jenis Surat</th>
-              <th>Perihal Surat</th>
-              <th>Ruang</th>
-              <th>Pemohon</th>
-              <th>Tanggal Surat</th>
-              <th>Nomor Surat</th>
-              <th>Status</th>
-              <th hidden={!isAdmin}>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filtered.map((entry) => (
-              <tr key={entry.ID}>
-                <td>{highlight(entry.ID, search)}</td>
-                <td>{highlight(entry.Timestamp, search)}</td>
-                <td>{highlight(entry['Jenis Surat'], search)}</td>
-                <td>{highlight(entry['Perihal Surat'], search)}</td>
-                <td>{highlight(entry.Ruang, search)}</td>
-                <td>{highlight(entry.Pemohon, search)}</td>
-                <td>{highlight(entry['Tanggal Surat'], search)}</td>
-                <td>{highlight(entry['Nomor Surat'], search)}</td>
-                <td>{stateToStr(entry.Status)}</td>
-                <td hidden={!isAdmin}>
-                  {entry.Status === '0' && (
-                    <>
-                      <button
-                        type="button"
-                        onClick={() => handleState(entry.ID, "approve")}
-                        className="action-button"
-                        hidden={!isAdmin}
-                      >
-                        Setujui
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleState(entry.ID, "reject")}
-                        className="action-button"
-                        hidden={!isAdmin}
-                      >
-                        Tolak
-                      </button>
-                    </>
-                  )}
-                </td>
+        <>
+          <div className="search-filter-bar">
+            {/* Row 1: Search and Date Filters */}
+            <div className="filter-controls">
+              <div className="filter-item">
+                <input
+                  type="date"
+                  value={filters.startDate}
+                  onChange={(e) => setFilters({ ...filters, startDate: e.target.value })}
+                />
+              </div>
+
+              <div className="filter-item">
+                <input
+                  type="date"
+                  value={filters.endDate}
+                  onChange={(e) => setFilters({ ...filters, endDate: e.target.value })}
+                />
+              </div>
+
+              <div className="filter-item">
+                <select
+                  value={filters.status}
+                  onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+                >
+                  <option value="">{filters.status || "Status Surat"}</option>
+                  <option value="0">Pending</option>
+                  <option value="1">Disetujui</option>
+                  <option value="2">Ditolak</option>
+                </select>
+              </div>
+
+              <div className="filter-item">
+                <select
+                  value={filters.jenisSurat}
+                  onChange={(e) => setFilters({ ...filters, jenisSurat: e.target.value })}
+                >
+                  <option value="">{filters.jenisSurat || "Jenis Surat"}</option>
+                  {filterOptions.jenisSuratOptions.map((option) => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="filter-item">
+                <select
+                  value={filters.ruang}
+                  onChange={(e) => setFilters({ ...filters, ruang: e.target.value })}
+                >
+                  <option value="">{filters.ruang || "Semua Ruang"}</option>
+                  {filterOptions.ruangOptions.map((option) => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Row 3: Buttons */}
+            <div className="filter-controls">
+              <div className="filter-item">
+                <input
+                  type="text"
+                  placeholder="Cari nomor surat/perihal..."
+                  value={search}
+                  onInput={(e) => setSearch(e.target.value)}
+                  className="search-input"
+                />
+              </div>
+
+              <div className="filter-actions">
+                <button onClick={handleFilter} className="filter-button">Cari</button>
+                <button onClick={handleResetFilter} className="reset-button">Reset</button>
+              </div>
+            </div>
+          </div>
+
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Timestamp</th>
+                <th>Jenis Surat</th>
+                <th>Perihal Surat</th>
+                <th>Ruang</th>
+                <th>Pemohon</th>
+                <th>Tanggal Surat</th>
+                <th>Nomor Surat</th>
+                <th>Status</th>
+                <th hidden={!isAdmin}>Aksi</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filtered.map((entry) => (
+                <tr key={entry.ID}>
+                  <td>{highlight(entry.ID, search)}</td>
+                  <td>{highlight(entry.Timestamp, search)}</td>
+                  <td>{highlight(entry['Jenis Surat'], search)}</td>
+                  <td>{highlight(entry['Perihal Surat'], search)}</td>
+                  <td>{highlight(entry.Ruang, search)}</td>
+                  <td>{highlight(entry.Pemohon, search)}</td>
+                  <td>{highlight(entry['Tanggal Surat'], search)}</td>
+                  <td>{highlight(entry['Nomor Surat'], search)}</td>
+                  <td>{stateToStr(entry.Status)}</td>
+                  <td hidden={!isAdmin}>
+                    {entry.Status === '0' && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => handleState(entry.ID, "approve")}
+                          className="action-button"
+                          hidden={!isAdmin}
+                        >
+                          Setujui
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleState(entry.ID, "reject")}
+                          className="action-button"
+                          hidden={!isAdmin}
+                        >
+                          Tolak
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
       )
       }
 

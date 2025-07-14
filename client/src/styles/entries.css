@@ -1,3 +1,4 @@
+/* Table */
 .data-table {
   width: 100%;
   margin-top: 1rem;
@@ -16,49 +17,139 @@
   background-color: #f0f0f0;
 }
 
-.back-button {
-  margin-top: 1.5rem;
+/* Buttons */
+.back-button,
+.admin-button,
+.filter-button,
+.reset-button {
+  margin-top: 0;
   padding: 0.6rem 1.2rem;
-  background-color: #6c757d;
-  color: white;
   border: none;
   border-radius: 4px;
+  color: white;
   cursor: pointer;
+  white-space: nowrap;
+}
+
+.back-button {
+  background-color: #6c757d;
+  margin-top: 1.5rem;
+  margin-right: auto;
 }
 
 .back-button:hover {
   background-color: #5a6268;
 }
 
-.top-bar {
+.admin-button {
+  background-color: #242427;
+  margin-left: auto;
+}
+
+.filter-button {
+  background-color: #4CAF50;
+}
+
+.reset-button {
+  background-color: #f44336;
+}
+
+.action-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #ccc;
+}
+
+/* Layout */
+.top-bar,
+.entries-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
+  width: 100%;
+}
+
+.search-bar,
+.search-filter-bar {
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+/* Inputs */
+.search-input,
+.filter-item input,
+.filter-item select {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
 }
 
 .search-input {
   flex: 1;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
+  min-width: 200px;
   border-radius: 6px;
   font-size: 0.95rem;
 }
 
+.filter-item input[type="date"] {
+  padding: 0.4rem 0.5rem;
+  max-width: 170px;
+}
+
+.filter-item input::placeholder {
+  color: #999;
+}
+
+.filter-item select {
+  appearance: none;
+  padding-right: 1.8rem;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1rem;
+}
+
+/* Filters */
+.filter-controls,
+.filter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.filter-controls {
+  margin-top: 0.8rem;
+}
+
+.filter-actions {
+  align-items: flex-end;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 120px;
+}
+
+/* Highlight */
 mark {
   background-color: yellow;
   padding: 0 2px;
   border-radius: 2px;
 }
 
-/* Modal Styles */
+/* Modal */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -75,13 +166,15 @@ mark {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.form-group {
-  margin-bottom: 1rem;
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
+/* Form */
+.form-group {
+  margin-bottom: 1rem;
 }
 
 .form-group input {
@@ -91,23 +184,12 @@ mark {
   border-radius: 4px;
 }
 
-.modal-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1.5rem;
+.form-container h2 {
+  margin: 1rem 0;
+  text-align: center;
 }
 
-.login-button {
-  background: #4CAF50;
-  color: white;
-}
-
-.cancel-button {
-  background: #f44336;
-  color: white;
-}
-
-/* Login Feedback Animation */
+/* Login Feedback */
 .login-feedback {
   height: 20px;
   margin: 0.5rem 0;
@@ -142,8 +224,31 @@ mark {
   }
 }
 
-.action-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  background-color: #cccccc;
+/* Responsive */
+@media (max-width: 1200px) {
+  .filter-item {
+    min-width: calc(33% - 0.8rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .filter-item {
+    min-width: calc(50% - 0.8rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-item {
+    min-width: 100%;
+  }
+
+  .filter-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .filter-button,
+  .reset-button {
+    width: 50%;
+  }
 }
