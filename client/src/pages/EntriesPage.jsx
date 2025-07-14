@@ -7,16 +7,46 @@ export function EntriesPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [filterOptions, setFilterOptions] = useState({
-    jenisSuratOptions: [],
-    ruangOptions: []
+    jenisSuratOptions: [
+      'BUKU KELUAR UMUM',
+      'SK KAKANWIL',
+      'BUKU KELUAR YANKUM',
+      'BUKU MASUK UMUM',
+      'BUKU SURAT PERINTAH',
+      'BUKU CUTI',
+      'BUKU KELUAR PLH/PLT',
+      'BUKU KELUAR P2L',
+      'BUKU MASUK P2L',
+      'BUKU MASUK YANKUM'
+    ],
+    ruangOptions: [
+      'PERENCANAAN',
+      'ORGANISASI DAN TATA LAKSANA',
+      'KEPEGAWAIAN',
+      'KEUANGAN',
+      'PENGELOLAAN BARANG MILIK NEGARA',
+      'KEHUMASAN DAN HUKUM',
+      'UMUM',
+      'PENGAWASAN',
+      'TEKNOLOGI DAN INFORMASI',
+      'PERATURAN PERUNDANG-UNDANGAN',
+      'ADMINISTRASI HUKUM UMUM',
+      'PEMASYARAKATAN',
+      'KEIMIGRASIAN',
+      'KEKAYAAN INTELEKTUAL',
+      'HAK ASASI MANUSIA',
+      'PEMBINAAN HUKUM NASIONAL',
+      'SUMBER DAYA MANUSIA',
+      'PENELITIAN DAN PENGEMBANGAN'
+    ]
   });
   const today = new Date().toISOString().split('T')[0];
   const [filters, setFilters] = useState({
     startDate: today,
     endDate: today,
-    status: 'Status Surat',
-    jenisSurat: 'Jenis Surat',
-    ruang: 'Semua Ruang'
+    status: '',
+    jenisSurat: '',
+    ruang: ''
   });
 
   // For Admin Login
@@ -64,7 +94,7 @@ export function EntriesPage() {
     try {
       const queryParams = new URLSearchParams();
 
-      if (search) queryParams.append('search', search);
+      // if (search) queryParams.append('search', search);
       if (filters.startDate) queryParams.append('startDate', filters.startDate);
       if (filters.endDate) queryParams.append('endDate', filters.endDate);
       if (filters.status) queryParams.append('status', filters.status);
@@ -86,8 +116,8 @@ export function EntriesPage() {
   const handleResetFilter = async () => {
     setSearch('');
     setFilters({
-      startDate: '',
-      endDate: '',
+      startDate: today,
+      endDate: today,
       status: '',
       jenisSurat: '',
       ruang: ''
@@ -166,7 +196,7 @@ export function EntriesPage() {
 
   const stateToStr = (state) => {
     switch (state) {
-      case "0": return "Diproses";
+      case "0": return "Pending";
       case "1": return "Disetujui";
       case "2": return "Ditolak";
       default: return "Error";
@@ -252,7 +282,7 @@ export function EntriesPage() {
         )}
       </div>
 
-      <h2>Daftar Nomor Surat</h2>
+      <h2>Dashboard Nomor Surat</h2>
 
       {loading ? (
         <p>Memuat data...</p>
@@ -284,7 +314,7 @@ export function EntriesPage() {
                   value={filters.status}
                   onChange={(e) => setFilters({ ...filters, status: e.target.value })}
                 >
-                  <option value="">{filters.status || "Status Surat"}</option>
+                  <option value="">Status Surat</option>
                   <option value="0">Pending</option>
                   <option value="1">Disetujui</option>
                   <option value="2">Ditolak</option>
@@ -391,12 +421,6 @@ export function EntriesPage() {
         </>
       )
       }
-
-      <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-        <button className="back-button" onClick={() => route('/')}>
-          Kembali
-        </button>
-      </div>
     </div >
   );
 }
