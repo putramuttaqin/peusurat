@@ -236,6 +236,7 @@ export function EntriesPage() {
                       onClick={() => handleApprove(entry.ID)}
                       className="approve-button"
                       disabled={!isAdmin}
+                      hidden={!isAdmin}
                     >
                       {isAdmin ? 'Setujui' : 'Login untuk Setujui'}
                     </button>
