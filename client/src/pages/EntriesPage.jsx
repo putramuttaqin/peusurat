@@ -67,10 +67,6 @@ export function EntriesPage() {
     setIsAdmin(false);
   };
 
-  const handleDownload = () => {
-    window.open('http://localhost:3001/api/surat/download', '_blank');
-  };
-
   const handleApprove = async (id) => {
     if (!isAdmin) {
       alert('Hanya admin yang dapat menyetujui surat');
@@ -81,9 +77,13 @@ export function EntriesPage() {
     if (!confirm('Anda yakin ingin menyetujui surat ini?')) return;
 
     try {
-      const response = await fetch(`http://localhost:3001/api/surat/approve/${id}`, {
-        method: 'POST',
-        credentials: 'include'
+      const response = await fetch(`http://localhost:3001/api/surat/entries/${id}`, {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json' // Required for CORS preflight
+        },
+        body: JSON.stringify({ action: 'approve' }) // Send minimal data
       });
 
       if (response.status === 403) {
@@ -107,9 +107,10 @@ export function EntriesPage() {
 
   const stateToStr = (state) => {
     switch (state) {
-      case "proposed": return "Permohonan";
-      case "approved": return "Disetujui";
-      default: return "Ditolak";
+      case "0": return "Diproses";
+      case "1": return "Disetujui";
+      case "2": return "Ditolak";
+      default: return "Error";
     }
   };
 
@@ -230,7 +231,7 @@ export function EntriesPage() {
                 <td>{highlight(entry['Nomor Surat'], search)}</td>
                 <td>{stateToStr(entry.Status)}</td>
                 <td>
-                  {entry.Status === 'proposed' && (
+                  {entry.Status === '0' && (
                     <button
                       onClick={() => handleApprove(entry.ID)}
                       className="approve-button"

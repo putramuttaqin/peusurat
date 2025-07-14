@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
       pemohon: req.body.pemohon || '',
       tanggalSurat: req.body.tanggalSurat || '',
       nomorSurat: req.body.nomorSurat || `TEMP-${Date.now()}`,
-      status: 'proposed'
+      status: '0'
     });
     res.status(201).json({ success: true });
   } catch (err) {

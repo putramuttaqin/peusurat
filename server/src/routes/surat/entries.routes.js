@@ -1,7 +1,19 @@
+const fs = require('fs');
 const express = require('express');
 const router = express.Router();
+const path = require('path');
+const rateLimit = require('express-rate-limit');
 const { checkAdmin } = require('../../middleware/auth');
-const { readAllDocuments } = require('../utils/csvUtils');
+const { updateDocuments, readAllDocuments, DOCUMENTS_CSV } = require('../utils/csvUtils');
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
+const STATUS = {
+  PENDING: '0',
+  APPROVED: '1',
+  REJECTED: '2'
+};
 
 router.get('/', async (req, res) => {
   try {
@@ -13,9 +25,15 @@ router.get('/', async (req, res) => {
 });
 
 // Admin-only approval
-router.post('/approve/:id', checkAdmin, async (req, res) => {
+router.patch('/:id', limiter, checkAdmin, async (req, res) => {
   try {
     const docId = req.params.id;
+    const { action } = req.body;
+
+    if (!['approve', 'reject'].includes(action)) {
+      return res.status(400).json({ error: 'Invalid action' });
+    }
+
     const REGISTERS_JSON = path.join(path.dirname(DOCUMENTS_CSV), 'registers.json');
 
     // Load register counters
@@ -51,29 +69,32 @@ router.post('/approve/:id', checkAdmin, async (req, res) => {
     }
 
     // Update document
-    const currentNumber = registers[jenisSurat];
-    targetDoc['Nomor Surat'] = targetDoc['Nomor Surat'].replace('xyz', currentNumber);
-    targetDoc['Status'] = 'approved';
+    if (action === "approve") {
+      const currentNumber = registers[jenisSurat];
+      targetDoc['Nomor Surat'] = targetDoc['Nomor Surat'].replace('xyz', currentNumber);
+      targetDoc['Status'] = STATUS.APPROVED;
+      registers[jenisSurat] = currentNumber + 1;
+      fs.writeFileSync(REGISTERS_JSON, JSON.stringify(registers, null, 2));
+    } else {
+      targetDoc['Status'] = STATUS.REJECTED;
+    }
 
-    // Update counter
-    registers[jenisSurat] = currentNumber + 1;
-    fs.writeFileSync(REGISTERS_JSON, JSON.stringify(registers, null, 2));
+    // Save changes (using utility)
+    await updateDocuments(documents); // Replaces manual CSV writing
 
-    // Save updated CSV
-    const header = 'ID,Timestamp,Jenis Surat,Perihal Surat,Ruang,Pemohon,Tanggal Surat,Nomor Surat,Status\n';
-    const csvContent = header + documents.map(doc =>
-      Object.values(doc).map(field => escapeCsv(field)).join(',')
-    ).join('\n');
-
-    fs.writeFileSync(DOCUMENTS_CSV, '\uFEFF' + csvContent, 'utf8');
-
-    res.status(200).json({
+    const responseData = {
       success: true,
-      newNumber: currentNumber,
       updatedDocument: targetDoc
-    });
+    };
+
+    res.status(200).json(responseData);
   } catch (err) {
-    res.status(403).json({ error: 'Admin access required' });
+    console.error('state change error:', err); // Consistent logging
+    if (err.message === 'Admin access required') {
+      res.status(403).json({ error: err.message });
+    } else {
+      res.status(500).json({ error: 'Internal server error' });
+    }
   }
 });
 

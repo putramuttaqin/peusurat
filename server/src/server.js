@@ -1,48 +1,77 @@
 const express = require('express');
+const session = require('express-session');
 const cors = require('cors');
 const path = require('path');
-const { app, security, storage } = require('./config/server-config');
-const authRoutes = require('./routes/auth.routes');
-const documentRoutes = require('./routes/surat/index'); // Explicitly point to index.js
-
-const server = express();
 const cookieParser = require('cookie-parser');
-server.use(cookieParser());
+const { app: config, security, storage } = require('./config/server-config');
 
-// Allow requests from your frontend origin
-const corsOptions = {
-  origin: 'http://localhost:3000', // Change to your frontend URL
-  credentials: true,
-  optionsSuccessStatus: 200
+// Initialize Express
+const app = express();
+
+// Session configuration
+const sessionConfig = {
+  secret: security.session.secret,
+  name: security.session.name,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: config.env === 'production',
+    httpOnly: true,
+    maxAge: security.session.maxAge,
+    sameSite: config.env === 'production' ? 'none' : 'lax'
+  }
 };
 
+// Use Redis store in production
+if (config.env === 'production' && security.redis.url) {
+  const RedisStore = require('connect-redis')(session);
+  sessionConfig.store = new RedisStore({
+    url: security.redis.url
+  });
+}
+
 // Middleware
-server.use(cors(corsOptions));
-server.use(express.json());
+app.use(cookieParser());
+app.use(session(sessionConfig));
+app.use(cors({
+  origin: security.cors.origin,
+  credentials: true, // Must be literal true, not just truthy
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.use(express.json());
+
+// Explicitly handle OPTIONS requests
+app.options(/.*/, cors());
 
 // Routes
-server.use('/api/surat', documentRoutes);
-server.use('/api/auth', authRoutes);
+const authRoutes = require('./routes/auth.routes');
+const documentRoutes = require('./routes/surat/index');
+app.use('/api/auth', authRoutes);
+app.use('/api/surat', documentRoutes);
 
 // Health Check
-server.get('/health', (req, res) => {
+app.get('/health', (req, res) => {
   res.json({
-    status: 'healthy',
-    app: app.name,
-    environment: app.env
+    status: 'ok',
+    session: req.sessionID ? 'active' : 'none'
   });
 });
 
 // Error Handling
-server.use((err, req, res, next) => {
-  console.error(`[${new Date().toISOString()}] Error:`, err);
+app.use((err, req, res, next) => {
+  console.error('Server Error:', err);
   res.status(500).json({ error: 'Internal server error' });
 });
 
-server.listen(app.port, () => {
+// Start Server
+app.listen(config.port, () => {
   console.log(`
-  ${app.name} running in ${app.env} mode
-  ➜ API: http://localhost:${app.port}/api/documents
+  ${config.name} running in ${config.env} mode
+  ➜ Port: ${config.port}
+  ➜ Frontend: ${config.frontendUrl}
   ➜ Storage: ${path.join(storage.documents.directory, storage.documents.filename)}
   `);
 });
+
+module.exports = app;

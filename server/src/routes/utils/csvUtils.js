@@ -54,6 +54,15 @@ const appendRecord = async (record) => {
   await fs.promises.appendFile(DOCUMENTS_CSV, line);
 };
 
+const updateDocuments = async (documents) => {
+  const header = 'ID,Timestamp,Jenis Surat,Perihal Surat,Ruang,Pemohon,Tanggal Surat,Nomor Surat,Status\n';
+  const csvContent = header + documents.map(doc => 
+    Object.values(doc).map(field => escapeCsv(field)).join(',')
+  ).join('\n');
+
+  await fs.promises.writeFile(DOCUMENTS_CSV, '\uFEFF' + csvContent, 'utf8');
+};
+
 // Read all documents from CSV
 const readAllDocuments = () => {
   return new Promise((resolve, reject) => {
@@ -76,9 +85,10 @@ const readAllDocuments = () => {
 };
 
 module.exports = {
+  DOCUMENTS_CSV,
   initCsvFile,
   getNextId,
   appendRecord,
   readAllDocuments,
-  DOCUMENTS_CSV
+  updateDocuments
 };

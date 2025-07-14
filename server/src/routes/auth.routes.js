@@ -1,24 +1,24 @@
 // server/src/routes/auth.routes.js
 const express = require('express');
 const router = express.Router();
-const crypto = require('crypto');
+const { security } = require('../config/server-config');
 
-const sessions = {}; // Temporary session store
 
 // Login route
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
-  const ADMIN_USER = process.env.ADMIN_USER || 'admin';
-  const ADMIN_PASS = process.env.ADMIN_PASS || 'password123';
+  const ADMIN_USER = security.admin.username;
+  const ADMIN_PASS = security.admin.password;
 
   if (username === ADMIN_USER && password === ADMIN_PASS) {
-    const token = crypto.randomBytes(16).toString('hex');
-    sessions[token] = { isAdmin: true };
-
-    res.cookie('sessionToken', token, {
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000
-    }).json({ success: true });
+    req.session.isAdmin = true;
+    req.session.save(err => {
+      if (err) {
+        console.error('Session save error:', err);
+        return res.status(500).json({ error: 'Login failed' });
+      }
+      res.json({ success: true });
+    });
   } else {
     res.status(401).json({ success: false });
   }
@@ -26,19 +26,22 @@ router.post('/login', (req, res) => {
 
 // Logout route
 router.post('/logout', (req, res) => {
-  const token = req.cookies.sessionToken;
-  delete sessions[token];
-  res.clearCookie('sessionToken').json({ success: true });
+  req.session.destroy(err => {
+    if (err) {
+      console.error('Logout error:', err);
+      return res.status(500).json({ error: 'Logout failed' });
+    }
+    res.clearCookie('connect.sid').json({ success: true }); // 'connect.sid' is default cookie name
+  });
 });
 
+// Check admin status
 router.get('/check-admin', (req, res) => {
-  const token = req.cookies.sessionToken;
-  if (sessions[token]?.isAdmin) {
+  if (req.session.isAdmin) {
     res.json({ isAdmin: true });
   } else {
     res.status(403).json({ isAdmin: false });
   }
 });
 
-// Export the router directly
 module.exports = router;
