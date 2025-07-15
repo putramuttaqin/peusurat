@@ -59,7 +59,7 @@ export function EntriesPage() {
   // For Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const itemsPerPage = 10; // Match server limit
+  const itemsPerPage = 20; // Match server limit
 
   useEffect(() => {
     const fetchInitialData = async () => {

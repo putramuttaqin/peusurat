@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
       jenisSurat,
       ruang,
       page = parseInt(req.query.page) || 1,
-      limit = parseInt(req.query.limit) || 10
+      limit = parseInt(req.query.limit) || 20
     } = req.query;
 
     const documents = await readAllDocuments();
