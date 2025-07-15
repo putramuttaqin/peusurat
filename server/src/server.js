@@ -46,9 +46,9 @@ app.options(/.*/, cors());
 
 // Routes
 const authRoutes = require('./routes/auth.routes');
-const documentRoutes = require('./routes/surat/index');
+const suratRoutes = require('./routes/surat/index');
 app.use('/api/auth', authRoutes);
-app.use('/api/surat', documentRoutes);
+app.use('/api/surat', suratRoutes);
 
 // Health Check
 app.get('/health', (req, res) => {

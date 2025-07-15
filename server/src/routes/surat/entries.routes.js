@@ -23,6 +23,7 @@ router.get('/', async (req, res) => {
       status,
       jenisSurat,
       ruang,
+      search,
       page = parseInt(req.query.page) || 1,
       limit = parseInt(req.query.limit) || 20
     } = req.query;
@@ -43,6 +44,16 @@ router.get('/', async (req, res) => {
         (!ruang || doc.Ruang === ruang)
       );
     });
+
+    // Filter Keyword
+    if (search) {
+      const searchLower = search.toLowerCase();
+      filtered = filtered.filter(doc =>
+        Object.values(doc).some(val =>
+          val && val.toString().toLowerCase().includes(searchLower)
+        )
+      );
+    }
 
     // Pagination logic
     const startIndex = (parseInt(page) - 1) * parseInt(limit);

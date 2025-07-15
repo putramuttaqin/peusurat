@@ -40,10 +40,13 @@ export function EntriesPage() {
       'PENELITIAN DAN PENGEMBANGAN'
     ]
   });
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date();
+  const thirtyDaysAgo = new Date(today);
+  thirtyDaysAgo.setDate(today.getDate() - 30);
+  const formatDate = (date) => date.toISOString().split('T')[0];
   const [filters, setFilters] = useState({
-    startDate: today,
-    endDate: today,
+    startDate: formatDate(thirtyDaysAgo),
+    endDate: formatDate(today),
     status: '',
     jenisSurat: '',
     ruang: ''
@@ -59,17 +62,11 @@ export function EntriesPage() {
   // For Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const itemsPerPage = 20; // Match server limit
+  const itemsPerPage = 5; // Match server limit
 
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
-        // Fetch entries
-        const entriesResponse = await fetch('http://localhost:3001/api/surat/entries');
-        if (!entriesResponse.ok) throw new Error(`HTTP error! status: ${entriesResponse.status}`);
-        const entriesData = await entriesResponse.json();
-        setEntries(entriesData.documents || []);
-
         // Fetch filter options
         const optionsResponse = await fetch('http://localhost:3001/api/surat/filter-options');
         if (optionsResponse.ok) {
@@ -85,12 +82,16 @@ export function EntriesPage() {
           credentials: 'include'
         });
         setIsAdmin(adminCheck.ok);
+
+        // Use initial filter to fetch filtered entries
+        await handleFilter(1);
       } catch (err) {
         console.error('Error loading data:', err);
       } finally {
         setLoading(false);
       }
     };
+
     fetchInitialData();
   }, []);
 
@@ -103,6 +104,7 @@ export function EntriesPage() {
       if (filters.status) queryParams.append('status', filters.status);
       if (filters.jenisSurat) queryParams.append('jenisSurat', filters.jenisSurat);
       if (filters.ruang) queryParams.append('ruang', filters.ruang);
+      if (search) queryParams.append('search', search);
       queryParams.append('page', page);
       queryParams.append('limit', itemsPerPage);
 
@@ -124,8 +126,8 @@ export function EntriesPage() {
   const handleResetFilter = async () => {
     setSearch('');
     setFilters({
-      startDate: today,
-      endDate: today,
+      startDate: formatDate(thirtyDaysAgo),
+      endDate: formatDate(today),
       status: '',
       jenisSurat: '',
       ruang: ''
@@ -431,13 +433,15 @@ export function EntriesPage() {
             <button
               onClick={() => handleFilter(currentPage - 1)}
               disabled={currentPage === 1}
+              className="pagination-button"
             >
               Prev
             </button>
-            <span>Halaman {currentPage} dari {Math.ceil(totalItems / itemsPerPage)}</span>
+            <span>{currentPage} / {Math.ceil(totalItems / itemsPerPage)}</span>
             <button
               onClick={() => handleFilter(currentPage + 1)}
               disabled={currentPage * itemsPerPage >= totalItems}
+              className="pagination-button"
             >
               Next
             </button>

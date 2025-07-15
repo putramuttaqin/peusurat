@@ -20,6 +20,7 @@
 /* Buttons */
 .back-button,
 .admin-button,
+.pagination-button,
 .filter-button,
 .reset-button {
   margin-top: 0;
@@ -43,6 +44,11 @@
 .admin-button {
   background-color: #242427;
   margin-left: auto;
+}
+
+.pagination-button {
+  background-color: #83838d;
+  margin: 15px;
 }
 
 .filter-button {
