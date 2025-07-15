@@ -56,6 +56,11 @@ export function EntriesPage() {
   const [loginStatus, setLoginStatus] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  // For Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const itemsPerPage = 10; // Match server limit
+
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
@@ -89,22 +94,25 @@ export function EntriesPage() {
     fetchInitialData();
   }, []);
 
-  const handleFilter = async () => {
+  const handleFilter = async (page = 1) => {
     setLoading(true);
     try {
       const queryParams = new URLSearchParams();
-
-      // if (search) queryParams.append('search', search);
       if (filters.startDate) queryParams.append('startDate', filters.startDate);
       if (filters.endDate) queryParams.append('endDate', filters.endDate);
       if (filters.status) queryParams.append('status', filters.status);
       if (filters.jenisSurat) queryParams.append('jenisSurat', filters.jenisSurat);
       if (filters.ruang) queryParams.append('ruang', filters.ruang);
+      queryParams.append('page', page);
+      queryParams.append('limit', itemsPerPage);
 
       const response = await fetch(`http://localhost:3001/api/surat/entries?${queryParams.toString()}`);
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
       const data = await response.json();
       setEntries(data.documents || []);
+      setTotalItems(data.total || 0);
+      setCurrentPage(data.page || 1);
     } catch (err) {
       console.error('Error filtering entries:', err);
       alert('Gagal memfilter data');
@@ -122,8 +130,8 @@ export function EntriesPage() {
       jenisSurat: '',
       ruang: ''
     });
-    // Refetch all entries
-    await handleFilter();
+    setCurrentPage(1);
+    await handleFilter(1);
   };
 
   // Modify handleLogin
@@ -284,87 +292,87 @@ export function EntriesPage() {
 
       <h2>Dashboard Nomor Surat</h2>
 
+      <div className="search-filter-bar">
+        {/* Row 1: Search and Date Filters */}
+        <div className="filter-controls">
+          <div className="filter-item">
+            <input
+              type="date"
+              value={filters.startDate}
+              onChange={(e) => setFilters({ ...filters, startDate: e.target.value })}
+            />
+          </div>
+
+          <div className="filter-item">
+            <input
+              type="date"
+              value={filters.endDate}
+              onChange={(e) => setFilters({ ...filters, endDate: e.target.value })}
+            />
+          </div>
+
+          <div className="filter-item">
+            <select
+              value={filters.status}
+              onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+            >
+              <option value="">Status Surat</option>
+              <option value="0">Pending</option>
+              <option value="1">Disetujui</option>
+              <option value="2">Ditolak</option>
+            </select>
+          </div>
+
+          <div className="filter-item">
+            <select
+              value={filters.jenisSurat}
+              onChange={(e) => setFilters({ ...filters, jenisSurat: e.target.value })}
+            >
+              <option value="">{filters.jenisSurat || "Jenis Surat"}</option>
+              {filterOptions.jenisSuratOptions.map((option) => (
+                <option key={option} value={option}>{option}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="filter-item">
+            <select
+              value={filters.ruang}
+              onChange={(e) => setFilters({ ...filters, ruang: e.target.value })}
+            >
+              <option value="">{filters.ruang || "Semua Ruang"}</option>
+              {filterOptions.ruangOptions.map((option) => (
+                <option key={option} value={option}>{option}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Row 3: Buttons */}
+        <div className="filter-controls">
+          <div className="filter-item">
+            <input
+              type="text"
+              placeholder="Cari nomor surat/perihal..."
+              value={search}
+              onInput={(e) => setSearch(e.target.value)}
+              className="search-input"
+            />
+          </div>
+
+          <div className="filter-actions">
+            <button onClick={() => handleFilter(1)} className="filter-button">Cari</button>
+            <button onClick={() => handleResetFilter()} className="reset-button">Reset</button>
+          </div>
+        </div>
+      </div>
+
       {loading ? (
         <p>Memuat data...</p>
       ) : filtered.length === 0 ? (
         <p>Tidak ada data ditemukan.</p>
       ) : (
         <>
-          <div className="search-filter-bar">
-            {/* Row 1: Search and Date Filters */}
-            <div className="filter-controls">
-              <div className="filter-item">
-                <input
-                  type="date"
-                  value={filters.startDate}
-                  onChange={(e) => setFilters({ ...filters, startDate: e.target.value })}
-                />
-              </div>
-
-              <div className="filter-item">
-                <input
-                  type="date"
-                  value={filters.endDate}
-                  onChange={(e) => setFilters({ ...filters, endDate: e.target.value })}
-                />
-              </div>
-
-              <div className="filter-item">
-                <select
-                  value={filters.status}
-                  onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-                >
-                  <option value="">Status Surat</option>
-                  <option value="0">Pending</option>
-                  <option value="1">Disetujui</option>
-                  <option value="2">Ditolak</option>
-                </select>
-              </div>
-
-              <div className="filter-item">
-                <select
-                  value={filters.jenisSurat}
-                  onChange={(e) => setFilters({ ...filters, jenisSurat: e.target.value })}
-                >
-                  <option value="">{filters.jenisSurat || "Jenis Surat"}</option>
-                  {filterOptions.jenisSuratOptions.map((option) => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="filter-item">
-                <select
-                  value={filters.ruang}
-                  onChange={(e) => setFilters({ ...filters, ruang: e.target.value })}
-                >
-                  <option value="">{filters.ruang || "Semua Ruang"}</option>
-                  {filterOptions.ruangOptions.map((option) => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            {/* Row 3: Buttons */}
-            <div className="filter-controls">
-              <div className="filter-item">
-                <input
-                  type="text"
-                  placeholder="Cari nomor surat/perihal..."
-                  value={search}
-                  onInput={(e) => setSearch(e.target.value)}
-                  className="search-input"
-                />
-              </div>
-
-              <div className="filter-actions">
-                <button onClick={handleFilter} className="filter-button">Cari</button>
-                <button onClick={handleResetFilter} className="reset-button">Reset</button>
-              </div>
-            </div>
-          </div>
-
           <table className="data-table">
             <thead>
               <tr>
@@ -418,6 +426,22 @@ export function EntriesPage() {
               ))}
             </tbody>
           </table>
+          {/* Pagination */}
+          <div className="pagination">
+            <button
+              onClick={() => handleFilter(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Prev
+            </button>
+            <span>Halaman {currentPage} dari {Math.ceil(totalItems / itemsPerPage)}</span>
+            <button
+              onClick={() => handleFilter(currentPage + 1)}
+              disabled={currentPage * itemsPerPage >= totalItems}
+            >
+              Next
+            </button>
+          </div>
         </>
       )
       }
