@@ -22,12 +22,21 @@ const sessionConfig = {
   }
 };
 
-if (config.env === 'production' && security.redis.url) {
-  const RedisStore = require('connect-redis').default;
-  const Redis = require('ioredis');
-  const redisClient = new Redis(security.redis.url);
+console.log('[BOOT] Starting server...');
+console.log('[ENV] PORT:', process.env.PORT);
+console.log('[ENV] ENV:', config.env);
+console.log('[ENV] Redis URL:', security.redis?.url);
 
-  sessionConfig.store = new RedisStore({ client: redisClient });
+// Redis
+try {
+  if (config.env === 'production' && security.redis.url) {
+    const RedisStore = require('connect-redis').default;
+    const Redis = require('ioredis');
+    const redisClient = new Redis(security.redis.url);
+    sessionConfig.store = new RedisStore({ client: redisClient });
+  }
+} catch (err) {
+  console.error('Redis session store setup failed:', err);
 }
 
 // ✅ Add this line before any middleware that relies on IP
