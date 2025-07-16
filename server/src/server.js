@@ -30,6 +30,9 @@ if (config.env === 'production' && security.redis.url) {
   });
 }
 
+// ✅ Add this line before any middleware that relies on IP
+app.set('trust proxy', true);
+
 // Middleware
 app.use(cookieParser());
 app.use(session(sessionConfig));
