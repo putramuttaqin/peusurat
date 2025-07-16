@@ -4,4 +4,4 @@
   publish = "dist"
 
 [build.environment]
-  VITE_API_URL = "https://your-backend.onrender.com"
+  VITE_API_URL = "https://sinomor-production.up.railway.app"

@@ -40,7 +40,7 @@ export function EntriesPage() {
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
-        const optionsRes = await fetch('http://localhost:3001/api/surat/filter-options');
+        const optionsRes = await fetch(`${import.meta.env.VITE_API_URL}/api/surat/filter-options`);
         if (optionsRes.ok) {
           const data = await optionsRes.json();
           setFilterOptions({
@@ -49,7 +49,7 @@ export function EntriesPage() {
           });
         }
 
-        const adminRes = await fetch('http://localhost:3001/api/auth/check-admin', {
+        const adminRes = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/check-admin`, {
           credentials: 'include'
         });
         setIsAdmin(adminRes.ok);
@@ -76,7 +76,7 @@ export function EntriesPage() {
         limit: itemsPerPage
       });
 
-      const res = await fetch(`http://localhost:3001/api/surat/entries?${params.toString()}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/surat/entries?${params.toString()}`);
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
       const data = await res.json();
@@ -105,7 +105,7 @@ export function EntriesPage() {
 
   const handleLogin = async () => {
     try {
-      const res = await fetch('http://localhost:3001/api/auth/login', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -125,7 +125,7 @@ export function EntriesPage() {
   };
 
   const handleLogout = async () => {
-    await fetch('http://localhost:3001/api/auth/logout', {
+    await fetch(`${import.meta.env.VITE_API_URL}/api/auth/logout`, {
       credentials: 'include'
     });
     setIsAdmin(false);
@@ -142,7 +142,7 @@ export function EntriesPage() {
     if (!confirm(`Anda yakin ingin ${text} surat ini?`)) return;
 
     try {
-      const res = await fetch(`http://localhost:3001/api/surat/entries/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/surat/entries/${id}`, {
         method: 'PATCH',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
