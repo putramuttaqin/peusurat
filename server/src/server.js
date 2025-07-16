@@ -22,12 +22,12 @@ const sessionConfig = {
   }
 };
 
-// Use Redis store in production
 if (config.env === 'production' && security.redis.url) {
-  const RedisStore = require('connect-redis')(session);
-  sessionConfig.store = new RedisStore({
-    url: security.redis.url
-  });
+  const RedisStore = require('connect-redis').default;
+  const Redis = require('ioredis');
+  const redisClient = new Redis(security.redis.url);
+
+  sessionConfig.store = new RedisStore({ client: redisClient });
 }
 
 // ✅ Add this line before any middleware that relies on IP
