@@ -175,7 +175,7 @@ export function FormPage() {
     const nomorSurat = `W.1.${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-xyz`;
 
     try {
-      const res = await fetch('http://localhost:3001/api/surat/submit', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/surat/submit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
