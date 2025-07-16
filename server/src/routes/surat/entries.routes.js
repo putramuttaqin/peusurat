@@ -60,13 +60,13 @@ router.get('/', async (req, res) => {
     const endIndex = startIndex + parseInt(limit);
     const paginated = filtered.slice(startIndex, endIndex);
 
-    console.log('Sending response:', {
-      filters: { startDate, endDate, status, jenisSurat, ruang },
-      total: filtered.length,
-      page,
-      limit,
-      resultCount: paginated.length
-    });
+    // console.log('Sending response:', {
+    //   filters: { startDate, endDate, status, jenisSurat, ruang },
+    //   total: filtered.length,
+    //   page,
+    //   limit,
+    //   resultCount: paginated.length
+    // });
 
     res.json({
       documents: paginated,
