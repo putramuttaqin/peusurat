@@ -80,6 +80,7 @@ client/src/data/pemohon.json
 
 # Exclude all server data except these files
 server/data/*
+/server/data/*.db
 !server/data/registers.json
 !server/data/.gitkeep
 

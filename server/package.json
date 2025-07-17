@@ -4,9 +4,10 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
+    "dev": "npx nodemon src/server.js",
     "build": "echo 'No build step required'",
-    "postinstall": "npm prune --omit=dev"
+    "postinstall": "npm prune --omit=dev",
+    "test:db": "node test/db.js"
   },
   "dependencies": {
     "better-sqlite3": "^12.2.0",
@@ -20,5 +21,8 @@
     "express-rate-limit": "^7.5.1",
     "express-session": "^1.18.1",
     "ioredis": "^5.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }

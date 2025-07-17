@@ -1,23 +1,22 @@
 const Database = require('better-sqlite3');
 const path = require('path');
 
-const dbPath = path.resolve(__dirname, '../../data/sinomor.db');
-const db = new Database(dbPath);
+const db = new Database(path.resolve(__dirname, '../../data/sinomor.db'));
 
-// Init table
 db.exec(`
-CREATE TABLE IF NOT EXISTS surat (
-  id TEXT PRIMARY KEY,
-  jenis_surat SMALLINT,
-  ruang SMALLINT,
-  status SMALLINT,
-  tanggal_surat DATE,
-  nomor_surat TEXT,
-  perihal_surat TEXT,
-  pemohon TEXT,
-  reason TEXT DEFAULT NULL,
-  email TEXT DEFAULT NULL
-);
+  CREATE TABLE IF NOT EXISTS surat (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    jenis_surat INTEGER,
+    ruang INTEGER,
+    status INTEGER,
+    perihal_surat TEXT,
+    pemohon TEXT,
+    nomor_surat TEXT,
+    reason TEXT DEFAULT NULL,
+    email TEXT DEFAULT NULL,
+    tanggal_surat TEXT,
+    created_at TEXT DEFAULT (datetime('now'))
+  )
 `);
 
 module.exports = db;
