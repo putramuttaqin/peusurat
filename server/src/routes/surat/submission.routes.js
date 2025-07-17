@@ -1,18 +1,43 @@
+// server/src/routes/surat/submission.routes.js
+
 const express = require('express');
 const router = express.Router();
-const { appendRecord } = require('../utils/csvUtils');
+const db = require('../../config/db');
+const { STATUS } = require('../../constants/enum');
 
-router.post('/', async (req, res) => {
+router.post('/', (req, res) => {
   try {
-    await appendRecord({
-      jenisSurat: req.body.jenisSurat || '',
-      perihalSurat: req.body.perihalSurat || '',
-      ruangPemohon: req.body.ruangPemohon || '',
-      pemohon: req.body.pemohon || '',
-      tanggalSurat: req.body.tanggalSurat || '',
-      nomorSurat: req.body.nomorSurat || `TEMP-${Date.now()}`,
-      status: '0'
-    });
+    const {
+      jenisSurat = '',
+      perihalSurat = '',
+      ruangPemohon = '',
+      pemohon = '',
+      tanggalSurat = '',
+      nomorSurat
+    } = req.body;
+
+    const insert = db.prepare(`
+      INSERT INTO surat (
+        jenis_surat,
+        perihal_surat,
+        ruang,
+        pemohon,
+        tanggal_surat,
+        nomor_surat,
+        status
+      ) VALUES (?, ?, ?, ?, ?, ?, ?)
+    `);
+
+    insert.run(
+      parseInt(jenisSurat) || 0,
+      perihalSurat,
+      parseInt(ruangPemohon) || 0,
+      pemohon,
+      tanggalSurat,
+      nomorSurat || `TEMP-${Date.now()}`,
+      STATUS.PENDING
+    );
+
     res.status(201).json({ success: true });
   } catch (err) {
     console.error('Submission failed:', err);
