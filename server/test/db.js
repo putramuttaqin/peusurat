@@ -7,5 +7,3 @@ console.log(tables);
 // Show row count in surat table
 const rows = db.prepare('SELECT COUNT(*) AS count FROM surat').get();
 console.log(`Surat table contains ${rows.count} rows.`);
-
-console.log('Dummy row inserted');
