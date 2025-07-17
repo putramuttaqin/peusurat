@@ -1,3 +1,5 @@
+// server/src/routes/surat/entries.routes.js
+
 const fs = require('fs');
 const express = require('express');
 const router = express.Router();
@@ -9,11 +11,6 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100 // limit each IP to 100 requests per windowMs
 });
-const STATUS = {
-  PENDING: '0',
-  APPROVED: '1',
-  REJECTED: '2'
-};
 
 router.get('/', async (req, res) => {
   try {
