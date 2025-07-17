@@ -28,7 +28,7 @@ app.use(cookieSession({
 }));
 
 // Middleware
-app.use(cookieParser());
+app.use(cookieParser(security.session.secret));
 app.use(cors({
   origin: security.cors.origin,
   credentials: true,

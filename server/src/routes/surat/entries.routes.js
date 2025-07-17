@@ -86,7 +86,7 @@ router.patch('/:id', limiter, checkAdmin, (req, res) => {
     const id = parseInt(req.params.id);
     const { action } = req.body;
 
-    if (!['approve', 'reject'].includes(action)) {
+    if (![1, 2].includes(action)) {
       return res.status(400).json({ error: 'Invalid action' });
     }
 
@@ -98,10 +98,10 @@ router.patch('/:id', limiter, checkAdmin, (req, res) => {
     let updatedNomor = surat.nomor_surat;
     let updatedStatus = surat.status;
 
-    if (action === 'approve') {
+    if (action === 1) {
       updatedNomor = surat.nomor_surat.replace('xyz', surat.id);
       updatedStatus = parseInt(STATUS.APPROVED);
-    } else if (action === 'reject') {
+    } else if (action === 2) {
       updatedStatus = parseInt(STATUS.REJECTED);
     }
 

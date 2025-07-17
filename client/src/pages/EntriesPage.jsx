@@ -92,7 +92,7 @@ export function EntriesPage() {
 
   const handleLogin = async () => {
     try {
-      const res = await fetch(`${apiUrl}/api/auth/login`, {
+      const res = await fetch(`${apiUrl}/api/auth/session`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -112,7 +112,8 @@ export function EntriesPage() {
   };
 
   const handleLogout = async () => {
-    await fetch(`${apiUrl}/api/auth/logout`, {
+    await fetch(`${apiUrl}/api/auth/session`, {
+      method: 'DELETE',
       credentials: 'include'
     });
     setIsAdmin(false);
@@ -152,8 +153,8 @@ export function EntriesPage() {
 
   const stateToStr = (s) =>
     s === 0 ? 'Pending' :
-    s === 1 ? 'Approve' :
-    s === 2 ? 'Reject' : 'Error';
+      s === 1 ? 'Approve' :
+        s === 2 ? 'Reject' : 'Error';
 
   return (
     <div className="form-container">
