@@ -1,5 +1,8 @@
+// client/src/pages/EntriesPage.jsx
+
 import { useEffect, useState } from 'preact/hooks';
 import { route } from 'preact-router';
+import { JENIS_SURAT_OPTIONS, RUANG_OPTIONS, STATUS } from '../shared/enum.js';
 import '../styles/entries.css';
 
 export function EntriesPage() {
@@ -8,6 +11,9 @@ export function EntriesPage() {
   thirtyDaysAgo.setDate(today.getDate() - 30);
   const formatDate = (date) => date.toISOString().split('T')[0];
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const itemsPerPage = 5;
+
   // State
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,6 +21,10 @@ export function EntriesPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginStatus, setLoginStatus] = useState(null);
 
   const [filters, setFilters] = useState({
     startDate: formatDate(thirtyDaysAgo),
@@ -24,32 +34,11 @@ export function EntriesPage() {
     ruang: ''
   });
 
-  const [filterOptions, setFilterOptions] = useState({
-    jenisSuratOptions: [],
-    ruangOptions: []
-  });
-
-  const itemsPerPage = 5;
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [loginStatus, setLoginStatus] = useState(null);
-
-  // Init
+  // Initial data load
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
-        const optionsRes = await fetch(`${import.meta.env.VITE_API_URL}/api/surat/filter-options`);
-        if (optionsRes.ok) {
-          const data = await optionsRes.json();
-          setFilterOptions({
-            jenisSuratOptions: data.jenisSuratOptions || [],
-            ruangOptions: data.ruangOptions || []
-          });
-        }
-
-        const adminRes = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/check-admin`, {
+        const adminRes = await fetch(`${apiUrl}/api/auth/check-admin`, {
           credentials: 'include'
         });
         setIsAdmin(adminRes.ok);
@@ -65,7 +54,8 @@ export function EntriesPage() {
     fetchInitialData();
   }, []);
 
-  // Handlers
+  // === Handlers ===
+
   const handleFilter = async (page = 1) => {
     setLoading(true);
     try {
@@ -76,7 +66,7 @@ export function EntriesPage() {
         limit: itemsPerPage
       });
 
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/surat/entries?${params.toString()}`);
+      const res = await fetch(`${apiUrl}/api/surat/entries?${params.toString()}`);
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
       const data = await res.json();
@@ -105,7 +95,7 @@ export function EntriesPage() {
 
   const handleLogin = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
+      const res = await fetch(`${apiUrl}/api/auth/login`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -125,7 +115,7 @@ export function EntriesPage() {
   };
 
   const handleLogout = async () => {
-    await fetch(`${import.meta.env.VITE_API_URL}/api/auth/logout`, {
+    await fetch(`${apiUrl}/api/auth/logout`, {
       credentials: 'include'
     });
     setIsAdmin(false);
@@ -142,7 +132,7 @@ export function EntriesPage() {
     if (!confirm(`Anda yakin ingin ${text} surat ini?`)) return;
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/surat/entries/${id}`, {
+      const res = await fetch(`${apiUrl}/api/surat/entries/${id}`, {
         method: 'PATCH',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -157,14 +147,18 @@ export function EntriesPage() {
       if (!res.ok) throw new Error('Approval Gagal');
 
       await handleFilter(currentPage);
-      alert(`Berhasil ${text} Surat!`);
+      alert(`Berhasil ${text} surat!`);
     } catch (err) {
       alert(err.message || 'Gagal menyetujui surat');
     }
   };
 
-  // Utils
-  const stateToStr = (s) => (s === '0' ? 'Pending' : s === '1' ? 'Disetujui' : s === '2' ? 'Ditolak' : 'Error');
+  // === Utils ===
+
+  const stateToStr = (s) =>
+    s === '0' ? 'Pending' :
+    s === '1' ? 'Disetujui' :
+    s === '2' ? 'Ditolak' : 'Error';
 
   const highlight = (text, keyword) => {
     if (!keyword || !text) return text;
@@ -174,15 +168,8 @@ export function EntriesPage() {
     );
   };
 
-  const filtered = entries
-    .filter((entry) =>
-      Object.values(entry).some((val) =>
-        val?.toString().toLowerCase().includes(search.toLowerCase())
-      )
-    )
-    .slice(0, 20);
+  // === Render ===
 
-  // Render
   return (
     <div className="form-container">
       <div className="entries-header">
@@ -219,49 +206,39 @@ export function EntriesPage() {
       <h2>Dashboard Nomor Surat</h2>
 
       <div className="search-filter-bar">
-        {/* Row 1: Date Filters */}
+        {/* Row: Filters */}
         <div className="filter-row">
+          <select
+            value={filters.status}
+            onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+          >
+            <option value="">Semua Status</option>
+            {Object.entries(STATUS).map(([key, value]) => (
+              <option key={key} value={value}>{key}</option>
+            ))}
+          </select>
 
+          <select
+            value={filters.jenisSurat}
+            onChange={(e) => setFilters({ ...filters, jenisSurat: e.target.value })}
+          >
+            <option value="">Jenis Surat</option>
+            {JENIS_SURAT_OPTIONS.map((option, index) => (
+              <option key={option} value={index}>{option}</option>
+            ))}
+          </select>
+
+          <select
+            value={filters.ruang}
+            onChange={(e) => setFilters({ ...filters, ruang: e.target.value })}
+          >
+            <option value="">Semua Ruang</option>
+            {RUANG_OPTIONS.map((option, index) => (
+              <option key={option} value={index}>{option}</option>
+            ))}
+          </select>
         </div>
 
-        {/* Row 1: Status, Jenis Surat, Ruang */}
-        <div className="filter-row">
-          <div className="filter-item">
-            <select
-              value={filters.status}
-              onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-            >
-              <option value="">Status Surat</option>
-              <option value="0">Pending</option>
-              <option value="1">Disetujui</option>
-              <option value="2">Ditolak</option>
-            </select>
-          </div>
-          <div className="filter-item">
-            <select
-              value={filters.jenisSurat}
-              onChange={(e) => setFilters({ ...filters, jenisSurat: e.target.value })}
-            >
-              <option value="">{filters.jenisSurat || 'Jenis Surat'}</option>
-              {filterOptions.jenisSuratOptions.map((option) => (
-                <option key={option} value={option}>{option}</option>
-              ))}
-            </select>
-          </div>
-          <div className="filter-item">
-            <select
-              value={filters.ruang}
-              onChange={(e) => setFilters({ ...filters, ruang: e.target.value })}
-            >
-              <option value="">{filters.ruang || 'Semua Ruang'}</option>
-              {filterOptions.ruangOptions.map((option) => (
-                <option key={option} value={option}>{option}</option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        {/* Row 2: Search + Buttons */}
         <div className="filter-row">
           <input
             type="text"
@@ -289,10 +266,9 @@ export function EntriesPage() {
         </div>
       </div>
 
-
       {loading ? (
         <p>Memuat data...</p>
-      ) : filtered.length === 0 ? (
+      ) : entries.length === 0 ? (
         <p>Tidak ada data ditemukan.</p>
       ) : (
         <>
@@ -312,7 +288,7 @@ export function EntriesPage() {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((entry) => (
+              {entries.map((entry) => (
                 <tr key={entry.ID}>
                   <td>{highlight(entry.ID, search)}</td>
                   <td>{highlight(entry.Timestamp, search)}</td>
@@ -335,9 +311,21 @@ export function EntriesPage() {
           </table>
 
           <div className="pagination">
-            <button onClick={() => handleFilter(currentPage - 1)} disabled={currentPage === 1} className="pagination-button">Prev</button>
+            <button
+              onClick={() => handleFilter(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="pagination-button"
+            >
+              Prev
+            </button>
             <span>{currentPage} / {Math.ceil(totalItems / itemsPerPage)}</span>
-            <button onClick={() => handleFilter(currentPage + 1)} disabled={currentPage * itemsPerPage >= totalItems} className="pagination-button">Next</button>
+            <button
+              onClick={() => handleFilter(currentPage + 1)}
+              disabled={currentPage * itemsPerPage >= totalItems}
+              className="pagination-button"
+            >
+              Next
+            </button>
           </div>
         </>
       )}
