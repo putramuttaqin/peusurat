@@ -1,47 +1,37 @@
-// server/src/routes/auth.routes.js
 const express = require('express');
 const router = express.Router();
 const { security } = require('../config/server-config');
 
-
-// Login route
-router.post('/login', (req, res) => {
+// POST /api/auth/session → Login
+router.post('/session', (req, res) => {
   const { username, password } = req.body;
   const ADMIN_USER = security.admin.username;
   const ADMIN_PASS = security.admin.password;
 
   if (username === ADMIN_USER && password === ADMIN_PASS) {
-    req.session.isAdmin = true;
-    req.session.save(err => {
-      if (err) {
-        console.error('Session save error:', err);
-        return res.status(500).json({ error: 'Login failed' });
-      }
-      res.json({ success: true });
+    res.cookie('isAdmin', 'true', {
+      httpOnly: true,
+      signed: true,
+      secure: security.env === 'production',
+      sameSite: security.env === 'production' ? 'none' : 'lax',
+      maxAge: security.session.maxAge, // e.g., 1 day
     });
-  } else {
-    res.status(401).json({ success: false });
+    return res.json({ success: true });
   }
+
+  res.status(401).json({ success: false });
 });
 
-// Logout route
-router.post('/logout', (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      console.error('Logout error:', err);
-      return res.status(500).json({ error: 'Logout failed' });
-    }
-    res.clearCookie('connect.sid').json({ success: true }); // 'connect.sid' is default cookie name
-  });
+// DELETE /api/auth/session → Logout
+router.delete('/session', (req, res) => {
+  res.clearCookie('isAdmin');
+  res.json({ success: true });
 });
 
-// Check admin status
-router.get('/check-admin', (req, res) => {
-  if (req.session.isAdmin) {
-    res.json({ isAdmin: true });
-  } else {
-    res.status(403).json({ isAdmin: false });
-  }
+// GET /api/auth/me → Check if admin
+router.get('/me', (req, res) => {
+  const isAdmin = req.signedCookies?.isAdmin === 'true';
+  res.json({ isAdmin });
 });
 
 module.exports = router;

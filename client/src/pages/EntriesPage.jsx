@@ -14,7 +14,6 @@ export function EntriesPage() {
   const apiUrl = import.meta.env.VITE_API_URL;
   const itemsPerPage = 5;
 
-  // State
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -34,14 +33,14 @@ export function EntriesPage() {
     ruang: ''
   });
 
-  // Initial data load
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
-        const adminRes = await fetch(`${apiUrl}/api/auth/check-admin`, {
+        const res = await fetch(`${apiUrl}/api/auth/me`, {
           credentials: 'include'
         });
-        setIsAdmin(adminRes.ok);
+        const json = await res.json();
+        setIsAdmin(json.isAdmin === true);
 
         await handleFilter(1);
       } catch (err) {
@@ -53,8 +52,6 @@ export function EntriesPage() {
 
     fetchInitialData();
   }, []);
-
-  // === Handlers ===
 
   const handleFilter = async (page = 1) => {
     setLoading(true);
@@ -70,7 +67,6 @@ export function EntriesPage() {
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
       const data = await res.json();
-      console.log(data.documents);
       setEntries(data.documents || []);
       setTotalItems(data.total || 0);
       setCurrentPage(data.page || 1);
@@ -129,7 +125,7 @@ export function EntriesPage() {
       return;
     }
 
-    const text = aksi === 'approve' ? 'menyutujui' : 'menolak';
+    const text = aksi === 1 ? 'menyutujui' : 'menolak';
     if (!confirm(`Anda yakin ingin ${text} surat ini?`)) return;
 
     try {
@@ -154,22 +150,10 @@ export function EntriesPage() {
     }
   };
 
-  // === Utils ===
-
   const stateToStr = (s) =>
     s === 0 ? 'Pending' :
     s === 1 ? 'Approve' :
     s === 2 ? 'Reject' : 'Error';
-
-  const highlight = (text, keyword) => {
-    if (!keyword || !text) return text;
-    const regex = new RegExp(`(${keyword})`, 'gi');
-    return text.toString().split(regex).map((part, i) =>
-      regex.test(part) ? <mark key={i}>{part}</mark> : part
-    );
-  };
-
-  // === Render ===
 
   return (
     <div className="form-container">
@@ -207,7 +191,6 @@ export function EntriesPage() {
       <h2>Dashboard Nomor Surat</h2>
 
       <div className="search-filter-bar">
-        {/* Row: Filters */}
         <div className="filter-row">
           <select
             value={filters.status}
@@ -288,7 +271,7 @@ export function EntriesPage() {
             </thead>
             <tbody>
               {entries.map((entry) => (
-                <tr key={entry.ID}>
+                <tr key={entry.id}>
                   <td>{entry.id}</td>
                   <td>{entry.created_at}</td>
                   <td>{JENIS_SURAT_OPTIONS[entry.jenis_surat]}</td>
@@ -296,10 +279,10 @@ export function EntriesPage() {
                   <td>{entry.tanggal_surat}</td>
                   <td>{entry.nomor_surat}</td>
                   <td>{stateToStr(entry.status)}</td>
-                  {isAdmin && entry.Status === '0' && (
+                  {isAdmin && entry.status === 0 && (
                     <td>
-                      <button onClick={() => handleState(entry.ID, 'approve')} className="action-button">Setujui</button>
-                      <button onClick={() => handleState(entry.ID, 'reject')} className="action-button">Tolak</button>
+                      <button onClick={() => handleState(entry.id, 1)} className="action-button">Approve</button>
+                      <button onClick={() => handleState(entry.id, 2)} className="action-button">Reject</button>
                     </td>
                   )}
                 </tr>

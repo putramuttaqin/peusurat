@@ -4,7 +4,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "npx nodemon src/server.js",
+    "dev": "npx cross-env NODE_ENV=development npx nodemon src/server.js",
     "build": "echo 'No build step required'",
     "postinstall": "npm prune --omit=dev",
     "test:db": "node test/db.js"
@@ -13,6 +13,7 @@
     "better-sqlite3": "^12.2.0",
     "connect-redis": "^9.0.0",
     "cookie-parser": "^1.4.7",
+    "cookie-session": "^2.1.0",
     "cors": "^2.8.5",
     "csv-parser": "^3.2.0",
     "csv-writer": "^1.6.0",
@@ -23,6 +24,7 @@
     "ioredis": "^5.6.1"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "nodemon": "^3.1.10"
   }
 }

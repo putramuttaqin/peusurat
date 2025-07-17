@@ -1,59 +1,43 @@
 const express = require('express');
-const session = require('express-session');
 const cors = require('cors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const { app: config, security, storage } = require('./config/server-config');
+const cookieSession = require('cookie-session'); // ✅ new
+const { app: config, security } = require('./config/server-config');
 
 // Initialize Express
 const app = express();
 
-// Session configuration
-const sessionConfig = {
-  secret: security.session.secret,
-  name: security.session.name,
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    secure: config.env === 'production',
-    httpOnly: true,
-    maxAge: security.session.maxAge,
-    sameSite: config.env === 'production' ? 'none' : 'lax'
-  }
-};
-
 console.log('[BOOT] Starting server...');
-console.log('[ENV] PORT:', process.env.PORT);
+console.log('[ENV] PORT:', config.port);
 console.log('[ENV] ENV:', config.env);
-console.log('[ENV] Redis URL:', security.redis?.url);
 
-// Redis
-try {
-  if (config.env === 'production' && security.redis.url) {
-    const RedisStore = require('connect-redis').default;
-    const Redis = require('ioredis');
-    const redisClient = new Redis(security.redis.url);
-    sessionConfig.store = new RedisStore({ client: redisClient });
-  }
-} catch (err) {
-  console.error('Redis session store setup failed:', err);
+// ✅ Trust only the first proxy (for Railway)
+if (config.env === 'production') {
+  app.set('trust proxy', 1);
 }
 
-// ✅ Add this line before any middleware that relies on IP
-app.set('trust proxy', true);
+// ✅ Cookie-session config
+app.use(cookieSession({
+  name: security.session.name || 'sinomor.sid',
+  secret: security.session.secret,
+  maxAge: security.session.maxAge,
+  sameSite: config.env === 'production' ? 'none' : 'lax',
+  secure: config.env === 'production',
+  httpOnly: true
+}));
 
 // Middleware
 app.use(cookieParser());
-app.use(session(sessionConfig));
 app.use(cors({
   origin: security.cors.origin,
-  credentials: true, // Must be literal true, not just truthy
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 
-// Explicitly handle OPTIONS requests
+// Handle OPTIONS preflight
 app.options(/.*/, cors());
 
 // Routes
@@ -66,7 +50,7 @@ app.use('/api/surat', suratRoutes);
 app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
-    session: req.sessionID ? 'active' : 'none'
+    session: req.session || 'none'
   });
 });
 
@@ -82,7 +66,6 @@ app.listen(config.port, () => {
   ${config.name} running in ${config.env} mode
   ➜ Port: ${config.port}
   ➜ Frontend: ${config.frontendUrl}
-  ➜ Storage: ${path.join(storage.documents.directory, storage.documents.filename)}
   `);
 });
 

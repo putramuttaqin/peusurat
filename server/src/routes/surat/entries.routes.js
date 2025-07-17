@@ -2,7 +2,6 @@
 
 const express = require('express');
 const router = express.Router();
-const db = require('../../config/db');
 const rateLimit = require('express-rate-limit');
 const { logAndRun, logAndGet, logAndAll } = require('../../config/db');
 const { checkAdmin } = require('../../middleware/auth');
@@ -81,6 +80,9 @@ router.get('/', (req, res) => {
 // PATCH /api/surat/entries/:id
 router.patch('/:id', limiter, checkAdmin, (req, res) => {
   try {
+    console.log(`Params: ${req.params.id}`);
+    console.log(`Body: ${req.body}`);
+
     const id = parseInt(req.params.id);
     const { action } = req.body;
 
@@ -88,7 +90,7 @@ router.patch('/:id', limiter, checkAdmin, (req, res) => {
       return res.status(400).json({ error: 'Invalid action' });
     }
 
-    const surat = db.prepare('SELECT * FROM surat WHERE id = ?').get(id);
+    const surat = logAndGet('SELECT * FROM surat WHERE id = ?', [id]);
     if (!surat) {
       return res.status(404).json({ error: 'Document not found' });
     }
@@ -98,16 +100,17 @@ router.patch('/:id', limiter, checkAdmin, (req, res) => {
 
     if (action === 'approve') {
       updatedNomor = surat.nomor_surat.replace('xyz', surat.id);
-      updatedStatus = STATUS.APPROVED;
+      updatedStatus = parseInt(STATUS.APPROVED);
     } else if (action === 'reject') {
-      updatedStatus = STATUS.REJECTED;
+      updatedStatus = parseInt(STATUS.REJECTED);
     }
 
-    db.prepare(`
-      UPDATE surat SET nomor_surat = ?, status = ? WHERE id = ?
-    `).run(updatedNomor, updatedStatus, id);
+    logAndRun(
+      `UPDATE surat SET nomor_surat = ?, status = ? WHERE id = ?`,
+      [updatedNomor, updatedStatus, id]
+    );
 
-    const updated = db.prepare('SELECT * FROM surat WHERE id = ?').get(id);
+    const updated = logAndGet('SELECT * FROM surat WHERE id = ?', [id]);
 
     res.json({ success: true, updatedDocument: updated });
   } catch (err) {
