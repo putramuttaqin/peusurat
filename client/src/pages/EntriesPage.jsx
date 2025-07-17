@@ -70,6 +70,7 @@ export function EntriesPage() {
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
       const data = await res.json();
+      console.log(data.documents);
       setEntries(data.documents || []);
       setTotalItems(data.total || 0);
       setCurrentPage(data.page || 1);
@@ -156,9 +157,9 @@ export function EntriesPage() {
   // === Utils ===
 
   const stateToStr = (s) =>
-    s === '0' ? 'Pending' :
-    s === '1' ? 'Disetujui' :
-    s === '2' ? 'Ditolak' : 'Error';
+    s === 0 ? 'Pending' :
+    s === 1 ? 'Approve' :
+    s === 2 ? 'Reject' : 'Error';
 
   const highlight = (text, keyword) => {
     if (!keyword || !text) return text;
@@ -276,11 +277,9 @@ export function EntriesPage() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Timestamp</th>
+                <th>Waktu Masuk</th>
                 <th>Jenis Surat</th>
                 <th>Perihal Surat</th>
-                <th>Ruang</th>
-                <th>Pemohon</th>
                 <th>Tanggal Surat</th>
                 <th>Nomor Surat</th>
                 <th>Status</th>
@@ -290,15 +289,13 @@ export function EntriesPage() {
             <tbody>
               {entries.map((entry) => (
                 <tr key={entry.ID}>
-                  <td>{highlight(entry.ID, search)}</td>
-                  <td>{highlight(entry.Timestamp, search)}</td>
-                  <td>{highlight(entry['Jenis Surat'], search)}</td>
-                  <td>{highlight(entry['Perihal Surat'], search)}</td>
-                  <td>{highlight(entry.Ruang, search)}</td>
-                  <td>{highlight(entry.Pemohon, search)}</td>
-                  <td>{highlight(entry['Tanggal Surat'], search)}</td>
-                  <td>{highlight(entry['Nomor Surat'], search)}</td>
-                  <td>{stateToStr(entry.Status)}</td>
+                  <td>{entry.id}</td>
+                  <td>{entry.created_at}</td>
+                  <td>{JENIS_SURAT_OPTIONS[entry.jenis_surat]}</td>
+                  <td>{entry.perihal_surat}</td>
+                  <td>{entry.tanggal_surat}</td>
+                  <td>{entry.nomor_surat}</td>
+                  <td>{stateToStr(entry.status)}</td>
                   {isAdmin && entry.Status === '0' && (
                     <td>
                       <button onClick={() => handleState(entry.ID, 'approve')} className="action-button">Setujui</button>

@@ -3,6 +3,22 @@ const path = require('path');
 
 const db = new Database(path.resolve(__dirname, '../../data/sinomor.db'));
 
+// Helper to log and run queries
+function logAndRun(sql, params = []) {
+  console.log('[SQL RUN]', sql, params);
+  return db.prepare(sql).run(...params);
+}
+
+function logAndGet(sql, params = []) {
+  console.log('[SQL GET]', sql, params);
+  return db.prepare(sql).get(...params);
+}
+
+function logAndAll(sql, params = []) {
+  console.log('[SQL ALL]', sql, params);
+  return db.prepare(sql).all(...params);
+}
+
 db.exec(`
   CREATE TABLE IF NOT EXISTS surat (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -19,4 +35,9 @@ db.exec(`
   )
 `);
 
-module.exports = db;
+module.exports = {
+  db,
+  logAndRun,
+  logAndGet,
+  logAndAll
+};

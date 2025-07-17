@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../../config/db');
 const rateLimit = require('express-rate-limit');
+const { logAndRun, logAndGet, logAndAll } = require('../../config/db');
 const { checkAdmin } = require('../../middleware/auth');
 const { STATUS } = require('../../constants/enum');
 
@@ -28,11 +29,11 @@ router.get('/', (req, res) => {
 
     if (startDate) {
       where += ' AND created_at >= ?';
-      params.push(startDate);
+      params.push(`${startDate} 00:00:00`);
     }
     if (endDate) {
       where += ' AND created_at <= ?';
-      params.push(endDate);
+      params.push(`${endDate} 23:59:59`);
     }
     if (status) {
       where += ' AND status = ?';
@@ -61,16 +62,14 @@ router.get('/', (req, res) => {
 
     const offset = (page - 1) * limit;
 
-    const totalStmt = db.prepare(`SELECT COUNT(*) as count FROM surat ${where} ${searchSql}`);
-    const total = totalStmt.get(...params).count;
+    const total = logAndGet(`SELECT COUNT(*) as count FROM surat ${where} ${searchSql}`, params).count;
 
-    const dataStmt = db.prepare(`
+    const documents = logAndAll(`
       SELECT * FROM surat
       ${where} ${searchSql}
       ORDER BY created_at DESC
       LIMIT ? OFFSET ?
-    `);
-    const documents = dataStmt.all(...params, limit, offset);
+    `, [...params, limit, offset]);
 
     res.json({ documents, total, page: parseInt(page), limit: parseInt(limit) });
   } catch (err) {

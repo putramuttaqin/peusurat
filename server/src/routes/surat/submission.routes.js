@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const db = require('../../config/db');
+const { logAndRun } = require('../../config/db');
 const { STATUS } = require('../../constants/enum');
 
 router.post('/', (req, res) => {
@@ -16,7 +16,7 @@ router.post('/', (req, res) => {
       nomorSurat
     } = req.body;
 
-    const insert = db.prepare(`
+    const sql = `
       INSERT INTO surat (
         jenis_surat,
         perihal_surat,
@@ -26,17 +26,19 @@ router.post('/', (req, res) => {
         nomor_surat,
         status
       ) VALUES (?, ?, ?, ?, ?, ?, ?)
-    `);
+    `;
 
-    insert.run(
+    const params = [
       parseInt(jenisSurat) || 0,
       perihalSurat,
       parseInt(ruangPemohon) || 0,
       pemohon,
       tanggalSurat,
       nomorSurat || `TEMP-${Date.now()}`,
-      STATUS.PENDING
-    );
+      parseInt(STATUS.PENDING)
+    ];
+
+    logAndRun(sql, params);
 
     res.status(201).json({ success: true });
   } catch (err) {
