@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const { logAndRun } = require('../../config/db');
-const { STATUS } = require('../../constants/enum');
+const { JENIS_SURAT_OPTIONS, RUANG_OPTIONS ,STATUS } = require('../../constants/enum');
 
 router.post('/', (req, res) => {
   try {
@@ -29,9 +29,9 @@ router.post('/', (req, res) => {
     `;
 
     const params = [
-      parseInt(jenisSurat) || 0,
+      JENIS_SURAT_OPTIONS.indexOf(jenisSurat) || 0,
       perihalSurat,
-      parseInt(ruangPemohon) || 0,
+      RUANG_OPTIONS.indexOf(ruangPemohon) || 0,
       pemohon,
       tanggalSurat,
       nomorSurat || `TEMP-${Date.now()}`,

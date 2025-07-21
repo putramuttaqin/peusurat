@@ -260,7 +260,6 @@ export function EntriesPage() {
           <table className="data-table">
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Waktu Masuk</th>
                 <th>Jenis Surat</th>
                 <th>Perihal Surat</th>
@@ -273,7 +272,6 @@ export function EntriesPage() {
             <tbody>
               {entries.map((entry) => (
                 <tr key={entry.id}>
-                  <td>{entry.id}</td>
                   <td>{entry.created_at}</td>
                   <td>{JENIS_SURAT_OPTIONS[entry.jenis_surat]}</td>
                   <td>{entry.perihal_surat}</td>

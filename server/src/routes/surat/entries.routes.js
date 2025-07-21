@@ -99,7 +99,13 @@ router.patch('/:id', limiter, checkAdmin, (req, res) => {
     let updatedStatus = surat.status;
 
     if (action === 1) {
-      updatedNomor = surat.nomor_surat.replace('xyz', surat.id);
+      let lastSurat = logAndGet(
+        `SELECT * FROM surat WHERE jenis_surat = ? AND status = ? ORDER BY id DESC LIMIT 1`,
+        [surat.jenis_surat, parseInt(STATUS.APPROVED)]
+      );
+      let xyz = lastSurat ? parseInt(lastSurat.nomor_surat.split('-')[1]) : 0;
+
+      updatedNomor = surat.nomor_surat.replace('xyz', xyz+1);
       updatedStatus = parseInt(STATUS.APPROVED);
     } else if (action === 2) {
       updatedStatus = parseInt(STATUS.REJECTED);
