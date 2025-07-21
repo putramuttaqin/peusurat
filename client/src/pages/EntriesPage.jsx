@@ -194,6 +194,7 @@ export function EntriesPage() {
       <div className="search-filter-bar">
         <div className="filter-row">
           <select
+            className='filter-item'
             value={filters.status}
             onChange={(e) => setFilters({ ...filters, status: e.target.value })}
           >
@@ -204,6 +205,7 @@ export function EntriesPage() {
           </select>
 
           <select
+            className='filter-item'
             value={filters.jenisSurat}
             onChange={(e) => setFilters({ ...filters, jenisSurat: e.target.value })}
           >
@@ -214,6 +216,7 @@ export function EntriesPage() {
           </select>
 
           <select
+            className='filter-item'
             value={filters.ruang}
             onChange={(e) => setFilters({ ...filters, ruang: e.target.value })}
           >
