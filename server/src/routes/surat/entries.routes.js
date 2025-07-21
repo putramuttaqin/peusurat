@@ -4,6 +4,7 @@ const rateLimit = require('express-rate-limit');
 const { logAndRun, logAndGet, logAndAll } = require('../../config/db');
 const { checkAdmin } = require('../../middleware/auth');
 const { STATUS } = require('../../constants/enum');
+const { getNoUrut, replaceNoUrut } = require('../../utils/surat');
 
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
 
@@ -22,7 +23,7 @@ router.get('/', async (req, res) => {
     } = req.query;
 
     const params = [];
-    let paramIndex = 1; // PostgreSQL uses $1, $2, ...
+    let paramIndex = 1;
     let where = 'WHERE 1=1';
 
     if (startDate) {
@@ -108,8 +109,10 @@ router.patch('/:id', limiter, checkAdmin, async (req, res) => {
         [surat.jenis_surat, parseInt(STATUS.APPROVED)]
       );
 
-      const lastNumber = lastSurat ? parseInt(lastSurat.nomor_surat.split('-')[1]) : 0;
-      updatedNomor = surat.nomor_surat.replace('xyz', lastNumber + 1);
+      const lastNumberStr = getNoUrut(lastSurat?.nomor_surat)?.noUrut;
+      const lastNumber = parseInt(lastNumberStr) || 0;
+
+      updatedNomor = replaceNoUrut(updatedNomor, lastNumber + 1);
       updatedStatus = parseInt(STATUS.APPROVED);
     } else if (action === 2) {
       updatedStatus = parseInt(STATUS.REJECTED);
