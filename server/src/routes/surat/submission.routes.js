@@ -1,11 +1,9 @@
-// server/src/routes/surat/submission.routes.js
-
 const express = require('express');
 const router = express.Router();
 const { logAndRun } = require('../../config/db');
-const { JENIS_SURAT_OPTIONS, RUANG_OPTIONS ,STATUS } = require('../../constants/enum');
+const { JENIS_SURAT_OPTIONS, RUANG_OPTIONS, STATUS } = require('../../constants/enum');
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const {
       jenisSurat = '',
@@ -25,7 +23,7 @@ router.post('/', (req, res) => {
         tanggal_surat,
         nomor_surat,
         status
-      ) VALUES (?, ?, ?, ?, ?, ?, ?)
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7)
     `;
 
     const params = [
@@ -38,7 +36,7 @@ router.post('/', (req, res) => {
       parseInt(STATUS.PENDING)
     ];
 
-    logAndRun(sql, params);
+    await logAndRun(sql, params);
 
     res.status(201).json({ success: true });
   } catch (err) {

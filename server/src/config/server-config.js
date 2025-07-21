@@ -4,10 +4,11 @@ console.log('NODE_ENV:', process.env.NODE_ENV);
 console.log('[ENV] Loaded from file:', path.join(__dirname, '../../.env'));
 module.exports = {
   app: {
-    env: 'development',
+    env: process.env.NODE_ENV || 'development',
     port: process.env.PORT ? Number(process.env.PORT) : 3001,
     name: 'SINOMOR Document System',
-    frontendUrl: process.env.FRONTEND_URL || 'http://localhost:3000'
+    frontendUrl: process.env.FRONTEND_URL || 'http://localhost:3000',
+    databaseUrl: process.env.DATABASE_URL || 'postgresql://postgres:password@localhost:5432/sinomor'
   },
   security: {
     session: {
