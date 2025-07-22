@@ -156,6 +156,36 @@ export function EntriesPage() {
       s === 1 ? 'Approve' :
         s === 2 ? 'Reject' : 'Error';
 
+  const formatFullDateTime = (isoString) => {
+    const date = new Date(isoString);
+    const datePart = new Intl.DateTimeFormat('id-ID', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+      timeZone: 'Asia/Jakarta'
+    }).format(date);
+
+    const timePart = new Intl.DateTimeFormat('id-ID', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+      timeZone: 'Asia/Jakarta'
+    }).format(date).replace(/\./g, ':');
+
+    return `${datePart} ${timePart}`;
+  };
+
+  const formatDateOnly = (isoString) => {
+    const date = new Date(isoString);
+    return new Intl.DateTimeFormat('id-ID', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+      timeZone: 'Asia/Jakarta'
+    }).format(date);
+  };
+
   return (
     <div className="form-container">
       <div className="entries-header">
@@ -275,10 +305,10 @@ export function EntriesPage() {
             <tbody>
               {entries.map((entry) => (
                 <tr key={entry.id}>
-                  <td>{entry.created_at}</td>
+                  <td>{formatFullDateTime(entry.created_at)}</td>
                   <td>{JENIS_SURAT_OPTIONS[entry.jenis_surat]}</td>
                   <td>{entry.perihal_surat}</td>
-                  <td>{entry.tanggal_surat}</td>
+                  <td>{formatDateOnly(entry.tanggal_surat)}</td>
                   <td>{entry.nomor_surat}</td>
                   <td>{stateToStr(entry.status)}</td>
                   {isAdmin && entry.status === 0 && (
