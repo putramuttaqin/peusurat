@@ -23,9 +23,6 @@ module.exports = {
     admin: {
       username: process.env.ADMIN_USER || 'admin',
       password: process.env.ADMIN_PASS || 'password123'
-    },
-    redis: {
-      url: process.env.REDIS_URL || null
     }
   }
 };

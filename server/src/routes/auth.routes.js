@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { security } = require('../config/server-config');
+const { app, security } = require('../config/server-config');
 
 // POST /api/auth/session → Login
 router.post('/session', (req, res) => {
@@ -12,8 +12,8 @@ router.post('/session', (req, res) => {
     res.cookie('isAdmin', 'true', {
       httpOnly: true,
       signed: true,
-      secure: security.env === 'production',
-      sameSite: security.env === 'production' ? 'none' : 'lax',
+      secure: app.env === 'production',
+      sameSite: app.env === 'production' ? 'none' : 'lax',
       maxAge: security.session.maxAge, // e.g., 1 day
     });
     return res.json({ success: true });
