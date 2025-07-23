@@ -12,7 +12,7 @@ export function EntriesPage() {
   const formatDate = (date) => date.toISOString().split('T')[0];
 
   const apiUrl = import.meta.env.VITE_API_URL;
-  const itemsPerPage = 5;
+  const itemsPerPage = 20;
 
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,6 +24,7 @@ export function EntriesPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginStatus, setLoginStatus] = useState(null);
+  const [expandedRow, setExpandedRow] = useState(null);
 
   const [filters, setFilters] = useState({
     startDate: formatDate(thirtyDaysAgo),
@@ -239,7 +240,7 @@ export function EntriesPage() {
             value={filters.jenisSurat}
             onChange={(e) => setFilters({ ...filters, jenisSurat: e.target.value })}
           >
-            <option value="">Jenis Surat</option>
+            <option value="">Semua Jenis Surat</option>
             {JENIS_SURAT_OPTIONS.map((option, index) => (
               <option key={option} value={index}>{option}</option>
             ))}
@@ -304,20 +305,44 @@ export function EntriesPage() {
             </thead>
             <tbody>
               {entries.map((entry) => (
-                <tr key={entry.id}>
-                  <td>{formatFullDateTime(entry.created_at)}</td>
-                  <td>{JENIS_SURAT_OPTIONS[entry.jenis_surat]}</td>
-                  <td>{entry.perihal_surat}</td>
-                  <td>{formatDateOnly(entry.tanggal_surat)}</td>
-                  <td>{entry.nomor_surat}</td>
-                  <td>{stateToStr(entry.status)}</td>
-                  {isAdmin && entry.status === 0 && (
+                <>
+                  <tr key={entry.id}>
+                    <td>{formatFullDateTime(entry.created_at)}</td>
+                    <td>{JENIS_SURAT_OPTIONS[entry.jenis_surat]}</td>
+                    <td>{entry.perihal_surat}</td>
+                    <td>{formatDateOnly(entry.tanggal_surat)}</td>
+                    <td>{entry.nomor_surat}</td>
+                    <td>{stateToStr(entry.status)}</td>
+                    {isAdmin && entry.status === 0 && (
+                      <td>
+                        <button onClick={() => handleState(entry.id, 1)} className="action-button">Approve</button>
+                        <button onClick={() => handleState(entry.id, 2)} className="action-button">Reject</button>
+                      </td>
+                    )}
                     <td>
-                      <button onClick={() => handleState(entry.id, 1)} className="action-button">Approve</button>
-                      <button onClick={() => handleState(entry.id, 2)} className="action-button">Reject</button>
+                      <button
+                        className="action-button"
+                        onClick={() =>
+                          setExpandedRow(expandedRow === entry.id ? null : entry.id)
+                        }
+                      >
+                        {expandedRow === entry.id ? 'Hide' : 'Detail'}
+                      </button>
                     </td>
+                  </tr>
+                  {expandedRow === entry.id && (
+                    <tr className="detail-row">
+                      <td colSpan={isAdmin ? 8 : 7}>
+                        <div className="detail-content">
+                          <strong>Ruang:</strong>             {RUANG_OPTIONS[entry.ruang]}<br />
+                          <strong>Pemohon:</strong>           {entry.pemohon || '-'}<br />
+                          <strong>Jenis Surat:</strong>       {JENIS_SURAT_OPTIONS[entry.jenis_surat]}<br />
+                          <strong>Waktu masuk surat:</strong> {formatFullDateTime(entry.created_at)}
+                        </div>
+                      </td>
+                    </tr>
                   )}
-                </tr>
+                </>
               ))}
             </tbody>
           </table>

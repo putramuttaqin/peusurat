@@ -56,34 +56,35 @@ export function FormPage() {
 
   const [kode2Options, setKode2Options] = useState([]);
   const [kode3Options, setKode3Options] = useState([]);
+  const [kode1Options, setKode1Options] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [finalNomorSurat, setFinalNomorSurat] = useState(null);
+  const [originalKode1, setOriginalKode1] = useState([]);
+  const [originalKode2, setOriginalKode2] = useState([]);
+  const [originalKode3, setOriginalKode3] = useState([]);
 
-  // Process kode-surat data for kode1
-  const kode1Options = Object.entries(kodeSurat).map(([id, val]) => ({
-    id,
-    name: val.name,
-    shortName: val.name.split(' - ')[0].substring(0, 2)
-  }));
-
-  // Initialize Choices.js only for pemohon field
   useEffect(() => {
-    const initPemohonChoices = () => {
-      const el = document.getElementById('pemohon');
-      if (el && !el.dataset.choices) {
-        new Choices(el, {
-          shouldSort: false,
-          searchEnabled: true,
-          itemSelectText: ''
-        });
-        el.dataset.choices = 'true';
-      }
-    };
-
-    initPemohonChoices();
+    const options = Object.entries(kodeSurat).map(([id, val]) => ({
+      id,
+      name: val.name,
+      shortName: val.name.split(' - ')[0].substring(0, 2)
+    }));
+    setKode1Options(options);
+    setOriginalKode1(options);
   }, []);
 
-  // Update kode2 options when kode1 changes
+  useEffect(() => {
+    const el = document.getElementById('pemohon');
+    if (el && !el.dataset.choices) {
+      new Choices(el, {
+        shouldSort: false,
+        searchEnabled: true,
+        itemSelectText: ''
+      });
+      el.dataset.choices = 'true';
+    }
+  }, []);
+
   useEffect(() => {
     if (formState.kode1) {
       const selectedKode1 = kodeSurat[formState.kode1];
@@ -92,15 +93,9 @@ export function FormPage() {
         name: val.name,
         shortName: val.name.split(' - ')[0].substring(0, 2)
       }));
-
       setKode2Options(options);
-      setFormState(prev => ({
-        ...prev,
-        kode2: '',
-        kode3: '',
-        kode2Short: '',
-        kode3Short: ''
-      }));
+      setOriginalKode2(options);
+      setFormState(prev => ({ ...prev, kode2: '', kode3: '', kode2Short: '', kode3Short: '' }));
       setKode3Options([]);
     } else {
       setKode2Options([]);
@@ -108,65 +103,48 @@ export function FormPage() {
     }
   }, [formState.kode1]);
 
-  // Update kode3 options when kode2 changes
   useEffect(() => {
     if (formState.kode1 && formState.kode2) {
-      const selectedKode1 = kodeSurat[formState.kode1];
-      const selectedKode2 = selectedKode1.children[formState.kode2];
+      const selectedKode2 = kodeSurat[formState.kode1].children[formState.kode2];
       const options = Object.entries(selectedKode2.children || {}).map(([id, val]) => ({
         id,
         name: val.name,
         shortName: val.name.split(' - ')[0].substring(0, 2)
       }));
-
       setKode3Options(options);
+      setOriginalKode3(options);
       setFormState(prev => ({ ...prev, kode3: '', kode3Short: '' }));
     } else {
       setKode3Options([]);
     }
   }, [formState.kode2]);
 
-  const handleKode1Change = (e) => {
+  const handleSelectChange = (field, options, setOptionsFn, originalOptions) => (e) => {
     const selectedId = e.target.value;
-    const selectedOption = kode1Options.find(opt => opt.id === selectedId);
+    const selectedOption = options.find(opt => opt.id === selectedId);
     setFormState(prev => ({
       ...prev,
-      kode1: selectedId,
-      kode1Short: selectedOption?.shortName || '',
-      kode2: '',
-      kode3: '',
-      kode2Short: '',
-      kode3Short: ''
+      [field]: selectedId,
+      [`${field}Short`]: selectedOption?.shortName || '',
+      ...(field === 'kode1' && { kode2: '', kode2Short: '', kode3: '', kode3Short: '' }),
+      ...(field === 'kode2' && { kode3: '', kode3Short: '' })
     }));
+
+    const updated = options.map(opt =>
+      opt.id === selectedId ? { ...opt, name: opt.shortName } : opt
+    );
+    e.target.blur();
+    setOptionsFn(updated);
   };
 
-  const handleKode2Change = (e) => {
-    const selectedId = e.target.value;
-    const selectedOption = kode2Options.find(opt => opt.id === selectedId);
-    setFormState(prev => ({
-      ...prev,
-      kode2: selectedId,
-      kode2Short: selectedOption?.shortName || '',
-      kode3: '',
-      kode3Short: ''
-    }));
+  const handleFocusReset = (setOptionsFn, originalOptions) => () => {
+    setOptionsFn(originalOptions);
   };
 
-  const handleKode3Change = (e) => {
-    const selectedId = e.target.value;
-    const selectedOption = kode3Options.find(opt => opt.id === selectedId);
-    setFormState(prev => ({
-      ...prev,
-      kode3: selectedId,
-      kode3Short: selectedOption?.shortName || ''
-    }));
-  };
-
-  const handleChange = (field) => (e) => {
+  const handleChange = field => e => {
     setFormState(prev => ({ ...prev, [field]: e.target.value }));
   };
 
-  // Modify the handleSubmit function
   const handleSubmit = async (e) => {
     e.preventDefault();
     const nomorSurat = `W.1.${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-xyz`;
@@ -181,30 +159,23 @@ export function FormPage() {
           ruangPemohon: formState.divisi,
           pemohon: formState.pemohon,
           tanggalSurat: formState.tanggalSurat,
-          nomorSurat: nomorSurat // Send with xyz placeholder
+          nomorSurat
         })
       });
 
       if (res.ok) {
-        setFinalNomorSurat(nomorSurat); // Keep the xyz placeholder
+        setFinalNomorSurat(nomorSurat);
         setSubmitted(true);
-      } else {
-        throw new Error('Failed to save data');
-      }
+      } else throw new Error('Failed to save data');
     } catch (err) {
       alert('Error: ' + err.message);
     }
   };
 
-  const renderSelectField = ({ id, label, value, options, onChange, disabled = false }) => (
+  const renderSelectField = ({ id, label, value, options, onChange, onFocus, disabled = false }) => (
     <div className="form-group short">
       <label htmlFor={id}>{label}</label>
-      <select
-        id={id}
-        value={value}
-        onChange={onChange}
-        disabled={disabled}
-      >
+      <select id={id} value={value} onChange={onChange} onFocus={onFocus} disabled={disabled}>
         <option value="" disabled>Pilih...</option>
         {options.map(item => (
           <option key={item.id || item} value={item.id || item}>
@@ -215,17 +186,9 @@ export function FormPage() {
     </div>
   );
 
-  const renderInputField = ({ id, label, type = 'text', value, onChange }) => (
-    <div className="form-group short">
-      <label htmlFor={id}>{label}</label>
-      <input id={id} type={type} value={value} onInput={onChange} />
-    </div>
-  );
-
   return (
     <div className="form-container">
       <h2>{submitted ? 'Nomor Surat' : 'Form Nomor Surat'}</h2>
-
       {!submitted ? (
         <form onSubmit={handleSubmit}>
           <div className="inline-row">
@@ -236,16 +199,11 @@ export function FormPage() {
               options: JENIS_SURAT_OPTIONS,
               onChange: handleChange('jenisSurat')
             })}
-            {renderInputField({
-              id: 'tanggalSurat',
-              label: 'Tanggal Surat',
-              type: 'date',
-              value: formState.tanggalSurat,
-              onChange: handleChange('tanggalSurat')
-            })}
-          </div>
+            <div className="form-group short">
+              <label htmlFor="tanggalSurat">Tanggal Surat</label>
+              <input type="date" id="tanggalSurat" value={formState.tanggalSurat} onInput={handleChange('tanggalSurat')} />
+            </div>
 
-          <div className="inline-row">
             {renderSelectField({
               id: 'divisi',
               label: 'Ruang',
@@ -266,13 +224,7 @@ export function FormPage() {
 
           <div className="form-group full">
             <label htmlFor="keterangan">Perihal Surat</label>
-            <textarea
-              id="perihal"
-              rows="4"
-              value={formState.keterangan}
-              onInput={handleChange('keterangan')}
-              placeholder="Tuliskan keterangan surat di sini..."
-            />
+            <textarea id="perihal" rows="4" value={formState.keterangan} onInput={handleChange('keterangan')} placeholder="Tuliskan keterangan surat di sini..." />
           </div>
 
           <div className="inline-row">
@@ -285,14 +237,16 @@ export function FormPage() {
               label: 'Kode 1',
               value: formState.kode1,
               options: kode1Options,
-              onChange: handleKode1Change
+              onChange: handleSelectChange('kode1', kode1Options, setKode1Options, originalKode1),
+              onFocus: handleFocusReset(setKode1Options, originalKode1)
             })}
             {renderSelectField({
               id: 'kode2',
               label: 'Kode 2',
               value: formState.kode2,
               options: kode2Options,
-              onChange: handleKode2Change,
+              onChange: handleSelectChange('kode2', kode2Options, setKode2Options, originalKode2),
+              onFocus: handleFocusReset(setKode2Options, originalKode2),
               disabled: !formState.kode1
             })}
             {renderSelectField({
@@ -300,13 +254,14 @@ export function FormPage() {
               label: 'Kode 3',
               value: formState.kode3,
               options: kode3Options,
-              onChange: handleKode3Change,
+              onChange: handleSelectChange('kode3', kode3Options, setKode3Options, originalKode3),
+              onFocus: handleFocusReset(setKode3Options, originalKode3),
               disabled: !formState.kode2
             })}
           </div>
 
           <div className="preview">
-            <strong>Preview:</strong> {`W.1.${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-...`}
+            <strong>Preview:</strong> {`W.1-${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-...`}
           </div>
 
           <div className="inline-row">

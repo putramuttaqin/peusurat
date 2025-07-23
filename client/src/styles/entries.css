@@ -19,6 +19,16 @@
   background-color: #f0f0f0;
 }
 
+.detail-row td {
+  background-color: #f9f9f9;
+  padding: 10px;
+}
+
+.detail-content {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
 /* =========================
    Buttons
 ========================= */
