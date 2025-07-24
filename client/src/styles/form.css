@@ -222,7 +222,7 @@ button[type="submit"]:disabled {
 /* ========================
    Dark Mode Overrides
 ======================== */
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: dark) {
   .form-container {
     background: #222;
     color: #eee;
@@ -277,4 +277,4 @@ button[type="submit"]:disabled {
   input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1);
   }
-}
+} */
