@@ -74,9 +74,28 @@ button {
   background-color: #ccc;
 }
 
+#approve-button {
+  background-color: #759b70;
+  margin-right: 5px;
+}
+
+#reject-button {
+  background-color: #97706e;
+}
 /* =========================
    Layout & Container
 ========================= */
+.form-container {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+  font-family: sans-serif;
+  color: #222;
+}
+
 .entries-header,
 .top-bar {
   display: flex;

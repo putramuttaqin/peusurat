@@ -187,8 +187,8 @@ export function FormPage() {
   );
 
   return (
-    <div className="form-container">
-      <h2>{submitted ? 'Nomor Surat' : 'Form Nomor Surat'}</h2>
+    <div className="form-container-page">
+      <h2>{submitted ? 'Menunggu Persutujuan Admin' : 'Permohonan Nomor Surat'}</h2>
       {!submitted ? (
         <form onSubmit={handleSubmit}>
           <div className="inline-row">
@@ -229,12 +229,12 @@ export function FormPage() {
 
           <div className="inline-row">
             <div className="form-group short">
-              <label htmlFor="wilayah">Nomor Surat</label>
+              <label htmlFor="wilayah">Kode Wilayah</label>
               <input id="wilayah" value={formState.wilayah} readOnly />
             </div>
             {renderSelectField({
               id: 'kode1',
-              label: 'Kode 1',
+              label: 'Masalah',
               value: formState.kode1,
               options: kode1Options,
               onChange: handleSelectChange('kode1', kode1Options, setKode1Options, originalKode1),
@@ -242,7 +242,7 @@ export function FormPage() {
             })}
             {renderSelectField({
               id: 'kode2',
-              label: 'Kode 2',
+              label: 'Angka',
               value: formState.kode2,
               options: kode2Options,
               onChange: handleSelectChange('kode2', kode2Options, setKode2Options, originalKode2),
@@ -251,7 +251,7 @@ export function FormPage() {
             })}
             {renderSelectField({
               id: 'kode3',
-              label: 'Kode 3',
+              label: 'Angka',
               value: formState.kode3,
               options: kode3Options,
               onChange: handleSelectChange('kode3', kode3Options, setKode3Options, originalKode3),
@@ -274,7 +274,7 @@ export function FormPage() {
           <div className="preview">
             <strong>{finalNomorSurat}</strong>
           </div>
-          <button onClick={() => route('/')}>Daftar Surat Lain</button>
+          <button onClick={() => route('/')}>Kembali</button>
         </div>
       )}
     </div>

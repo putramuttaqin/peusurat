@@ -12,7 +12,7 @@ export function EntriesPage() {
   const formatDate = (date) => date.toISOString().split('T')[0];
 
   const apiUrl = import.meta.env.VITE_API_URL;
-  const itemsPerPage = 20;
+  const itemsPerPage = 10;
 
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -294,31 +294,23 @@ export function EntriesPage() {
           <table className="data-table">
             <thead>
               <tr>
-                <th>Waktu Masuk</th>
                 <th>Jenis Surat</th>
                 <th>Perihal Surat</th>
                 <th>Tanggal Surat</th>
                 <th>Nomor Surat</th>
                 <th>Status</th>
-                {isAdmin && <th>Aksi</th>}
+                {/* {isAdmin && <th>Aksi</th>} */}
               </tr>
             </thead>
             <tbody>
               {entries.map((entry) => (
                 <>
                   <tr key={entry.id}>
-                    <td>{formatFullDateTime(entry.created_at)}</td>
                     <td>{JENIS_SURAT_OPTIONS[entry.jenis_surat]}</td>
                     <td>{entry.perihal_surat}</td>
                     <td>{formatDateOnly(entry.tanggal_surat)}</td>
                     <td>{entry.nomor_surat}</td>
                     <td>{stateToStr(entry.status)}</td>
-                    {isAdmin && entry.status === 0 && (
-                      <td>
-                        <button onClick={() => handleState(entry.id, 1)} className="action-button">Approve</button>
-                        <button onClick={() => handleState(entry.id, 2)} className="action-button">Reject</button>
-                      </td>
-                    )}
                     <td>
                       <button
                         className="action-button"
@@ -328,6 +320,13 @@ export function EntriesPage() {
                       >
                         {expandedRow === entry.id ? 'Hide' : 'Detail'}
                       </button>
+                      {isAdmin && entry.status === 0 && (
+                        <>
+                          <br />
+                          <button onClick={() => handleState(entry.id, 1)} id="approve-button">Approve</button>
+                          <button onClick={() => handleState(entry.id, 2)} id="reject-button">Reject</button>
+                        </>
+                      )}
                     </td>
                   </tr>
                   {expandedRow === entry.id && (

@@ -1,8 +1,8 @@
 /* ========================
    Base Container & Layout
 ======================== */
-.form-container {
-  max-width: 1024px;
+.form-container-page {
+  max-width: 670px;
   margin: 2rem auto;
   padding: 1.5rem;
   border: 1px solid #ccc;
