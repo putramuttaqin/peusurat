@@ -5,37 +5,7 @@ import 'choices.js/public/assets/styles/choices.min.css';
 import '../styles/form.css';
 import namaPemohon from '../data/pemohon.json';
 import kodeSurat from '../data/kode-surat.json';
-
-const JENIS_SURAT_OPTIONS = [
-  'BUKU KELUAR UMUM',
-  'SK KAKANWIL',
-  'BUKU KELUAR YANKUM',
-  'BUKU MASUK UMUM',
-  'BUKU SURAT PERINTAH',
-  'BUKU CUTI',
-  'BUKU KELUAR PLH/PLT',
-  'BUKU KELUAR P2L',
-  'BUKU MASUK P2L',
-  'BUKU MASUK YANKUM'
-];
-
-const RUANG_OPTIONS = [
-  'PERENCANAAN',
-  'ORGANISASI DAN TATA LAKSANA',
-  'KEPEGAWAIAN',
-  'KEUANGAN',
-  'PENGELOLAAN BARANG MILIK NEGARA',
-  'KEHUMASAN DAN HUKUM',
-  'UMUM',
-  'PENGAWASAN',
-  'TEKNOLOGI DAN INFORMASI',
-  'PERATURAN PERUNDANG-UNDANGAN',
-  'ADMINISTRASI HUKUM UMUM',
-  'KEKAYAAN INTELEKTUAL',
-  'PEMBINAAN HUKUM NASIONAL',
-  'SUMBER DAYA MANUSIA',
-  'PENELITIAN DAN PENGEMBANGAN'
-];
+import { JENIS_SURAT_OPTIONS, RUANG_OPTIONS, STATUS } from '../shared/enum.js';
 
 export function FormPage() {
   const [formState, setFormState] = useState({
