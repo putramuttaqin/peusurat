@@ -5,7 +5,7 @@ import { route } from 'preact-router';
 import { JENIS_SURAT_OPTIONS, RUANG_OPTIONS, STATUS } from '../shared/enum.js';
 import '../styles/entries.css';
 
-export function EntriesPage() {
+export default function EntriesPage() {
   const today = new Date();
   const thirtyDaysAgo = new Date(today);
   thirtyDaysAgo.setDate(today.getDate() - 30);
@@ -189,33 +189,6 @@ export function EntriesPage() {
     <div className="form-container">
       <div className="entries-header">
         <button className="back-button" onClick={() => route('/')}>Kembali</button>
-        <button onClick={isAdmin ? handleLogout : () => setIsModalOpen(true)} className="admin-button">
-          {isAdmin ? 'Logout Admin' : 'Login Admin'}
-        </button>
-
-        {isModalOpen && (
-          <div className="modal-overlay">
-            <div className="modal-content">
-              <h3>Admin Login</h3>
-              <div className={`login-feedback ${loginStatus}`}>
-                {loginStatus === 'success' && 'Login berhasil!'}
-                {loginStatus === 'error' && 'Login gagal!'}
-              </div>
-              <div className="form-group">
-                <label>Username:</label>
-                <input type="text" value={username} onInput={(e) => setUsername(e.target.value)} />
-              </div>
-              <div className="form-group">
-                <label>Password:</label>
-                <input type="password" value={password} onInput={(e) => setPassword(e.target.value)} />
-              </div>
-              <div className="modal-actions">
-                <button onClick={handleLogin} className="login-button">Login</button>
-                <button onClick={() => { setIsModalOpen(false); setLoginStatus(null); }} className="cancel-button">Kembali</button>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
       <h2>Dashboard Nomor Surat</h2>

@@ -1,13 +1,23 @@
-import { useState, useEffect } from 'preact/hooks';
+import { useState, useEffect, useContext } from 'preact/hooks';
 import { route } from 'preact-router';
+import { AuthContext } from '../shared/AuthContext';
 import Choices from 'choices.js';
 import 'choices.js/public/assets/styles/choices.min.css';
 import '../styles/form.css';
 import namaPemohon from '../data/pemohon.json';
 import kodeSurat from '../data/kode-surat.json';
-import { JENIS_SURAT_OPTIONS, RUANG_OPTIONS, STATUS } from '../shared/enum.js';
+import { JENIS_SURAT_OPTIONS, RUANG_OPTIONS } from '../shared/enum.js';
 
-export function FormPage() {
+export default function FormPage() {
+  const { isAdmin, loading } = useContext(AuthContext);
+
+  // 🚫 Redirect if not admin (after loading)
+  useEffect(() => {
+    if (!loading && !isAdmin) {
+      route('/');
+    }
+  }, [loading, isAdmin]);
+
   const [formState, setFormState] = useState({
     nomorSurat: null,
     jenisSurat: '',
@@ -25,19 +35,16 @@ export function FormPage() {
     pemohon: ''
   });
 
+  const [kode1Options, setKode1Options] = useState([]);
   const [kode2Options, setKode2Options] = useState([]);
   const [kode3Options, setKode3Options] = useState([]);
-  const [kode1Options, setKode1Options] = useState([]);
-  const [submitted, setSubmitted] = useState(false);
-  const [finalNomorSurat, setFinalNomorSurat] = useState(null);
   const [originalKode1, setOriginalKode1] = useState([]);
   const [originalKode2, setOriginalKode2] = useState([]);
   const [originalKode3, setOriginalKode3] = useState([]);
+  const [submitted, setSubmitted] = useState(false);
+  const [finalNomorSurat, setFinalNomorSurat] = useState(null);
 
-  const SIFAT_SURAT = [
-    'Biasa',
-    'Rahasia'
-  ]
+  const SIFAT_SURAT = ['Biasa', 'Rahasia'];
 
   useEffect(() => {
     const options = Object.entries(kodeSurat).map(([id, val]) => ({
@@ -63,8 +70,8 @@ export function FormPage() {
 
   useEffect(() => {
     if (formState.kode1) {
-      const selectedKode1 = kodeSurat[formState.kode1];
-      const options = Object.entries(selectedKode1.children || {}).map(([id, val]) => ({
+      const selected = kodeSurat[formState.kode1];
+      const options = Object.entries(selected.children || {}).map(([id, val]) => ({
         id,
         name: val.name,
         shortName: val.name.split(' - ')[0].substring(0, 2)
@@ -73,16 +80,13 @@ export function FormPage() {
       setOriginalKode2(options);
       setFormState(prev => ({ ...prev, kode2: '', kode3: '', kode2Short: '', kode3Short: '' }));
       setKode3Options([]);
-    } else {
-      setKode2Options([]);
-      setKode3Options([]);
     }
   }, [formState.kode1]);
 
   useEffect(() => {
     if (formState.kode1 && formState.kode2) {
-      const selectedKode2 = kodeSurat[formState.kode1].children[formState.kode2];
-      const options = Object.entries(selectedKode2.children || {}).map(([id, val]) => ({
+      const selected = kodeSurat[formState.kode1].children[formState.kode2];
+      const options = Object.entries(selected.children || {}).map(([id, val]) => ({
         id,
         name: val.name,
         shortName: val.name.split(' - ')[0].substring(0, 2)
@@ -90,12 +94,10 @@ export function FormPage() {
       setKode3Options(options);
       setOriginalKode3(options);
       setFormState(prev => ({ ...prev, kode3: '', kode3Short: '' }));
-    } else {
-      setKode3Options([]);
     }
   }, [formState.kode2]);
 
-  const handleSelectChange = (field, options, setOptionsFn, originalOptions) => (e) => {
+  const handleSelectChange = (field, options, setOptionsFn, originalOptions) => e => {
     const selectedId = e.target.value;
     const selectedOption = options.find(opt => opt.id === selectedId);
     setFormState(prev => ({
@@ -142,7 +144,9 @@ export function FormPage() {
       if (res.ok) {
         setFinalNomorSurat(nomorSurat);
         setSubmitted(true);
-      } else throw new Error('Failed to save data');
+      } else {
+        throw new Error('Gagal menyimpan data');
+      }
     } catch (err) {
       alert('Error: ' + err.message);
     }
@@ -162,9 +166,11 @@ export function FormPage() {
     </div>
   );
 
+  if (loading || !isAdmin) return null;
+
   return (
     <div className="form-container-page">
-      <h2>{submitted ? 'Menunggu Persutujuan Admin' : 'Permohonan Nomor Surat'}</h2>
+      <h2>{submitted ? 'Menunggu Persetujuan Admin' : 'Permohonan Nomor Surat'}</h2>
       {!submitted ? (
         <form onSubmit={handleSubmit}>
           <div className="inline-row">
@@ -179,7 +185,6 @@ export function FormPage() {
               <label htmlFor="tanggalSurat">Tanggal Surat</label>
               <input type="date" id="tanggalSurat" value={formState.tanggalSurat} onInput={handleChange('tanggalSurat')} />
             </div>
-
             {renderSelectField({
               id: 'divisi',
               label: 'Ruang',
@@ -187,15 +192,13 @@ export function FormPage() {
               options: RUANG_OPTIONS,
               onChange: handleChange('divisi')
             })}
-
             {renderSelectField({
-              id: 'sifat',
+              id: 'sifatSurat',
               label: 'Sifat Surat',
               value: formState.sifatSurat,
               options: SIFAT_SURAT,
               onChange: handleChange('sifatSurat')
             })}
-
             <div className="form-group short">
               <label htmlFor="pemohon">Pemohon</label>
               <select id="pemohon" value={formState.pemohon} onChange={handleChange('pemohon')}>
@@ -209,7 +212,7 @@ export function FormPage() {
 
           <div className="form-group full">
             <label htmlFor="keterangan">Perihal Surat</label>
-            <textarea id="perihal" rows="4" value={formState.keterangan} onInput={handleChange('keterangan')} placeholder="Tuliskan keterangan surat di sini..." />
+            <textarea id="keterangan" rows="4" value={formState.keterangan} onInput={handleChange('keterangan')} />
           </div>
 
           <div className="inline-row">
@@ -246,7 +249,7 @@ export function FormPage() {
           </div>
 
           <div className="preview">
-            <strong>Preview:</strong> {`W.1-${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-...`}
+            <strong>Preview:</strong> {`W.1.${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-...`}
           </div>
 
           <div className="inline-row">
