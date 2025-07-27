@@ -11,6 +11,7 @@ export function FormPage() {
   const [formState, setFormState] = useState({
     nomorSurat: null,
     jenisSurat: '',
+    sifatSurat: '',
     wilayah: 'W.1',
     kode1: '',
     kode2: '',
@@ -32,6 +33,11 @@ export function FormPage() {
   const [originalKode1, setOriginalKode1] = useState([]);
   const [originalKode2, setOriginalKode2] = useState([]);
   const [originalKode3, setOriginalKode3] = useState([]);
+
+  const SIFAT_SURAT = [
+    'Biasa',
+    'Rahasia'
+  ]
 
   useEffect(() => {
     const options = Object.entries(kodeSurat).map(([id, val]) => ({
@@ -181,6 +187,15 @@ export function FormPage() {
               options: RUANG_OPTIONS,
               onChange: handleChange('divisi')
             })}
+
+            {renderSelectField({
+              id: 'sifat',
+              label: 'Sifat Surat',
+              value: formState.sifatSurat,
+              options: SIFAT_SURAT,
+              onChange: handleChange('sifatSurat')
+            })}
+
             <div className="form-group short">
               <label htmlFor="pemohon">Pemohon</label>
               <select id="pemohon" value={formState.pemohon} onChange={handleChange('pemohon')}>

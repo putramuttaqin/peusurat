@@ -153,9 +153,7 @@ export function EntriesPage() {
   };
 
   const stateToStr = (s) =>
-    s === 0 ? 'Pending' :
-      s === 1 ? 'Approve' :
-        s === 2 ? 'Reject' : 'Error';
+    Object.keys(STATUS).find(k => STATUS[k] === String(s));
 
   const formatFullDateTime = (isoString) => {
     const date = new Date(isoString);
@@ -335,7 +333,6 @@ export function EntriesPage() {
                         <div className="detail-content">
                           <strong>Ruang:</strong>             {RUANG_OPTIONS[entry.ruang]}<br />
                           <strong>Pemohon:</strong>           {entry.pemohon || '-'}<br />
-                          <strong>Jenis Surat:</strong>       {JENIS_SURAT_OPTIONS[entry.jenis_surat]}<br />
                           <strong>Waktu masuk surat:</strong> {formatFullDateTime(entry.created_at)}
                         </div>
                       </td>

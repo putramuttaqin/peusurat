@@ -4,7 +4,7 @@ console.log('NODE_ENV:', process.env.NODE_ENV);
 console.log('[ENV] Loaded from file:', path.join(__dirname, '../../.env'));
 module.exports = {
   app: {
-    env: process.env.NODE_ENV || 'development',
+    env: process.env.FRONTEND_URL === 'http://localhost:5173' ? 'development' : 'production',
     port: process.env.PORT ? Number(process.env.PORT) : 3001,
     name: 'SINOMOR Document System',
     frontendUrl: process.env.FRONTEND_URL || 'http://localhost:3000',
