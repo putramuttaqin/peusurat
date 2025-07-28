@@ -64,7 +64,9 @@ export default function EntriesPage() {
         limit: itemsPerPage
       });
 
-      const res = await fetch(`${apiUrl}/api/surat/entries?${params.toString()}`);
+      const res = await fetch(`${apiUrl}/api/surat/entries?${params.toString()}`, {
+          credentials: 'include'
+        });
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
       const data = await res.json();
