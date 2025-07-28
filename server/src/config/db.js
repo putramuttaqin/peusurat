@@ -11,18 +11,18 @@ const pool = new Pool({
 
 // Logging + Query helpers
 function logAndRun(sql, params = []) {
-  console.log('[PG RUN]', sql, params);
+  // console.log('[PG RUN]', sql, params);
   return pool.query(sql, params);
 }
 
 async function logAndGet(sql, params = []) {
-  console.log('[PG GET]', sql, params);
+  // console.log('[PG GET]', sql, params);
   const result = await pool.query(sql, params);
   return result.rows[0];
 }
 
 async function logAndAll(sql, params = []) {
-  console.log('[PG ALL]', sql, params);
+  // console.log('[PG ALL]', sql, params);
   const result = await pool.query(sql, params);
   return result.rows;
 }

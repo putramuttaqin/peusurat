@@ -1,26 +1,40 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const router = express.Router();
 const { app, security } = require('../config/server-config');
+const { logAndGet } = require('../config/db'); // use your helper
 
-// POST /api/auth/session → Login
-router.post('/session', (req, res) => {
+router.post('/session', async (req, res) => {
   const { username, password } = req.body;
-  const ADMIN_USER = security.admin.username;
-  const ADMIN_PASS = security.admin.password;
 
-  if (username === ADMIN_USER && password === ADMIN_PASS) {
-    res.cookie('isAdmin', 'true', {
+  try {
+    const user = await logAndGet('SELECT id, password, role FROM users WHERE username = $1', [username]);
+
+    if (!user) {
+      return res.status(401).json({ success: false, message: 'Username tidak ditemukan' });
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ success: false, message: 'Password salah' });
+    }
+
+    // Set signed cookie based on role (1 = admin)
+    res.cookie('isAdmin', user.role === 1 ? 'true' : 'false', {
       httpOnly: true,
       signed: true,
       secure: app.env === 'production',
       sameSite: app.env === 'production' ? 'none' : 'lax',
-      maxAge: security.session.maxAge, // e.g., 1 day
+      maxAge: security.session.maxAge,
     });
-    return res.json({ success: true });
-  }
 
-  res.status(401).json({ success: false });
+    return res.json({ success: true });
+  } catch (err) {
+    console.error('Login error:', err);
+    res.status(500).json({ success: false, message: 'Terjadi kesalahan server' });
+  }
 });
+
 
 // DELETE /api/auth/session → Logout
 router.delete('/session', (req, res) => {
