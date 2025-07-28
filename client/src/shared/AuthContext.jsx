@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [loginModalVisible, setLoginModalVisible] = useState(false);
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -18,9 +19,11 @@ export function AuthProvider({ children }) {
         const data = await res.json();
         const isLoggedIn = data?.isAdmin === true;
         setIsAdmin(isLoggedIn);
+        setUser(data.user || null);
         setLoginModalVisible(!isLoggedIn); // show login modal if not authenticated
       } catch {
         setIsAdmin(false);
+        setUser(null);
         setLoginModalVisible(true);
       } finally {
         setLoading(false);
@@ -63,12 +66,14 @@ export function AuthProvider({ children }) {
       credentials: 'include'
     });
     setIsAdmin(false);
+    setUser(null); // 👈 clear user data
     setLoginModalVisible(true);
   };
 
   return (
     <AuthContext.Provider value={{
       isAdmin,
+      user,
       loading,
       login,
       logout,

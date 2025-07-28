@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'preact/hooks';
 import { route } from 'preact-router';
-import { JENIS_SURAT_OPTIONS, RUANG_OPTIONS, STATUS } from '../shared/enum.js';
+import { JENIS_SURAT_OPTIONS, STATUS } from '../shared/enum.js';
 import '../styles/entries.css';
 
 export default function EntriesPage() {
@@ -30,8 +30,7 @@ export default function EntriesPage() {
     startDate: formatDate(thirtyDaysAgo),
     endDate: formatDate(today),
     status: '',
-    jenisSurat: '',
-    ruang: ''
+    jenisSurat: ''
   });
 
   useEffect(() => {
@@ -87,8 +86,7 @@ export default function EntriesPage() {
       startDate: formatDate(thirtyDaysAgo),
       endDate: formatDate(today),
       status: '',
-      jenisSurat: '',
-      ruang: ''
+      jenisSurat: ''
     });
     handleFilter(1);
   };
@@ -219,19 +217,6 @@ export default function EntriesPage() {
             ))}
           </select>
 
-          <select
-            className='filter-item'
-            value={filters.ruang}
-            onChange={(e) => setFilters({ ...filters, ruang: e.target.value })}
-          >
-            <option value="">Semua Ruang</option>
-            {RUANG_OPTIONS.map((option, index) => (
-              <option key={option} value={index}>{option}</option>
-            ))}
-          </select>
-        </div>
-
-        <div className="filter-row">
           <input
             type="text"
             placeholder="Cari nomor surat/perihal..."
@@ -267,7 +252,7 @@ export default function EntriesPage() {
           <table className="data-table">
             <thead>
               <tr>
-                <th>Jenis Surat</th>
+                {/* <th>Jenis Surat</th> */}
                 <th>Perihal Surat</th>
                 <th>Tanggal Surat</th>
                 <th>Nomor Surat</th>
@@ -279,7 +264,7 @@ export default function EntriesPage() {
               {entries.map((entry) => (
                 <>
                   <tr key={entry.id}>
-                    <td>{JENIS_SURAT_OPTIONS[entry.jenis_surat]}</td>
+                    {/* <td>{JENIS_SURAT_OPTIONS[entry.jenis_surat]}</td> */}
                     <td>{entry.perihal_surat}</td>
                     <td>{formatDateOnly(entry.tanggal_surat)}</td>
                     <td>{entry.nomor_surat}</td>
@@ -304,10 +289,10 @@ export default function EntriesPage() {
                   </tr>
                   {expandedRow === entry.id && (
                     <tr className="detail-row">
-                      <td colSpan={isAdmin ? 8 : 7}>
+                      <td colSpan={8}>
                         <div className="detail-content">
-                          <strong>Ruang:</strong>             {RUANG_OPTIONS[entry.ruang]}<br />
                           <strong>Pemohon:</strong>           {entry.pemohon || '-'}<br />
+                          <strong>Jenis Surat:</strong>       {JENIS_SURAT_OPTIONS[entry.jenis_surat_id-1]}<br />
                           <strong>Waktu masuk surat:</strong> {formatFullDateTime(entry.created_at)}
                         </div>
                       </td>

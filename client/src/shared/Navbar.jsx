@@ -4,7 +4,7 @@ import logoRapai from '../assets/icons/logo-rapai.png';
 import '../styles/app.css'; // or create navbar.css if you prefer
 
 export default function Navbar({ onLoginClick }) {
-  const { isAdmin, logout, loading } = useContext(AuthContext);
+  const { isAdmin, user, logout, loading } = useContext(AuthContext);
 
   return (
     <header>
@@ -16,7 +16,10 @@ export default function Navbar({ onLoginClick }) {
         {!loading && (
           <div className="navbar-right">
             {isAdmin ? (
-              <button className="navbar-button" onClick={logout}>Logout</button>
+              <>
+                <h5 className="navbar-title">{user.name}</h5>
+                <button className="navbar-button" onClick={logout}>Logout</button>
+              </>
             ) : (
               <button className="navbar-button" onClick={onLoginClick}>Login</button>
             )}

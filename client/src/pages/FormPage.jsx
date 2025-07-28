@@ -6,10 +6,10 @@ import 'choices.js/public/assets/styles/choices.min.css';
 import '../styles/form.css';
 import namaPemohon from '../data/pemohon.json';
 import kodeSurat from '../data/kode-surat.json';
-import { JENIS_SURAT_OPTIONS, RUANG_OPTIONS } from '../shared/enum.js';
+import { JENIS_SURAT_OPTIONS } from '../shared/enum.js';
 
 export default function FormPage() {
-  const { isAdmin, loading } = useContext(AuthContext);
+  const { user, isAdmin, loading } = useContext(AuthContext);
 
   // 🚫 Redirect if not admin (after loading)
   useEffect(() => {
@@ -125,7 +125,7 @@ export default function FormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const nomorSurat = `W.1.${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-xyz`;
+    const nomorSurat = `W.1-${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-xyz`;
 
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/surat/submit`, {
@@ -133,13 +133,12 @@ export default function FormPage() {
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          userId: user.id,
           jenisSurat: formState.jenisSurat,
           perihalSurat: formState.keterangan,
-          ruangPemohon: formState.divisi,
-          pemohon: formState.pemohon,
           tanggalSurat: formState.tanggalSurat,
-          nomorSurat,
-          sifatSurat: SIFAT_SURAT.indexOf(formState.sifatSurat)
+          sifatSurat: SIFAT_SURAT.indexOf(formState.sifatSurat),
+          nomorSurat
         })
       });
 
@@ -188,28 +187,12 @@ export default function FormPage() {
               <input type="date" id="tanggalSurat" value={formState.tanggalSurat} onInput={handleChange('tanggalSurat')} />
             </div>
             {renderSelectField({
-              id: 'divisi',
-              label: 'Ruang',
-              value: formState.divisi,
-              options: RUANG_OPTIONS,
-              onChange: handleChange('divisi')
-            })}
-            {renderSelectField({
               id: 'sifatSurat',
               label: 'Sifat Surat',
               value: formState.sifatSurat,
               options: SIFAT_SURAT,
               onChange: handleChange('sifatSurat')
             })}
-            <div className="form-group short">
-              <label htmlFor="pemohon">Pemohon</label>
-              <select id="pemohon" value={formState.pemohon} onChange={handleChange('pemohon')}>
-                <option value="" disabled>Pilih...</option>
-                {namaPemohon.map(name => (
-                  <option key={name} value={name}>{name}</option>
-                ))}
-              </select>
-            </div>
           </div>
 
           <div className="form-group full">
@@ -251,7 +234,7 @@ export default function FormPage() {
           </div>
 
           <div className="preview">
-            <strong>Preview:</strong> {`W.1.${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-...`}
+            <strong>Preview:</strong> {`W.1-${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-...`}
           </div>
 
           <div className="inline-row">

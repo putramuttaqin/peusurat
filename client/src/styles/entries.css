@@ -175,9 +175,7 @@ input::placeholder {
 }
 
 .filter-item {
-  flex: 1 1 30%;
-  /* takes 30% of row, flexible */
-  min-width: 140px;
+  flex: 1 1 43%;
 }
 
 .filter-actions {
@@ -289,7 +287,7 @@ mark {
 (max-width: 768px),
 (max-width: 480px) {
   .filter-item {
-    flex: 1 1 100%;
+    flex: 1 1 45%;
     /* Stack filters vertically on small screens */
   }
 
