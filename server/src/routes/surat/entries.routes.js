@@ -70,7 +70,23 @@ router.get('/', checkAdmin, async (req, res) => {
 
     const documents = await logAndAll(
       `
-      SELECT * FROM surat
+      SELECT
+        id,
+        created_at,
+        pemohon,
+        pemohon_id,
+        sifat_surat,
+        CASE
+          WHEN sifat_surat = 1 THEN
+            LEFT(perihal_surat, 5) || REPEAT('*', GREATEST(0, LENGTH(perihal_surat) - 5))
+          ELSE perihal_surat
+        END AS perihal_surat,
+        jenis_surat,
+        ruang,
+        status,
+        nomor_surat,
+        tanggal_surat
+      FROM surat
       ${where} ${searchSql}
       ORDER BY created_at DESC
       LIMIT $${paramIndex++} OFFSET $${paramIndex}

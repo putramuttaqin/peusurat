@@ -130,6 +130,7 @@ export default function FormPage() {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/surat/submit`, {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           jenisSurat: formState.jenisSurat,
@@ -138,7 +139,7 @@ export default function FormPage() {
           pemohon: formState.pemohon,
           tanggalSurat: formState.tanggalSurat,
           nomorSurat,
-          sifatSurat: formState.sifatSurat
+          sifatSurat: SIFAT_SURAT.indexOf(formState.sifatSurat)
         })
       });
 
