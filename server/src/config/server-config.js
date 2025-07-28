@@ -11,6 +11,9 @@ module.exports = {
     databaseUrl: process.env.DATABASE_URL || 'postgresql://postgres:password@localhost:5432/sinomor'
   },
   security: {
+    jwt: {
+      secret: process.env.JWT_SECRET,
+    },
     session: {
       secret: process.env.SESSION_SECRET || 'default-session-secret',
       name: process.env.SESSION_COOKIE_NAME || 'sinomor.sid',

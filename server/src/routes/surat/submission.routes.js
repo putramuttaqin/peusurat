@@ -1,43 +1,40 @@
 const express = require('express');
 const router = express.Router();
 const { logAndRun } = require('../../config/db');
-const { checkAdmin } = require('../../middleware/auth');
-const { JENIS_SURAT_OPTIONS, RUANG_OPTIONS, STATUS } = require('../../constants/enum');
+const { requireAuth } = require('../../middleware/auth');
+const { JENIS_SURAT_OPTIONS, STATUS } = require('../../constants/enum');
 
-router.post('/', checkAdmin, async (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
   try {
     const {
+      userId = '',
       jenisSurat = '',
       perihalSurat = '',
-      ruangPemohon = '',
-      pemohon = '',
       tanggalSurat = '',
-      nomorSurat,
-      sifatSurat = ''
+      sifatSurat = '',
+      nomorSurat
     } = req.body;
 
     const sql = `
       INSERT INTO surat (
-        jenis_surat,
+        user_id,
+        jenis_surat_id,
+        sifat_surat,
         perihal_surat,
-        ruang,
-        pemohon,
         tanggal_surat,
         nomor_surat,
-        status,
-        sifat_surat
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        status
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7)
     `;
 
     const params = [
-      JENIS_SURAT_OPTIONS.indexOf(jenisSurat) || 0,
+      userId,
+      JENIS_SURAT_OPTIONS.indexOf(jenisSurat)+1 || 1,
+      sifatSurat,
       perihalSurat,
-      RUANG_OPTIONS.indexOf(ruangPemohon) || 0,
-      pemohon,
       tanggalSurat,
-      nomorSurat || `TEMP-${Date.now()}`,
-      parseInt(STATUS.PENDING),
-      sifatSurat
+      nomorSurat,
+      parseInt(STATUS.PENDING)
     ];
 
     await logAndRun(sql, params);

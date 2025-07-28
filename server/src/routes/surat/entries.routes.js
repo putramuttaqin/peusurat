@@ -2,21 +2,20 @@ const express = require('express');
 const router = express.Router();
 const rateLimit = require('express-rate-limit');
 const { logAndRun, logAndGet, logAndAll } = require('../../config/db');
-const { checkAdmin } = require('../../middleware/auth');
+const { requireAuth } = require('../../middleware/auth');
 const { STATUS } = require('../../constants/enum');
 const { getNoUrut, replaceNoUrut } = require('../../utils/surat');
 
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
 
 // GET /api/surat/entries
-router.get('/', checkAdmin, async (req, res) => {
+router.get('/', requireAuth, async (req, res) => {
   try {
     const {
       startDate,
       endDate,
       status,
       jenisSurat,
-      ruang,
       search,
       page = 1,
       limit = 20
@@ -42,17 +41,13 @@ router.get('/', checkAdmin, async (req, res) => {
       where += ` AND jenis_surat = $${paramIndex++}`;
       params.push(parseInt(jenisSurat));
     }
-    if (ruang) {
-      where += ` AND ruang = $${paramIndex++}`;
-      params.push(parseInt(ruang));
-    }
 
     let searchSql = '';
     if (search) {
       searchSql = `
         AND (
           perihal_surat ILIKE $${paramIndex} OR
-          pemohon ILIKE $${paramIndex + 1} OR
+          user_id ILIKE $${paramIndex + 1} OR
           nomor_surat ILIKE $${paramIndex + 2}
         )
       `;
@@ -71,24 +66,24 @@ router.get('/', checkAdmin, async (req, res) => {
     const documents = await logAndAll(
       `
       SELECT
-        id,
-        created_at,
-        pemohon,
-        pemohon_id,
+        surat.id,
+        surat.created_at,
+        surat.user_id,
+        users.name AS pemohon,
         sifat_surat,
         CASE
           WHEN sifat_surat = 1 THEN
             LEFT(perihal_surat, 5) || REPEAT('*', GREATEST(0, LENGTH(perihal_surat) - 5))
           ELSE perihal_surat
         END AS perihal_surat,
-        jenis_surat,
-        ruang,
+        jenis_surat_id,
         status,
         nomor_surat,
         tanggal_surat
       FROM surat
+      LEFT JOIN users ON surat.user_id = users.id
       ${where} ${searchSql}
-      ORDER BY created_at DESC
+      ORDER BY surat.created_at DESC
       LIMIT $${paramIndex++} OFFSET $${paramIndex}
       `,
       [...params, parseInt(limit), offset]
@@ -102,7 +97,7 @@ router.get('/', checkAdmin, async (req, res) => {
 });
 
 // PATCH /api/surat/entries/:id
-router.patch('/:id', limiter, checkAdmin, async (req, res) => {
+router.patch('/:id', limiter, requireAuth, async (req, res) => {
   try {
     const id = parseInt(req.params.id);
     const { action } = req.body;
