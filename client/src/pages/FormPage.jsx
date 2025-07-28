@@ -137,7 +137,8 @@ export default function FormPage() {
           ruangPemohon: formState.divisi,
           pemohon: formState.pemohon,
           tanggalSurat: formState.tanggalSurat,
-          nomorSurat
+          nomorSurat,
+          sifatSurat: formState.sifatSurat
         })
       });
 

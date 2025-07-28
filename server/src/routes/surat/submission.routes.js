@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { logAndRun } = require('../../config/db');
+const { checkAdmin } = require('../../middleware/auth');
 const { JENIS_SURAT_OPTIONS, RUANG_OPTIONS, STATUS } = require('../../constants/enum');
 
-router.post('/', async (req, res) => {
+router.post('/', checkAdmin, async (req, res) => {
   try {
     const {
       jenisSurat = '',
@@ -11,7 +12,8 @@ router.post('/', async (req, res) => {
       ruangPemohon = '',
       pemohon = '',
       tanggalSurat = '',
-      nomorSurat
+      nomorSurat,
+      sifatSurat = ''
     } = req.body;
 
     const sql = `
@@ -22,8 +24,9 @@ router.post('/', async (req, res) => {
         pemohon,
         tanggal_surat,
         nomor_surat,
-        status
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+        status,
+        sifat_surat
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
     `;
 
     const params = [
@@ -33,7 +36,8 @@ router.post('/', async (req, res) => {
       pemohon,
       tanggalSurat,
       nomorSurat || `TEMP-${Date.now()}`,
-      parseInt(STATUS.PENDING)
+      parseInt(STATUS.PENDING),
+      sifatSurat
     ];
 
     await logAndRun(sql, params);

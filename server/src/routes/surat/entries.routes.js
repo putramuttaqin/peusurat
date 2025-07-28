@@ -9,7 +9,7 @@ const { getNoUrut, replaceNoUrut } = require('../../utils/surat');
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
 
 // GET /api/surat/entries
-router.get('/', async (req, res) => {
+router.get('/', checkAdmin, async (req, res) => {
   try {
     const {
       startDate,
