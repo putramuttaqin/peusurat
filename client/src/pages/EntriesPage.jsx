@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'preact/hooks';
 import { route } from 'preact-router';
 import { AuthContext } from '../shared/AuthContext';
-import { JENIS_SURAT_OPTIONS, STATUS } from '../shared/enum.js';
+import { JENIS_SURAT_OPTIONS, STATUS, USER_ROLES } from '../shared/enum.js';
 import '../styles/entries.css';
 
 export default function EntriesPage() {
@@ -218,7 +218,7 @@ export default function EntriesPage() {
                       >
                         {expandedRow === entry.id ? 'Hide' : 'Detail'}
                       </button>
-                      {isAdmin && entry.status === 0 && (
+                      {user.role === USER_ROLES.SUPER_ADMIN && entry.status === 0 && (
                         <>
                           <button onClick={() => handleState(entry.id, 1)} id="approve-button">Approve</button>
                           <button onClick={() => handleState(entry.id, 2)} id="reject-button">Reject</button>

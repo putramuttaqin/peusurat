@@ -30,3 +30,8 @@ export const STATUS = {
   APPROVED: '1',
   REJECTED: '2'
 };
+
+export const USER_ROLES = Object.freeze({
+  ADMIN: 1,
+  SUPER_ADMIN: 2
+});
