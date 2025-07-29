@@ -39,6 +39,7 @@ button {
   color: white;
   cursor: pointer;
   white-space: nowrap;
+  margin-right: 5px;
 }
 
 .back-button {
@@ -75,13 +76,13 @@ button {
 }
 
 #approve-button {
-  background-color: #759b70;
-  margin-right: 5px;
+  background-color: #60775d;
 }
 
 #reject-button {
   background-color: #97706e;
 }
+
 /* =========================
    Layout & Container
 ========================= */
@@ -301,4 +302,9 @@ mark {
     flex: 1 1 45%;
     max-width: none;
   }
+}
+
+.fit-content {
+  width: 1px;
+  white-space: nowrap;
 }

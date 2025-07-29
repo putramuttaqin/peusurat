@@ -22,7 +22,7 @@ async function logAndGet(sql, params = []) {
 }
 
 async function logAndAll(sql, params = []) {
-  // console.log('[PG ALL]', sql, params);
+  console.log('[PG ALL]', sql, params);
   const result = await pool.query(sql, params);
   return result.rows;
 }

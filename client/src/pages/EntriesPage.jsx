@@ -1,71 +1,55 @@
-// client/src/pages/EntriesPage.jsx
-
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect, useState, useContext } from 'preact/hooks';
 import { route } from 'preact-router';
+import { AuthContext } from '../shared/AuthContext';
 import { JENIS_SURAT_OPTIONS, STATUS } from '../shared/enum.js';
 import '../styles/entries.css';
 
 export default function EntriesPage() {
   const today = new Date();
-  const thirtyDaysAgo = new Date(today);
-  thirtyDaysAgo.setDate(today.getDate() - 30);
+  const thirtyDaysAgo = new Date(today.setDate(today.getDate() - 30));
   const formatDate = (date) => date.toISOString().split('T')[0];
 
   const apiUrl = import.meta.env.VITE_API_URL;
   const itemsPerPage = 10;
 
+  const { isAdmin, user, loading } = useContext(AuthContext);
+
   const [entries, setEntries] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [loginStatus, setLoginStatus] = useState(null);
   const [expandedRow, setExpandedRow] = useState(null);
+  const [pageLoading, setPageLoading] = useState(false); // ⬅️ Local page loading state
 
   const [filters, setFilters] = useState({
     startDate: formatDate(thirtyDaysAgo),
-    endDate: formatDate(today),
+    endDate: formatDate(new Date()),
     status: '',
     jenisSurat: ''
   });
 
   useEffect(() => {
-    const fetchInitialData = async () => {
-      try {
-        const res = await fetch(`${apiUrl}/api/auth/me`, {
-          credentials: 'include'
-        });
-        const json = await res.json();
-        setIsAdmin(json.isAdmin === true);
-
-        await handleFilter(1);
-      } catch (err) {
-        console.error('Error loading data:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchInitialData();
-  }, []);
+    if (!loading && !isAdmin) {
+      route('/');
+    } else if (!loading && isAdmin) {
+      handleFilter(1);
+    }
+  }, [loading, isAdmin]);
 
   const handleFilter = async (page = 1) => {
-    setLoading(true);
+    setPageLoading(true);
     try {
       const params = new URLSearchParams({
         ...filters,
         search,
+        user,
         page,
         limit: itemsPerPage
       });
 
-      const res = await fetch(`${apiUrl}/api/surat/entries?${params.toString()}`, {
-          credentials: 'include'
-        });
+      const res = await fetch(`${apiUrl}/api/surat/entries?${params}`, {
+        credentials: 'include'
+      });
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
       const data = await res.json();
@@ -76,7 +60,7 @@ export default function EntriesPage() {
       console.error('Error filtering entries:', err);
       alert('Gagal memfilter data');
     } finally {
-      setLoading(false);
+      setPageLoading(false);
     }
   };
 
@@ -84,46 +68,16 @@ export default function EntriesPage() {
     setSearch('');
     setFilters({
       startDate: formatDate(thirtyDaysAgo),
-      endDate: formatDate(today),
+      endDate: formatDate(new Date()),
       status: '',
       jenisSurat: ''
     });
     handleFilter(1);
   };
 
-  const handleLogin = async () => {
-    try {
-      const res = await fetch(`${apiUrl}/api/auth/session`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      });
-
-      if (res.ok) {
-        setIsAdmin(true);
-        setLoginStatus('success');
-        setTimeout(() => setIsModalOpen(false), 1000);
-      } else {
-        setLoginStatus('error');
-      }
-    } catch {
-      setLoginStatus('error');
-    }
-  };
-
-  const handleLogout = async () => {
-    await fetch(`${apiUrl}/api/auth/session`, {
-      method: 'DELETE',
-      credentials: 'include'
-    });
-    setIsAdmin(false);
-  };
-
   const handleState = async (id, aksi) => {
     if (!isAdmin) {
       alert('Hanya admin yang dapat menyetujui surat');
-      setIsModalOpen(true);
       return;
     }
 
@@ -139,7 +93,6 @@ export default function EntriesPage() {
       });
 
       if (res.status === 403) {
-        setIsAdmin(false);
         throw new Error('Sesi admin telah berakhir');
       }
 
@@ -153,37 +106,26 @@ export default function EntriesPage() {
   };
 
   const stateToStr = (s) =>
-    Object.keys(STATUS).find(k => STATUS[k] === String(s));
+    Object.keys(STATUS).find((k) => STATUS[k] === String(s));
 
   const formatFullDateTime = (isoString) => {
     const date = new Date(isoString);
     const datePart = new Intl.DateTimeFormat('id-ID', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-      timeZone: 'Asia/Jakarta'
+      day: '2-digit', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta'
     }).format(date);
 
     const timePart = new Intl.DateTimeFormat('id-ID', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: false,
-      timeZone: 'Asia/Jakarta'
+      hour: '2-digit', minute: '2-digit', second: '2-digit',
+      hour12: false, timeZone: 'Asia/Jakarta'
     }).format(date).replace(/\./g, ':');
 
     return `${datePart} ${timePart}`;
   };
 
-  const formatDateOnly = (isoString) => {
-    const date = new Date(isoString);
-    return new Intl.DateTimeFormat('id-ID', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-      timeZone: 'Asia/Jakarta'
-    }).format(date);
-  };
+  const formatDateOnly = (isoString) =>
+    new Intl.DateTimeFormat('id-ID', {
+      day: '2-digit', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta'
+    }).format(new Date(isoString));
 
   return (
     <div className="form-container">
@@ -196,7 +138,7 @@ export default function EntriesPage() {
       <div className="search-filter-bar">
         <div className="filter-row">
           <select
-            className='filter-item'
+            className="filter-item"
             value={filters.status}
             onChange={(e) => setFilters({ ...filters, status: e.target.value })}
           >
@@ -207,7 +149,7 @@ export default function EntriesPage() {
           </select>
 
           <select
-            className='filter-item'
+            className="filter-item"
             value={filters.jenisSurat}
             onChange={(e) => setFilters({ ...filters, jenisSurat: e.target.value })}
           >
@@ -236,6 +178,7 @@ export default function EntriesPage() {
             onChange={(e) => setFilters({ ...filters, endDate: e.target.value })}
             className="date-input"
           />
+
           <div className="filter-actions">
             <button onClick={() => handleFilter(1)} className="filter-button">Cari</button>
             <button onClick={handleResetFilter} className="reset-button">Reset</button>
@@ -243,7 +186,7 @@ export default function EntriesPage() {
         </div>
       </div>
 
-      {loading ? (
+      {pageLoading ? (
         <p>Memuat data...</p>
       ) : entries.length === 0 ? (
         <p>Tidak ada data ditemukan.</p>
@@ -252,35 +195,31 @@ export default function EntriesPage() {
           <table className="data-table">
             <thead>
               <tr>
-                {/* <th>Jenis Surat</th> */}
+                <th>Jenis Surat</th>
                 <th>Perihal Surat</th>
-                <th>Tanggal Surat</th>
+                <th className="fit-content">Tanggal Surat</th>
                 <th>Nomor Surat</th>
                 <th>Status</th>
-                {/* {isAdmin && <th>Aksi</th>} */}
               </tr>
             </thead>
             <tbody>
               {entries.map((entry) => (
                 <>
                   <tr key={entry.id}>
-                    {/* <td>{JENIS_SURAT_OPTIONS[entry.jenis_surat]}</td> */}
+                    <td className="fit-content">{JENIS_SURAT_OPTIONS[entry.jenis_surat_id - 1]}</td>
                     <td>{entry.perihal_surat}</td>
-                    <td>{formatDateOnly(entry.tanggal_surat)}</td>
-                    <td>{entry.nomor_surat}</td>
-                    <td>{stateToStr(entry.status)}</td>
-                    <td>
+                    <td className="fit-content">{formatDateOnly(entry.tanggal_surat)}</td>
+                    <td className="fit-content">{entry.nomor_surat}</td>
+                    <td className="fit-content">{stateToStr(entry.status)}</td>
+                    <td className="fit-content">
                       <button
                         className="action-button"
-                        onClick={() =>
-                          setExpandedRow(expandedRow === entry.id ? null : entry.id)
-                        }
+                        onClick={() => setExpandedRow(expandedRow === entry.id ? null : entry.id)}
                       >
                         {expandedRow === entry.id ? 'Hide' : 'Detail'}
                       </button>
                       {isAdmin && entry.status === 0 && (
                         <>
-                          <br />
                           <button onClick={() => handleState(entry.id, 1)} id="approve-button">Approve</button>
                           <button onClick={() => handleState(entry.id, 2)} id="reject-button">Reject</button>
                         </>
@@ -291,8 +230,7 @@ export default function EntriesPage() {
                     <tr className="detail-row">
                       <td colSpan={8}>
                         <div className="detail-content">
-                          <strong>Pemohon:</strong>           {entry.pemohon || '-'}<br />
-                          <strong>Jenis Surat:</strong>       {JENIS_SURAT_OPTIONS[entry.jenis_surat_id-1]}<br />
+                          <strong>Pemohon:</strong> {entry.pemohon || '-'}<br />
                           <strong>Waktu masuk surat:</strong> {formatFullDateTime(entry.created_at)}
                         </div>
                       </td>

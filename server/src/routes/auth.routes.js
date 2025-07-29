@@ -23,11 +23,8 @@ router.post('/session', async (req, res) => {
       return res.status(401).json({ success: false, message: 'Password salah' });
     }
 
-    const token = jwt.sign(
-      { id: user.id, role: user.role, name: user.name },
-      security.jwt.secret, // make sure to define this in your config
-      { expiresIn: '1d' }
-    );
+    const tokenPayload = { id: user.id, role: user.role, name: user.name };
+    const token = jwt.sign(tokenPayload, security.jwt.secret, { expiresIn: '1d' });
 
     res.cookie('token', token, {
       httpOnly: true,
@@ -36,7 +33,16 @@ router.post('/session', async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
-    return res.json({ success: true });
+    return res.json({
+      success: true,
+      isAdmin: user.role === 1,
+      user: {
+        id: user.id,
+        name: user.name,
+        username: user.username,
+        role: user.role,
+      }
+    });
   } catch (err) {
     console.error('Login error:', err);
     res.status(500).json({ success: false, message: 'Terjadi kesalahan server' });

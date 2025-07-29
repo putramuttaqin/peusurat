@@ -43,7 +43,9 @@ export function AuthProvider({ children }) {
       });
 
       if (res.ok) {
+        const data = await res.json();
         setIsAdmin(true); // triggers rerender if context is used properly
+        setUser(data.user || null);
         return { success: true };
       } else {
         const errorData = await res.json().catch(() => ({}));
@@ -78,7 +80,8 @@ export function AuthProvider({ children }) {
       login,
       logout,
       loginModalVisible,
-      setLoginModalVisible
+      setLoginModalVisible,
+      setLoading
     }}>
       {children}
     </AuthContext.Provider>

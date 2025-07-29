@@ -31,4 +31,9 @@ const STATUS = {
   REJECTED: '2'
 };
 
-module.exports = { JENIS_SURAT_OPTIONS, RUANG_OPTIONS, STATUS };
+const USER_ROLES = Object.freeze({
+  ADMIN: 1,
+  SUPER_ADMIN: 2
+});
+
+module.exports = { JENIS_SURAT_OPTIONS, RUANG_OPTIONS, STATUS, USER_ROLES };
