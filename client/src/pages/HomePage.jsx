@@ -1,7 +1,7 @@
 import { useContext } from 'preact/hooks';
 import { AuthContext } from '../shared/AuthContext';
-import logoEntries from '../assets/icons/logo-entries.png';
-import logoForm from '../assets/icons/logo-form.png';
+import logoEntries from '../assets/icons/logo-entries.ico';
+import logoForm from '../assets/icons/logo-form.ico';
 import logoRapai from '../assets/icons/logo-rapai.png';
 import '../styles/app.css';
 
@@ -31,7 +31,7 @@ export default function HomePage({ setLoginModalVisible }) {
 
       <h1>PEUSURAT</h1>
       <img src={logoRapai} class="logo" alt="Logo Rapai" style={{ padding: 0 }} />
-      <h2>PENOMORAN SURAT KELUAR ELEKTRONIK</h2>
+      <h2>Penomoran Surat Keluar Elektronik</h2>
     </>
   );
 }
