@@ -11,7 +11,7 @@ export default function Navbar({ onLoginClick }) {
       <nav className="navbar">
         <div className="navbar-left">
           <img src={logoRapai} alt="Logo RAPA'I" className="navbar-logo" />
-          <h1 className="navbar-title">RAPA'I</h1>
+          <h1 className="navbar-title">PEUSURAT</h1>
         </div>
         {!loading && (
           <div className="navbar-right">

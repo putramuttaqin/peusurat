@@ -29,9 +29,9 @@ export default function HomePage({ setLoginModalVisible }) {
         )}
       </div>
 
-      <h1>RAPA'I</h1>
+      <h1>PEUSURAT</h1>
       <img src={logoRapai} class="logo" alt="Logo Rapai" style={{ padding: 0 }} />
-      <h2>Registrasi Arsip dan Penomoran Administrasi Integrasi</h2>
+      <h2>PENOMORAN SURAT KELUAR ELEKTRONIK</h2>
     </>
   );
 }
