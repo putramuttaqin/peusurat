@@ -1,6 +1,5 @@
 import { useState, useContext } from 'preact/hooks';
 import { AuthContext } from './AuthContext';
-import '../styles/app.css'; // or modal.css if you separate styles
 
 export default function LoginModal({ onClose }) {
   const { login } = useContext(AuthContext);

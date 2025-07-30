@@ -50,7 +50,6 @@ router.get('/', requireAuth, async (req, res) => {
     }
 
     // Restrict normal user to their own entries
-    console.log(JSON.stringify(req.user));
     if (req.user.role !== USER_ROLES.SUPER_ADMIN) {
       where += ` AND user_id = $${paramIndex++}`;
       params.push(parseInt(req.user.id));

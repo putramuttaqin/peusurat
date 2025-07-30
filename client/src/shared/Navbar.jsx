@@ -1,7 +1,6 @@
 import { useContext } from 'preact/hooks';
 import { AuthContext } from './AuthContext';
 import logoRapai from '../assets/icons/logo-rapai.png';
-import '../styles/app.css'; // or create navbar.css if you prefer
 
 export default function Navbar({ onLoginClick }) {
   const { isAdmin, user, logout, loading } = useContext(AuthContext);

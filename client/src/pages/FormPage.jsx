@@ -21,7 +21,6 @@ export default function FormPage() {
   const [formState, setFormState] = useState({
     nomorSurat: null,
     jenisSurat: '',
-    sifatSurat: '',
     wilayah: 'W.1',
     kode1: '',
     kode2: '',
@@ -43,8 +42,6 @@ export default function FormPage() {
   const [originalKode3, setOriginalKode3] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [finalNomorSurat, setFinalNomorSurat] = useState(null);
-
-  const SIFAT_SURAT = ['Biasa', 'Rahasia'];
 
   useEffect(() => {
     const options = Object.entries(kodeSurat).map(([id, val]) => ({
@@ -137,7 +134,6 @@ export default function FormPage() {
           jenisSurat: formState.jenisSurat,
           perihalSurat: formState.keterangan,
           tanggalSurat: formState.tanggalSurat,
-          sifatSurat: SIFAT_SURAT.indexOf(formState.sifatSurat),
           nomorSurat
         })
       });
@@ -186,13 +182,6 @@ export default function FormPage() {
               <label htmlFor="tanggalSurat">Tanggal Surat</label>
               <input type="date" id="tanggalSurat" value={formState.tanggalSurat} onInput={handleChange('tanggalSurat')} />
             </div>
-            {renderSelectField({
-              id: 'sifatSurat',
-              label: 'Sifat Surat',
-              value: formState.sifatSurat,
-              options: SIFAT_SURAT,
-              onChange: handleChange('sifatSurat')
-            })}
           </div>
 
           <div className="form-group full">

@@ -53,16 +53,16 @@ form {
 #wilayah {
   max-width: 10ch;
   flex: 0 0 auto;
-  margin-right: 0; /* eliminate spacing between */
+  margin-right: 0;
 }
 
 .form-group.short {
-  display: flex;             /* ensures internal layout works */
-  flex: 0 0 auto;            /* don't grow or shrink */
-  width: max-content;        /* only take as much space as the children need */
-  max-width: 100%;           /* optional safety cap */
-  padding: 0;                /* remove any internal spacing */
-  margin: 0;                 /* remove external spacing */
+  display: flex;
+  flex: 0 0 auto;
+  width: max-content;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 label {
@@ -73,22 +73,8 @@ label {
 }
 
 /* ========================
-   Form Inputs & Selects
+   Input Enhancements
 ======================== */
-input,
-select,
-textarea {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #fff;
-  color: #000;
-  font-size: 0.95rem;
-  transition: 0.2s ease;
-  box-sizing: border-box;
-}
-
 input:focus,
 select:focus,
 textarea:focus {
@@ -107,23 +93,9 @@ select {
   padding-right: 2rem;
 }
 
-/* Fix date picker icon in light mode */
-input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(0);
-}
-
 /* ========================
-   Buttons
+   Button Customizations
 ======================== */
-button {
-  padding: 0.6rem 1.2rem;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-  margin-top: 1rem;
-  transition: 0.2s ease;
-}
-
 button[type="submit"] {
   background-color: #4CAF50;
   color: white;
@@ -218,63 +190,3 @@ button[type="submit"]:disabled {
   border-color: black transparent transparent transparent;
   top: 45%;
 }
-
-/* ========================
-   Dark Mode Overrides
-======================== */
-/* @media (prefers-color-scheme: dark) {
-  .form-container {
-    background: #222;
-    color: #eee;
-    border-color: #555;
-  }
-
-  .form-container h2 {
-    color: #eee;
-  }
-
-  label {
-    color: #ccc;
-  }
-
-  input,
-  select,
-  textarea {
-    background-color: #333;
-    color: #fff;
-    border-color: #555;
-  }
-
-  select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6H0z' fill='white'/%3E%3C/svg%3E");
-  }
-
-  input:focus,
-  select:focus,
-  textarea:focus {
-    background-color: #1a3d7a;
-  }
-
-  .choices__inner {
-    background-color: #333;
-    color: #fff;
-    border-color: #555;
-  }
-
-  .choices__list--dropdown {
-    background-color: #444;
-  }
-
-  .choices__list--dropdown .choices__item {
-    color: #fff;
-  }
-
-  .preview {
-    background: #334;
-    color: #eee;
-  }
-
-  input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-  }
-} */

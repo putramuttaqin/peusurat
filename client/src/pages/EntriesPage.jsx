@@ -197,7 +197,7 @@ export default function EntriesPage() {
               <tr>
                 <th>Jenis Surat</th>
                 <th>Perihal Surat</th>
-                <th className="fit-content">Tanggal Surat</th>
+                <th>User</th>
                 <th>Nomor Surat</th>
                 <th>Status</th>
               </tr>
@@ -208,7 +208,7 @@ export default function EntriesPage() {
                   <tr key={entry.id}>
                     <td className="fit-content">{JENIS_SURAT_OPTIONS[entry.jenis_surat_id - 1]}</td>
                     <td>{entry.perihal_surat}</td>
-                    <td className="fit-content">{formatDateOnly(entry.tanggal_surat)}</td>
+                    <td className="fit-content">{entry.pemohon}</td>
                     <td className="fit-content">{entry.nomor_surat}</td>
                     <td className="fit-content">{stateToStr(entry.status)}</td>
                     <td className="fit-content">
@@ -230,8 +230,8 @@ export default function EntriesPage() {
                     <tr className="detail-row">
                       <td colSpan={8}>
                         <div className="detail-content">
-                          <strong>Pemohon:</strong> {entry.pemohon || '-'}<br />
-                          <strong>Waktu masuk surat:</strong> {formatFullDateTime(entry.created_at)}
+                          <strong>Tanggal Surat:</strong> {formatDateOnly(entry.tanggal_surat)}<br />
+                          <strong>Waktu Masuk Data:</strong> {formatFullDateTime(entry.created_at)}
                         </div>
                       </td>
                     </tr>

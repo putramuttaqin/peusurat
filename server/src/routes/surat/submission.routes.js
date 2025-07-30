@@ -11,7 +11,6 @@ router.post('/', requireAuth, async (req, res) => {
       jenisSurat = '',
       perihalSurat = '',
       tanggalSurat = '',
-      sifatSurat = '',
       nomorSurat
     } = req.body;
 
@@ -19,18 +18,16 @@ router.post('/', requireAuth, async (req, res) => {
       INSERT INTO surat (
         user_id,
         jenis_surat_id,
-        sifat_surat,
         perihal_surat,
         tanggal_surat,
         nomor_surat,
         status
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+      ) VALUES ($1, $2, $3, $4, $5, $6)
     `;
 
     const params = [
       userId,
       JENIS_SURAT_OPTIONS.indexOf(jenisSurat)+1 || 1,
-      sifatSurat,
       perihalSurat,
       tanggalSurat,
       nomorSurat,

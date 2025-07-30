@@ -3,7 +3,7 @@ import { AuthContext } from '../shared/AuthContext';
 import logoEntries from '../assets/icons/logo-entries.ico';
 import logoForm from '../assets/icons/logo-form.ico';
 import logoRapai from '../assets/icons/logo-rapai.png';
-import '../styles/app.css';
+import '../styles/home.css';
 
 export default function HomePage({ setLoginModalVisible }) {
   const { isAdmin } = useContext(AuthContext);
