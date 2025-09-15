@@ -35,3 +35,8 @@ export const USER_ROLES = Object.freeze({
   ADMIN: 1,
   SUPER_ADMIN: 2
 });
+
+export const SIFAT_SURAT = Object.freeze({
+  BIASA: 0,
+  RAHASIA: 1
+});

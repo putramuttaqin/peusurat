@@ -6,7 +6,7 @@ import 'choices.js/public/assets/styles/choices.min.css';
 import '../styles/form.css';
 import namaPemohon from '../data/pemohon.json';
 import kodeSurat from '../data/kode-surat.json';
-import { JENIS_SURAT_OPTIONS } from '../shared/enum.js';
+import { SIFAT_SURAT, JENIS_SURAT_OPTIONS } from '../shared/enum.js';
 
 export default function FormPage() {
   const { user, isAdmin, loading } = useContext(AuthContext);
@@ -29,6 +29,7 @@ export default function FormPage() {
     kode2Short: '',
     kode3Short: '',
     tanggalSurat: '',
+    sifatSurat: SIFAT_SURAT.BIASA,
     divisi: '',
     keterangan: '',
     pemohon: ''
@@ -132,6 +133,7 @@ export default function FormPage() {
         body: JSON.stringify({
           userId: user.id,
           jenisSurat: formState.jenisSurat,
+          sifatSurat: formState.sifatSurat,
           perihalSurat: formState.keterangan,
           tanggalSurat: formState.tanggalSurat,
           nomorSurat
@@ -181,6 +183,19 @@ export default function FormPage() {
             <div className="form-group short">
               <label htmlFor="tanggalSurat">Tanggal Surat</label>
               <input type="date" id="tanggalSurat" value={formState.tanggalSurat} onInput={handleChange('tanggalSurat')} />
+            </div>
+            <div className="form-group short">
+              <label htmlFor="sifatSurat">Sifat Surat</label>
+              <select
+                id="sifatSurat"
+                name="sifatSurat"
+                value={formState.sifatSurat}
+                onChange={e => setFormState(prev => ({ ...prev, sifatSurat: parseInt(e.target.value) }))}
+                required
+              >
+                <option value={SIFAT_SURAT.BIASA}>Biasa</option>
+                <option value={SIFAT_SURAT.RAHASIA}>Rahasia</option>
+              </select>
             </div>
           </div>
 

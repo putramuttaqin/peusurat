@@ -11,7 +11,8 @@ router.post('/', requireAuth, async (req, res) => {
       jenisSurat = '',
       perihalSurat = '',
       tanggalSurat = '',
-      nomorSurat
+      nomorSurat,
+      sifatSurat = 0 // default Biasa
     } = req.body;
 
     const sql = `
@@ -21,16 +22,18 @@ router.post('/', requireAuth, async (req, res) => {
         perihal_surat,
         tanggal_surat,
         nomor_surat,
+        sifat_surat,
         status
-      ) VALUES ($1, $2, $3, $4, $5, $6)
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7)
     `;
 
     const params = [
       userId,
-      JENIS_SURAT_OPTIONS.indexOf(jenisSurat)+1 || 1,
+      JENIS_SURAT_OPTIONS.indexOf(jenisSurat) + 1 || 1,
       perihalSurat,
       tanggalSurat,
       nomorSurat,
+      parseInt(sifatSurat), // 👈 convert to int 0 or 1
       parseInt(STATUS.PENDING)
     ];
 

@@ -127,6 +127,17 @@ export default function EntriesPage() {
       day: '2-digit', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta'
     }).format(new Date(isoString));
 
+  const maskPerihal = (text) => {
+    if (!text) return '';
+    if (text.length <= 4) return '*'.repeat(text.length);
+
+    const firstTwo = text.slice(0, 2);
+    const lastTwo = text.slice(-2);
+    const masked = '*'.repeat(text.length - 4);
+
+    return `${firstTwo}${masked}${lastTwo}`;
+  };
+
   return (
     <div className="form-container">
       <div className="entries-header">
@@ -207,7 +218,11 @@ export default function EntriesPage() {
                 <>
                   <tr key={entry.id}>
                     <td className="fit-content">{JENIS_SURAT_OPTIONS[entry.jenis_surat_id - 1]}</td>
-                    <td>{entry.perihal_surat}</td>
+                    <td>
+                      {entry.sifat_surat === 1
+                        ? maskPerihal(entry.perihal_surat)
+                        : entry.perihal_surat}
+                    </td>
                     <td className="fit-content">{entry.pemohon}</td>
                     <td className="fit-content">{entry.nomor_surat}</td>
                     <td className="fit-content">{stateToStr(entry.status)}</td>
