@@ -4,4 +4,4 @@
   publish = "dist"
 
 [build.environment]
-  VITE_API_URL = "https://sinomor-production.up.railway.app"
+  VITE_API_URL = "https://peusurat.vercel.app"
