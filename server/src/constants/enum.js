@@ -1,28 +1,10 @@
 const JENIS_SURAT_OPTIONS = [
-  'BUKU KELUAR UMUM',
+  'SURAT KELUAR UMUM',
+  'SURAT KELUAR YANKUM',
+  'SURAT KELUAR P2L',
   'SK KAKANWIL',
-  'BUKU KELUAR YANKUM',
-  'BUKU MASUK UMUM',
-  'BUKU SURAT PERINTAH',
-  'BUKU CUTI',
-  'BUKU KELUAR PLH/PLT',
-  'BUKU KELUAR P2L',
-  'BUKU MASUK P2L',
-  'BUKU MASUK YANKUM'
-];
-
-const RUANG_OPTIONS = [
-  'KU',
-  'P2L',
-  'Kepegawaian',
-  'Humas',
-  'RB',
-  'Penyuluh',
-  'AHU',
-  'Kepegawaian',
-  'Suncang',
-  'BSK',
-  'JDIH'
+  'SURAT PERINTAH',
+  'SURAT CUTI'
 ];
 
 const STATUS = {
@@ -36,4 +18,4 @@ const USER_ROLES = Object.freeze({
   SUPER_ADMIN: 2
 });
 
-module.exports = { JENIS_SURAT_OPTIONS, RUANG_OPTIONS, STATUS, USER_ROLES };
+module.exports = { JENIS_SURAT_OPTIONS, STATUS, USER_ROLES };

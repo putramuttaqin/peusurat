@@ -175,7 +175,7 @@ export default function FormPage() {
           <div className="inline-row">
             {renderSelectField({
               id: 'jenisSurat',
-              label: 'Jenis Surat',
+              label: 'Kategori Surat',
               value: formState.jenisSurat,
               options: JENIS_SURAT_OPTIONS,
               onChange: handleChange('jenisSurat')

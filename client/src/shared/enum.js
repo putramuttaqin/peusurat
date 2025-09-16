@@ -1,28 +1,10 @@
 export const JENIS_SURAT_OPTIONS = [
-  'BUKU KELUAR UMUM',
+  'SURAT KELUAR UMUM',
+  'SURAT KELUAR YANKUM',
+  'SURAT KELUAR P2L',
   'SK KAKANWIL',
-  'BUKU KELUAR YANKUM',
-  'BUKU MASUK UMUM',
-  'BUKU SURAT PERINTAH',
-  'BUKU CUTI',
-  'BUKU KELUAR PLH/PLT',
-  'BUKU KELUAR P2L',
-  'BUKU MASUK P2L',
-  'BUKU MASUK YANKUM'
-];
-
-export const RUANG_OPTIONS = [
-  'KU',
-  'P2L',
-  'Kepegawaian',
-  'Humas',
-  'RB',
-  'Penyuluh',
-  'AHU',
-  'Kepegawaian',
-  'Suncang',
-  'BSK',
-  'JDIH'
+  'SURAT PERINTAH',
+  'SURAT CUTI'
 ];
 
 export const STATUS = {
