@@ -42,6 +42,7 @@ export default function FormPage() {
   const [originalKode2, setOriginalKode2] = useState([]);
   const [originalKode3, setOriginalKode3] = useState([]);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [finalNomorSurat, setFinalNomorSurat] = useState(null);
 
   useEffect(() => {
@@ -123,6 +124,10 @@ export default function FormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (submitting) return; // prevent double submit
+    setSubmitting(true);
+
     const nomorSurat = `W.1-${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-xyz`;
 
     try {
@@ -148,6 +153,8 @@ export default function FormPage() {
       }
     } catch (err) {
       alert('Error: ' + err.message);
+    } finally {
+      setSubmitting(false); // always reset
     }
   };
 
@@ -243,7 +250,9 @@ export default function FormPage() {
 
           <div className="inline-row">
             <button type="button" className="back-button" onClick={() => route('/')}>Kembali</button>
-            <button type="submit">Submit</button>
+            <button type="submit" disabled={submitting}>
+              {submitting ? 'Menyimpan...' : 'Submit'}
+            </button>
           </div>
         </form>
       ) : (
