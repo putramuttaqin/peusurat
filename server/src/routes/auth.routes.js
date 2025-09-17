@@ -65,7 +65,13 @@ router.get('/me', (req, res) => {
 
   try {
     const user = jwt.verify(token, security.jwt.secret);
-    return res.json({ isAdmin: user.role === 1, user });
+    // extra check on exp
+    const now = Math.floor(Date.now() / 1000);
+    if (user.exp && user.exp < now) {
+      return res.json({ isAdmin: false });
+    }
+
+    return res.json({ isAdmin: true, user });
   } catch {
     return res.json({ isAdmin: false });
   }
