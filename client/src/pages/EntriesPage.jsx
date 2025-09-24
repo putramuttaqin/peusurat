@@ -20,6 +20,7 @@ export default function EntriesPage() {
   const [totalItems, setTotalItems] = useState(0);
   const [expandedRow, setExpandedRow] = useState(null);
   const [pageLoading, setPageLoading] = useState(false); // ⬅️ Local page loading state
+  const [actionDisabled, setActionDisabled] = useState(false);
 
   const [filters, setFilters] = useState({
     startDate: formatDate(thirtyDaysAgo),
@@ -76,13 +77,20 @@ export default function EntriesPage() {
   };
 
   const handleState = async (id, aksi) => {
+    if (actionDisabled) return; // ignore clicks while disabled
+    setActionDisabled(true);
+
     if (!isAdmin) {
       alert('Hanya admin yang dapat menyetujui surat');
+      setActionDisabled(false);
       return;
     }
 
     const text = aksi === 1 ? 'menyutujui' : 'menolak';
-    if (!confirm(`Anda yakin ingin ${text} surat ini?`)) return;
+    if (!confirm(`Anda yakin ingin ${text} surat ini?`)) {
+      setActionDisabled(false);
+      return;
+    }
 
     try {
       const res = await fetch(`${apiUrl}/api/surat/entries/${id}`, {
@@ -92,16 +100,15 @@ export default function EntriesPage() {
         body: JSON.stringify({ action: aksi })
       });
 
-      if (res.status === 403) {
-        throw new Error('Sesi admin telah berakhir');
-      }
-
+      if (res.status === 403) throw new Error('Sesi admin telah berakhir');
       if (!res.ok) throw new Error('Approval Gagal');
 
       await handleFilter(currentPage);
       alert(`Berhasil ${text} surat!`);
     } catch (err) {
       alert(err.message || 'Gagal menyetujui surat');
+    } finally {
+      setActionDisabled(false);
     }
   };
 
@@ -235,8 +242,8 @@ export default function EntriesPage() {
                       </button>
                       {user.role === USER_ROLES.SUPER_ADMIN && entry.status === 0 && (
                         <>
-                          <button onClick={() => handleState(entry.id, 1)} id="approve-button">Approve</button>
-                          <button onClick={() => handleState(entry.id, 2)} id="reject-button">Reject</button>
+                          <button onClick={() => handleState(entry.id, 1)} id="approve-button" disabled={actionDisabled}>{actionDisabled ? "Menyimpan..." : "Approve"}</button>
+                          <button onClick={() => handleState(entry.id, 2)} id="reject-button" disabled={actionDisabled}>{actionDisabled ? "Menyimpan..." : "Reject"}</button>
                         </>
                       )}
                     </td>
