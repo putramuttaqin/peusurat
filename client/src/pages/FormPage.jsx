@@ -4,7 +4,6 @@ import { AuthContext } from '../shared/AuthContext';
 import Choices from 'choices.js';
 import 'choices.js/public/assets/styles/choices.min.css';
 import '../styles/form.css';
-import namaPemohon from '../data/pemohon.json';
 import kodeSurat from '../data/kode-surat.json';
 import { SIFAT_SURAT, JENIS_SURAT_OPTIONS } from '../shared/enum.js';
 
@@ -149,7 +148,15 @@ export default function FormPage() {
         setFinalNomorSurat(nomorSurat);
         setSubmitted(true);
       } else {
-        throw new Error('Gagal menyimpan data');
+        let errMsg = 'Gagal menyimpan data';
+        try {
+          const data = await res.json();
+          errMsg = data.message || errMsg;
+        } catch {
+          const text = await res.text();
+          if (text) errMsg = text;
+        }
+        throw new Error(errMsg);
       }
     } catch (err) {
       alert('Error: ' + err.message);

@@ -39,10 +39,12 @@ router.post('/', requireAuth, async (req, res) => {
 
     await logAndRun(sql, params);
 
-    res.status(201).json({ success: true });
+    res.status(201).json({ success: true, message: 'Surat berhasil disimpan' });
   } catch (err) {
     console.error('Submission failed:', err);
-    res.status(500).json({ error: 'Failed to save document' });
+    res
+      .status(400)
+      .json({ success: false, message: err.message || 'Gagal menyimpan data' });
   }
 });
 
