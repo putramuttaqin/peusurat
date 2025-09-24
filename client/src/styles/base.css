@@ -115,3 +115,12 @@ input::placeholder {
 .home-link {
   justify-content: center;
 }
+
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+  .container {
+    padding: 10px;
+  }
+}
