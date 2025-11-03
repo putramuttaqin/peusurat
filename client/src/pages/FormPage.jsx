@@ -89,34 +89,11 @@ export default function FormPage() {
         name: val.name,
         shortName: val.name.split(' - ')[0].substring(0, 2)
       }));
-      options = addLainLainOption(options);
       setKode3Options(options);
       setOriginalKode3(options);
       setFormState(prev => ({ ...prev, kode3: '', kode3Short: '' }));
     }
   }, [formState.kode2]);
-
-  const addLainLainOption = (options) => {
-    let nextNumber = 1;
-
-    if (options.length > 0) {
-      const last = options[options.length - 1];
-      const match = last.name.match(/^(\d+)/);
-      if (match) {
-        nextNumber = parseInt(match[1], 10) + 1;
-      }
-    }
-
-    const padded = String(nextNumber).padStart(2, "0");
-    return [
-      ...options,
-      {
-        id: "9999",
-        name: `${padded} - Lain-lain`,
-        shortName: padded,
-      },
-    ];
-  };
 
   const handleSelectChange = (field, options, setOptionsFn, originalOptions) => e => {
     const selectedId = e.target.value;
