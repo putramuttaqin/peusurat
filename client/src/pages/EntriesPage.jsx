@@ -18,8 +18,8 @@ export default function EntriesPage() {
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const [expandedRow, setExpandedRow] = useState(null);
-  const [pageLoading, setPageLoading] = useState(false); // ⬅️ Local page loading state
+  const [expandedId, setExpandedId] = useState(null);
+  const [pageLoading, setPageLoading] = useState(false);
   const [actionDisabled, setActionDisabled] = useState(false);
 
   const [filters, setFilters] = useState({
@@ -30,11 +30,9 @@ export default function EntriesPage() {
   });
 
   useEffect(() => {
-    if (!loading && !isAdmin) {
-      route('/');
-    } else if (!loading && isAdmin) {
-      handleFilter(1);
-    }
+    if (!loading && !isAdmin) route('/');
+    else if (!loading && isAdmin) handleFilter(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, isAdmin]);
 
   const handleFilter = async (page = 1) => {
@@ -51,15 +49,16 @@ export default function EntriesPage() {
       const res = await fetch(`${apiUrl}/api/surat/entries?${params}`, {
         credentials: 'include'
       });
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+      if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
 
       const data = await res.json();
       setEntries(data.documents || []);
       setTotalItems(data.total || 0);
-      setCurrentPage(data.page || 1);
+      setCurrentPage(data.page || page);
     } catch (err) {
-      console.error('Error filtering entries:', err);
-      alert('Gagal memfilter data');
+      console.error('Failed to fetch entries', err);
+      alert('Failed to load data.');
     } finally {
       setPageLoading(false);
     }
@@ -77,17 +76,17 @@ export default function EntriesPage() {
   };
 
   const handleState = async (id, aksi) => {
-    if (actionDisabled) return; // ignore clicks while disabled
+    if (actionDisabled) return;
     setActionDisabled(true);
 
     if (!isAdmin) {
-      alert('Hanya admin yang dapat menyetujui surat');
+      alert('Only admin can perform this action');
       setActionDisabled(false);
       return;
     }
 
-    const text = aksi === 1 ? 'menyutujui' : 'menolak';
-    if (!confirm(`Anda yakin ingin ${text} surat ini?`)) {
+    const text = aksi === 1 ? 'approve' : 'reject';
+    if (!confirm(`Are you sure you want to ${text} this entry?`)) {
       setActionDisabled(false);
       return;
     }
@@ -100,20 +99,19 @@ export default function EntriesPage() {
         body: JSON.stringify({ action: aksi })
       });
 
-      if (res.status === 403) throw new Error('Sesi admin telah berakhir');
-      if (!res.ok) throw new Error('Approval Gagal');
+      if (res.status === 403) throw new Error('Admin session expired');
+      if (!res.ok) throw new Error('Action failed');
 
       await handleFilter(currentPage);
-      alert(`Berhasil ${text} surat!`);
+      alert(`Successfully ${text}d.`);
     } catch (err) {
-      alert(err.message || 'Gagal menyetujui surat');
+      alert(err.message || 'Action failed');
     } finally {
       setActionDisabled(false);
     }
   };
 
-  const stateToStr = (s) =>
-    Object.keys(STATUS).find((k) => STATUS[k] === String(s));
+  const stateToStr = (s) => Object.keys(STATUS).find((k) => STATUS[k] === String(s)) || String(s);
 
   const formatFullDateTime = (isoString) => {
     const date = new Date(isoString);
@@ -137,18 +135,13 @@ export default function EntriesPage() {
   const maskPerihal = (text) => {
     if (!text) return '';
     if (text.length <= 4) return '*'.repeat(text.length);
-
-    const firstTwo = text.slice(0, 2);
-    const lastTwo = text.slice(-2);
-    const masked = '*'.repeat(text.length - 4);
-
-    return `${firstTwo}${masked}${lastTwo}`;
+    return text.slice(0, 2) + '*'.repeat(text.length - 4) + text.slice(-2);
   };
 
   return (
     <div className="form-container">
       <div className="entries-header">
-        <button className="back-button" onClick={() => route('/')}>Kembali</button>
+        <button className="back-button" onClick={() => route('/')}>Back</button>
       </div>
 
       <h2>Dashboard Nomor Surat</h2>
@@ -183,13 +176,16 @@ export default function EntriesPage() {
             value={search}
             onInput={(e) => setSearch(e.target.value)}
             className="search-input"
+            aria-label="Search entries"
           />
+
           <input
             type="date"
             value={filters.startDate}
             onChange={(e) => setFilters({ ...filters, startDate: e.target.value })}
             className="date-input"
           />
+
           <input
             type="date"
             value={filters.endDate}
@@ -210,68 +206,94 @@ export default function EntriesPage() {
         <p>Tidak ada data ditemukan.</p>
       ) : (
         <>
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Jenis Surat</th>
-                <th>Perihal Surat</th>
-                <th>User</th>
-                <th>Nomor Surat</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {entries.map((entry) => (
-                <>
-                  <tr key={entry.id}>
-                    <td className="fit-content">{JENIS_SURAT_OPTIONS[entry.jenis_surat_id - 1]}</td>
-                    <td>
-                      {entry.sifat_surat === 1
-                        ? maskPerihal(entry.perihal_surat)
-                        : entry.perihal_surat}
-                    </td>
-                    <td className="fit-content">{entry.pemohon}</td>
-                    <td className="fit-content">{entry.nomor_surat}</td>
-                    <td className="fit-content">{stateToStr(entry.status)}</td>
-                    <td className="fit-content">
-                      <button
-                        className="action-button"
-                        onClick={() => setExpandedRow(expandedRow === entry.id ? null : entry.id)}
-                      >
-                        {expandedRow === entry.id ? 'Hide' : 'Detail'}
-                      </button>
-                      {user.role === USER_ROLES.SUPER_ADMIN && entry.status === 0 && (
-                        <>
-                          <button onClick={() => handleState(entry.id, 1)} id="approve-button" disabled={actionDisabled}>{actionDisabled ? "Menyimpan..." : "Approve"}</button>
-                          <button onClick={() => handleState(entry.id, 2)} id="reject-button" disabled={actionDisabled}>{actionDisabled ? "Menyimpan..." : "Reject"}</button>
-                        </>
-                      )}
-                    </td>
-                  </tr>
-                  {expandedRow === entry.id && (
-                    <tr className="detail-row">
-                      <td colSpan={8}>
-                        <div className="detail-content">
-                          <strong>Tanggal Surat:</strong> {formatDateOnly(entry.tanggal_surat)}<br />
-                          <strong>Waktu Masuk Data:</strong> {formatFullDateTime(entry.created_at)}
-                        </div>
-                      </td>
-                    </tr>
-                  )}
-                </>
-              ))}
-            </tbody>
-          </table>
+          <div className="entries-card-list">
+            {entries.map((entry) => (
+              <article className="entry-card" key={entry.id} aria-labelledby={`entry-${entry.id}-title`}>
+                <header className="entry-card-header">
+                  <div id={`entry-${entry.id}-title`} className="entry-title">
+                    {JENIS_SURAT_OPTIONS[entry.jenis_surat_id - 1] || '—'}
+                  </div>
+                  <div className="entry-subtitle">{entry.nomor_surat || '—'}</div>
+                </header>
+
+                <div className="entry-body">
+                  <div className="entry-row">
+                    <div className="entry-label">Perihal</div>
+                    <div className="entry-value">
+                      {entry.sifat_surat === 1 ? maskPerihal(entry.perihal_surat) : entry.perihal_surat}
+                    </div>
+                  </div>
+
+                  <div className="entry-row">
+                    <div className="entry-label">User</div>
+                    <div className="entry-value">{entry.pemohon || '—'}</div>
+                  </div>
+
+                  <div className="entry-row">
+                    <div className="entry-label">Status</div>
+                    <div className="entry-value">{stateToStr(entry.status)}</div>
+                  </div>
+                </div>
+
+                {/* actions always visible at bottom (option 3) */}
+                <div className="entry-actions">
+                  <button
+                    className="detail-toggle"
+                    onClick={() => setExpandedId(expandedId === entry.id ? null : entry.id)}
+                    aria-expanded={expandedId === entry.id}
+                    aria-controls={`details-${entry.id}`}
+                  >
+                    {expandedId === entry.id ? 'Hide Details' : 'Detail'}
+                  </button>
+
+                  <div className="action-buttons">
+                    {user?.role === USER_ROLES.SUPER_ADMIN && entry.status === 0 ? (
+                      <>
+                        <button
+                          className="approve-btn"
+                          onClick={() => handleState(entry.id, 1)}
+                          disabled={actionDisabled}
+                          aria-disabled={actionDisabled}
+                        >
+                          {actionDisabled ? 'Processing...' : 'Approve'}
+                        </button>
+
+                        <button
+                          className="reject-btn"
+                          onClick={() => handleState(entry.id, 2)}
+                          disabled={actionDisabled}
+                          aria-disabled={actionDisabled}
+                        >
+                          {actionDisabled ? 'Processing...' : 'Reject'}
+                        </button>
+                      </>
+                    ) : null}
+                  </div>
+                </div>
+
+                {expandedId === entry.id && (
+                  <div id={`details-${entry.id}`} className="entry-details">
+                    <p><strong>Tanggal Surat:</strong> {entry.tanggal_surat ? formatDateOnly(entry.tanggal_surat) : '—'}</p>
+                    <p><strong>Waktu Masuk:</strong> {entry.created_at ? formatFullDateTime(entry.created_at) : '—'}</p>
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
 
           <div className="pagination">
             <button
-              onClick={() => handleFilter(currentPage - 1)}
+              onClick={() => handleFilter(Math.max(1, currentPage - 1))}
               disabled={currentPage === 1}
               className="pagination-button"
             >
               Prev
             </button>
-            <span>{currentPage} / {Math.ceil(totalItems / itemsPerPage)}</span>
+
+            <span className="pagination-info">
+              {currentPage} / {Math.max(1, Math.ceil(totalItems / itemsPerPage))}
+            </span>
+
             <button
               onClick={() => handleFilter(currentPage + 1)}
               disabled={currentPage * itemsPerPage >= totalItems}
