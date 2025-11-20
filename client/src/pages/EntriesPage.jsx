@@ -208,76 +208,62 @@ export default function EntriesPage() {
         <>
           <div className="entries-card-list">
             {entries.map((entry) => (
-              <article className="entry-card" key={entry.id} aria-labelledby={`entry-${entry.id}-title`}>
+              <div className="entry-card" key={entry.id} aria-labelledby={`entry-${entry.id}-title`}>
+
+                {/* HEADER */}
                 <header className="entry-card-header">
-                  <div id={`entry-${entry.id}-title`} className="entry-title">
-                    {JENIS_SURAT_OPTIONS[entry.jenis_surat_id - 1] || '—'}
-                  </div>
+                  <div className="entry-title">{JENIS_SURAT_OPTIONS[entry.jenis_surat_id - 1] || '—'}</div>
                   <div className="entry-subtitle">{entry.nomor_surat || '—'}</div>
                 </header>
 
-                <div className="entry-body">
-                  <div className="entry-row">
-                    <div className="entry-label">Perihal</div>
-                    <div className="entry-value">
-                      {entry.sifat_surat === 1 ? maskPerihal(entry.perihal_surat) : entry.perihal_surat}
-                    </div>
-                  </div>
+                {/* USER (no label) */}
+                <div className="entry-user">{entry.pemohon || '—'}</div>
 
-                  <div className="entry-row">
-                    <div className="entry-label">User</div>
-                    <div className="entry-value">{entry.pemohon || '—'}</div>
-                  </div>
-
-                  <div className="entry-row">
-                    <div className="entry-label">Status</div>
-                    <div className="entry-value">{stateToStr(entry.status)}</div>
+                {/* PERIHAL */}
+                <div className="entry-section">
+                  <div className="entry-label">Perihal</div>
+                  <div className="entry-value perihal-value">
+                    {entry.sifat_surat === 1 ? maskPerihal(entry.perihal_surat) : entry.perihal_surat}
                   </div>
                 </div>
 
-                {/* actions always visible at bottom (option 3) */}
-                <div className="entry-actions">
+                {/* BOTTOM ROW: DETAIL + STATUS / ACTION */}
+                <div className="entry-bottom">
+
                   <button
                     className="detail-toggle"
                     onClick={() => setExpandedId(expandedId === entry.id ? null : entry.id)}
-                    aria-expanded={expandedId === entry.id}
-                    aria-controls={`details-${entry.id}`}
                   >
-                    {expandedId === entry.id ? 'Hide Details' : 'Detail'}
+                    Detail
                   </button>
 
-                  <div className="action-buttons">
-                    {user?.role === USER_ROLES.SUPER_ADMIN && entry.status === 0 ? (
-                      <>
-                        <button
-                          className="approve-btn"
-                          onClick={() => handleState(entry.id, 1)}
-                          disabled={actionDisabled}
-                          aria-disabled={actionDisabled}
-                        >
-                          {actionDisabled ? 'Processing...' : 'Approve'}
-                        </button>
+                  {/* STATUS OR ACTION BUTTONS */}
+                  {entry.status === 0 && user?.role === USER_ROLES.SUPER_ADMIN ? (
+                    <div className="entry-actions">
+                      <button className="approve-btn" onClick={() => handleState(entry.id, 1)}>
+                        Approve
+                      </button>
+                      <button className="reject-btn" onClick={() => handleState(entry.id, 2)}>
+                        Reject
+                      </button>
+                    </div>
+                  ) : (
+                    <div className={`entry-status-badge status-${stateToStr(entry.status).toLowerCase()}`}>
+                      {stateToStr(entry.status)}
+                    </div>
+                  )}
 
-                        <button
-                          className="reject-btn"
-                          onClick={() => handleState(entry.id, 2)}
-                          disabled={actionDisabled}
-                          aria-disabled={actionDisabled}
-                        >
-                          {actionDisabled ? 'Processing...' : 'Reject'}
-                        </button>
-                      </>
-                    ) : null}
-                  </div>
                 </div>
 
+                {/* DETAILS */}
                 {expandedId === entry.id && (
-                  <div id={`details-${entry.id}`} className="entry-details">
+                  <div className="entry-details">
                     <p><strong>Tanggal Surat:</strong> {entry.tanggal_surat ? formatDateOnly(entry.tanggal_surat) : '—'}</p>
                     <p><strong>Waktu Masuk:</strong> {entry.created_at ? formatFullDateTime(entry.created_at) : '—'}</p>
                   </div>
                 )}
-              </article>
+
+              </div>
             ))}
           </div>
 
