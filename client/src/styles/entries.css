@@ -95,7 +95,7 @@
   width: 280px;
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: 0.75rem;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -109,69 +109,28 @@
 -------------------------------------------------- */
 .entry-card-header {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.entry-title {
+.entry-jenis {
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #143d2b;
 }
 
-.entry-subtitle {
-  font-size: 0.85rem;
-  color: #666;
-}
-
 /* --------------------------------------------------
-   CARD BODY
+   STATUS BADGE
 -------------------------------------------------- */
-.entry-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.entry-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.6rem;
-}
-
-.entry-label {
-  font-weight: 600;
-  color: #444;
-  flex: 1 1 45%;
-}
-
-.entry-value {
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Small screen stack */
-@media (max-width: 600px) {
-  .entry-row {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-/* --------------------------------------------------
-   STATUS BADGES
--------------------------------------------------- */
-.status-badge {
+.entry-status-badge {
   padding: 0.3rem 0.65rem;
-  border-radius: 20px;
-  font-size: 0.78rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
   font-weight: 600;
-  display: inline-block;
+  white-space: nowrap;
 }
 
-.status-waiting {
+.status-pending {
   background: #fff7d6;
   color: #8a7000;
   border: 1px solid #f1e2a3;
@@ -189,60 +148,105 @@
   border: 1px solid #ecb5b2;
 }
 
-.status-custom {
-  background: #e6e9ff;
-  color: #3a41a6;
-  border: 1px solid #b8bdf2;
+/* --------------------------------------------------
+   CARD BODY
+-------------------------------------------------- */
+.entry-body {
+  margin-top: 0.25rem;
+}
+
+.entry-perihal {
+  font-size: 0.9rem;
+  line-height: 1.35;
+  color: #222;
+  text-align: left;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  /* adjustable later */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* --------------------------------------------------
-   BOTTOM AREA (DETAIL + ACTIONS)
+   META: nomor + user • tanggal
 -------------------------------------------------- */
-.entry-bottom {
+.entry-meta {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-  margin-top: 0.4rem;
+  gap: 0.25rem;
 }
 
-.action-group {
+.entry-nomor {
+  font-size: 0.85rem;
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.entry-meta-secondary {
+  font-size: 0.75rem;
+  color: #777;
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.entry-separator {
+  opacity: 0.6;
+}
+
+/* --------------------------------------------------
+   FOOTER
+-------------------------------------------------- */
+.entry-footer {
+  margin-top: auto;
   display: flex;
   justify-content: space-between;
-  align-items: justify;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-/* Toggle details */
+/* --------------------------------------------------
+   DETAIL TOGGLE BUTTON
+-------------------------------------------------- */
 .detail-toggle {
   background: #f4f4f4;
   border: 1px solid #ddd;
-  padding: 0.45rem 0.75rem;
+  padding: 0.4rem 0.7rem;
   border-radius: 8px;
   cursor: pointer;
+  font-size: 0.75rem;
 }
 
-/* Action buttons (Approve / Reject) */
-.action-buttons {
+/* --------------------------------------------------
+   ACTION BUTTONS
+-------------------------------------------------- */
+.entry-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .approve-btn,
 .reject-btn {
-  padding: 0.45rem 0.75rem;
+  padding: 0.4rem 0.65rem;
   border-radius: 8px;
   font-weight: 600;
+  font-size: 0.75rem;
   border: 1px solid transparent;
   cursor: pointer;
 }
 
 .approve-btn {
   background: #4e9a67;
-  color: white;
+  color: #fff;
 }
 
 .reject-btn {
   background: #c26a67;
-  color: white;
+  color: #fff;
 }
 
 .approve-btn:disabled,
@@ -251,13 +255,30 @@
   cursor: not-allowed;
 }
 
-/* Expanded details */
+/* --------------------------------------------------
+   EXPANDED DETAILS SECTION
+-------------------------------------------------- */
 .entry-details {
   margin-top: 0.6rem;
   padding-top: 0.6rem;
   border-top: 1px dashed #eee;
+  font-size: 0.8rem;
+  color: #444;
+}
+
+.entry-detail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.entry-detail-label {
+  font-weight: 600;
+  color: #666;
+}
+
+.entry-detail-value {
   color: #333;
-  font-size: 0.95rem;
 }
 
 /* --------------------------------------------------
@@ -290,4 +311,14 @@ mark {
   background: #fff6a8;
   padding: 0 4px;
   border-radius: 3px;
+}
+
+@media (max-width: 640px) {
+  .entry-card {
+    width: 100%;
+  }
+
+  .entry-perihal {
+    -webkit-line-clamp: 4;
+  }
 }

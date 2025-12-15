@@ -207,64 +207,101 @@ export default function EntriesPage() {
       ) : (
         <>
           <div className="entries-card-list">
-            {entries.map((entry) => (
-              <div className="entry-card" key={entry.id} aria-labelledby={`entry-${entry.id}-title`}>
+            {entries.map((entry) => {
+              const jenisSurat =
+                JENIS_SURAT_OPTIONS[entry.jenis_surat_id - 1] || '—';
 
-                {/* HEADER */}
-                <header className="entry-card-header">
-                  <div className="entry-title">{JENIS_SURAT_OPTIONS[entry.jenis_surat_id - 1] || '—'}</div>
-                  <div className="entry-subtitle">{entry.nomor_surat || '—'}</div>
-                </header>
+              return (
+                <article
+                  className="entry-card"
+                  key={entry.id}
+                  aria-labelledby={`entry-${entry.id}-perihal`}
+                >
+                  {/* HEADER: jenis + status */}
+                  <header className="entry-card-header">
+                    <span className="entry-jenis">{jenisSurat}</span>
 
-                {/* USER (no label) */}
-                <div className="entry-user">{entry.pemohon || '—'}</div>
-
-                {/* PERIHAL */}
-                <div className="entry-section">
-                  <div className="entry-label">Perihal</div>
-                  <div className="entry-value perihal-value">
-                    {entry.sifat_surat === 1 ? maskPerihal(entry.perihal_surat) : entry.perihal_surat}
-                  </div>
-                </div>
-
-                {/* BOTTOM ROW: DETAIL + STATUS / ACTION */}
-                <div className="entry-bottom">
-
-                  <button
-                    className="detail-toggle"
-                    onClick={() => setExpandedId(expandedId === entry.id ? null : entry.id)}
-                  >
-                    Detail
-                  </button>
-
-                  {/* STATUS OR ACTION BUTTONS */}
-                  {entry.status === 0 && user?.role === USER_ROLES.SUPER_ADMIN ? (
-                    <div className="entry-actions">
-                      <button className="approve-btn" onClick={() => handleState(entry.id, 1)}>
-                        Approve
-                      </button>
-                      <button className="reject-btn" onClick={() => handleState(entry.id, 2)}>
-                        Reject
-                      </button>
-                    </div>
-                  ) : (
-                    <div className={`entry-status-badge status-${stateToStr(entry.status).toLowerCase()}`}>
+                    <span
+                      className={`entry-status-badge status-${stateToStr(entry.status).toLowerCase()}`}
+                    >
                       {stateToStr(entry.status)}
+                    </span>
+                  </header>
+
+                  {/* META: nomor surat */}
+                  <div className="entry-meta">
+                    <div className="entry-nomor">{entry.nomor_surat || '—'}</div>
+
+                    {/* unlabeled user + tanggal */}
+                    <div className="entry-meta-secondary">
+                      <span className="entry-user">{entry.pemohon || '—'}</span>
+                      <span className="entry-separator">•</span>
+                      <span className="entry-date">
+                        {entry.tanggal_surat
+                          ? formatDateOnly(entry.tanggal_surat)
+                          : '—'}
+                      </span>
                     </div>
-                  )}
-
-                </div>
-
-                {/* DETAILS */}
-                {expandedId === entry.id && (
-                  <div className="entry-details">
-                    <p><strong>Tanggal Surat:</strong> {entry.tanggal_surat ? formatDateOnly(entry.tanggal_surat) : '—'}</p>
-                    <p><strong>Waktu Masuk:</strong> {entry.created_at ? formatFullDateTime(entry.created_at) : '—'}</p>
                   </div>
-                )}
 
-              </div>
-            ))}
+                  {/* BODY: perihal (main content) */}
+                  <div className="entry-body">
+                    <p
+                      id={`entry-${entry.id}-perihal`}
+                      className="entry-perihal"
+                    >
+                      {entry.sifat_surat === 1
+                        ? maskPerihal(entry.perihal_surat)
+                        : entry.perihal_surat}
+                    </p>
+                  </div>
+
+                  {/* FOOTER: actions / detail */}
+                  <footer className="entry-footer">
+                    <button
+                      className="detail-toggle"
+                      onClick={() =>
+                        setExpandedId(expandedId === entry.id ? null : entry.id)
+                      }
+                    >
+                      Detail
+                    </button>
+
+                    {entry.status === 0 &&
+                      user?.role === USER_ROLES.SUPER_ADMIN ? (
+                      <div className="entry-actions">
+                        <button
+                          className="approve-btn"
+                          onClick={() => handleState(entry.id, 1)}
+                        >
+                          Approve
+                        </button>
+                        <button
+                          className="reject-btn"
+                          onClick={() => handleState(entry.id, 2)}
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    ) : null}
+                  </footer>
+
+                  {/* EXPANDED DETAILS */}
+                  {expandedId === entry.id && (
+                    <section className="entry-details">
+                      <div className="entry-detail-row">
+                        <span className="entry-detail-label">Waktu Masuk</span>
+                        <span className="entry-detail-value">
+                          {entry.created_at
+                            ? formatFullDateTime(entry.created_at)
+                            : '—'}
+                        </span>
+                      </div>
+                    </section>
+                  )}
+                </article>
+              );
+            })}
           </div>
 
           <div className="pagination">
