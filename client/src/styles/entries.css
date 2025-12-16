@@ -1,11 +1,11 @@
 /* --------------------------------------------------
    LAYOUT WRAPPER
 -------------------------------------------------- */
-.form-container {
-  width: fit-content;
-  max-width: 100%;
+.entries-embedded {
+  width: 100%;
+  max-width: 1200px; /* or 100% if you want full bleed */
   margin: 2rem auto;
-  padding: 1.25rem;
+  padding: 1rem;
   border-radius: 12px;
   background: #ffffff;
   border: 1px solid #e6e6e6;

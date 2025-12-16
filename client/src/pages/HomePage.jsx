@@ -1,62 +1,66 @@
-import { useContext } from 'preact/hooks';
+import { useState, useContext } from 'preact/hooks';
 import { AuthContext } from '../shared/AuthContext';
 import FormPage from './FormPage';
 import EntriesPage from './EntriesPage';
 import logoRapai from '../assets/icons/logo-rapai.png';
 import '../styles/home.css';
+import EntriesSection from '../components/entries/EntriesSection';
 
 export default function HomePage({ setLoginModalVisible }) {
-  const { isAdmin } = useContext(AuthContext);
+   const { isAdmin } = useContext(AuthContext);
+   const [entriesRefreshKey, setEntriesRefreshKey] = useState(0);
 
-  return (
-    <div className="home-page">
+   const triggerEntriesRefresh = () => {
+      setEntriesRefreshKey((prevKey) => prevKey + 1);
+   };
 
-      {/* HERO / BRAND */}
-      <header className="home-hero">
-        <img src={logoRapai} className="home-logo" alt="Logo Rapai" />
-        <h1>PEUSURAT</h1>
-        <p className="home-tagline">
-          Penomoran Surat Keluar Elektronik
-        </p>
-      </header>
+   return (
+      <div className="home-page">
 
-      {/* TOP SECTION */}
-      <section className="home-top">
+         {/* TOP SECTION */}
+         <section className="home-top">
 
-        {/* FORM AREA */}
-        <div className="home-form-area">
-          {isAdmin ? (
-            <FormPage embedded />
-          ) : (
-            <div className="home-login-cta">
-              <p>Login untuk mengajukan penomoran surat</p>
-              <button
-                className="login-button"
-                onClick={() => setLoginModalVisible(true)}
-              >
-                Login
-              </button>
+            {/* FORM AREA */}
+            <div className="home-form-area">
+               {isAdmin ? (
+                  <FormPage embedded onSuccess={triggerEntriesRefresh} />
+               ) : (
+                  <div className="home-login-cta">
+                     <p>Login untuk mengajukan penomoran surat</p>
+                     <button
+                        className="login-button"
+                        onClick={() => setLoginModalVisible(true)}
+                     >
+                        Login
+                     </button>
+                  </div>
+               )}
             </div>
-          )}
-        </div>
 
-        {/* INFO / ANNOUNCEMENT */}
-        <aside className="home-info-area">
-          <h3>Informasi</h3>
-          <ul>
-            <li>Gunakan sistem ini untuk penomoran surat keluar</li>
-            <li>Status pengajuan dapat dilihat di bawah</li>
-            <li>Hubungi admin jika ada kendala</li>
-          </ul>
-        </aside>
+            {/* INFO / HERO AREA */}
+            <aside className="home-info-area">
+               <img src={logoRapai} className="home-logo" alt="Logo Rapai" />
+               <h1 className="home-title">PEUSURAT</h1>
+               <p className="home-tagline">
+                  Penomoran Surat Keluar Elektronik
+               </p>
 
-      </section>
+               <div className="home-info-box">
+                  <ul>
+                     <li>Ajukan penomoran surat secara elektronik</li>
+                     <li>Pantau status pengajuan secara real-time</li>
+                     <li>Hubungi admin jika ada kendala</li>
+                  </ul>
+               </div>
+            </aside>
 
-      {/* SUBMISSIONS (PHASE 2) */}
-      <section className="home-submissions">
-        <EntriesPage embedded />
-      </section>
+         </section>
 
-    </div>
-  );
+         {/* SUBMISSIONS */}
+         <section className="home-submissions">
+            <EntriesSection embedded refreshKey={entriesRefreshKey}/>
+         </section>
+
+      </div>
+   );
 }

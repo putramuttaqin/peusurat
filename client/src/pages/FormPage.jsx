@@ -7,7 +7,7 @@ import '../styles/form.css';
 import kodeSurat from '../data/kode-surat.json';
 import { SIFAT_SURAT, JENIS_SURAT_OPTIONS } from '../shared/enum.js';
 
-export default function FormPage() {
+export default function FormPage({ onSuccess }) {
   const { user, isAdmin, loading } = useContext(AuthContext);
 
   // 🚫 Redirect if not admin (after loading)
@@ -147,6 +147,10 @@ export default function FormPage() {
       if (res.ok) {
         setFinalNomorSurat(nomorSurat);
         setSubmitted(true);
+
+        if (typeof onSuccess === 'function') {
+          onSuccess();
+        }
       } else {
         let errMsg = 'Gagal menyimpan data';
         try {

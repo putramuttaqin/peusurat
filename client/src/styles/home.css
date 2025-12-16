@@ -108,3 +108,115 @@
 .navbar h5 {
   margin-right: 15px;
 }
+
+/* ----------------------------------
+   HOME PAGE LAYOUT
+---------------------------------- */
+
+.home-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* ----------------------------------
+   TOP SECTION
+---------------------------------- */
+
+.home-top {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+/* FORM AREA */
+.home-form-area {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid #e6e6e6;
+}
+
+/* LOGIN CTA */
+.home-login-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+/* ----------------------------------
+   INFO / HERO AREA
+---------------------------------- */
+
+.home-info-area {
+  background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+  border-radius: 12px;
+  padding: 1.25rem;
+  border: 1px solid #e6e6e6;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.home-logo {
+  width: 56px;
+  height: auto;
+}
+
+.home-title {
+  font-size: 1.4rem;
+  margin: 0;
+  color: #143d2b;
+}
+
+.home-tagline {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.home-info-box {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.home-info-box ul {
+  padding-left: 1rem;
+  margin: 0;
+}
+
+.home-info-box li {
+  margin-bottom: 0.4rem;
+}
+
+/* ----------------------------------
+   SUBMISSIONS SECTION
+---------------------------------- */
+
+.home-submissions {
+  margin-top: 1.5rem;
+}
+
+/* ----------------------------------
+   RESPONSIVE
+---------------------------------- */
+
+@media (max-width: 900px) {
+  .home-top {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-page {
+    padding: 0.5rem;
+  }
+
+  .home-info-area {
+    order: -1;
+    /* show info first on mobile */
+  }
+}
