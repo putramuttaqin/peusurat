@@ -2,15 +2,14 @@
    LAYOUT WRAPPER
 -------------------------------------------------- */
 .form-container {
-  max-width: 1100px;
+  width: fit-content;
+  max-width: 100%;
   margin: 2rem auto;
   padding: 1.25rem;
   border-radius: 12px;
   background: #ffffff;
   border: 1px solid #e6e6e6;
-  color: #222;
   box-shadow: 0 6px 18px rgba(34, 34, 34, 0.06);
-  font-family: inherit;
 }
 
 .form-container h2 {
@@ -41,23 +40,26 @@
 
 /* Filters */
 .search-filter-bar {
-  margin-bottom: 1rem;
+  max-width: 100%;
+  display: inline-block;
 }
 
 .filter-row {
   display: flex;
-  gap: 0.6rem;
-  align-items: justify;
   flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  width: fit-content;
 }
 
 .filter-item {
-  flex: 1 1 200px;
+  flex: 0 1 200px;
   min-width: 140px;
 }
 
 .search-input {
-  flex: 1 1 240px;
+  flex: 0 1 240px;
+  max-width: 100%;
   min-width: 150px;
   padding: 0.45rem;
   border-radius: 8px;
@@ -115,8 +117,9 @@
 
 .entry-jenis {
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   color: #143d2b;
+  text-align: left;
 }
 
 /* --------------------------------------------------
