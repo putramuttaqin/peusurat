@@ -187,93 +187,83 @@ export default function FormPage({ onSuccess }) {
 
   return (
     <div className="form-container-page">
-      <h2>{submitted ? 'Menunggu Persetujuan Admin' : 'Permohonan Nomor Surat'}</h2>
-      {!submitted ? (
-        <form onSubmit={handleSubmit}>
-          <div className="inline-row">
-            {renderSelectField({
-              id: 'jenisSurat',
-              label: 'Kategori Surat',
-              value: formState.jenisSurat,
-              options: JENIS_SURAT_OPTIONS,
-              onChange: handleChange('jenisSurat')
-            })}
-            <div className="form-group short">
-              <label htmlFor="tanggalSurat">Tanggal Surat</label>
-              <input type="date" id="tanggalSurat" value={formState.tanggalSurat} onInput={handleChange('tanggalSurat')} />
-            </div>
-            <div className="form-group short">
-              <label htmlFor="sifatSurat">Sifat Surat</label>
-              <select
-                id="sifatSurat"
-                name="sifatSurat"
-                value={formState.sifatSurat}
-                onChange={e => setFormState(prev => ({ ...prev, sifatSurat: parseInt(e.target.value) }))}
-                required
-              >
-                <option value={SIFAT_SURAT.BIASA}>Biasa</option>
-                <option value={SIFAT_SURAT.RAHASIA}>Rahasia</option>
-              </select>
-            </div>
+      <h2>Permohonan Nomor Surat</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="inline-row">
+          {renderSelectField({
+            id: 'jenisSurat',
+            label: 'Kategori Surat',
+            value: formState.jenisSurat,
+            options: JENIS_SURAT_OPTIONS,
+            onChange: handleChange('jenisSurat')
+          })}
+          <div className="form-group short">
+            <label htmlFor="tanggalSurat">Tanggal Surat</label>
+            <input type="date" id="tanggalSurat" value={formState.tanggalSurat} onInput={handleChange('tanggalSurat')} />
           </div>
-
-          <div className="form-group full">
-            <label htmlFor="keterangan">Perihal Surat</label>
-            <textarea id="keterangan" rows="4" value={formState.keterangan} onInput={handleChange('keterangan')} />
+          <div className="form-group short">
+            <label htmlFor="sifatSurat">Sifat Surat</label>
+            <select
+              id="sifatSurat"
+              name="sifatSurat"
+              value={formState.sifatSurat}
+              onChange={e => setFormState(prev => ({ ...prev, sifatSurat: parseInt(e.target.value) }))}
+              required
+            >
+              <option value={SIFAT_SURAT.BIASA}>Biasa</option>
+              <option value={SIFAT_SURAT.RAHASIA}>Rahasia</option>
+            </select>
           </div>
-
-          <div className="inline-row">
-            <div className="form-group short">
-              <label htmlFor="wilayah">Kode Wilayah</label>
-              <input id="wilayah" value={formState.wilayah} readOnly />
-            </div>
-            {renderSelectField({
-              id: 'kode1',
-              label: 'Masalah',
-              value: formState.kode1,
-              options: kode1Options,
-              onChange: handleSelectChange('kode1', kode1Options, setKode1Options, originalKode1),
-              onFocus: handleFocusReset(setKode1Options, originalKode1)
-            })}
-            {renderSelectField({
-              id: 'kode2',
-              label: 'Angka',
-              value: formState.kode2,
-              options: kode2Options,
-              onChange: handleSelectChange('kode2', kode2Options, setKode2Options, originalKode2),
-              onFocus: handleFocusReset(setKode2Options, originalKode2),
-              disabled: !formState.kode1
-            })}
-            {renderSelectField({
-              id: 'kode3',
-              label: 'Angka',
-              value: formState.kode3,
-              options: kode3Options,
-              onChange: handleSelectChange('kode3', kode3Options, setKode3Options, originalKode3),
-              onFocus: handleFocusReset(setKode3Options, originalKode3),
-              disabled: !formState.kode2
-            })}
-          </div>
-
-          <div className="preview">
-            <strong>Preview:</strong> {`W.1-${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-...`}
-          </div>
-
-          <div className="inline-row">
-            <button type="button" className="back-button" onClick={() => route('/')}>Kembali</button>
-            <button type="submit" disabled={submitting}>
-              {submitting ? 'Menyimpan...' : 'Submit'}
-            </button>
-          </div>
-        </form>
-      ) : (
-        <div className="after-submit">
-          <div className="preview">
-            <strong>{finalNomorSurat}</strong>
-          </div>
-          <button onClick={() => route('/')}>Kembali</button>
         </div>
-      )}
+
+        <div className="form-group full">
+          <label htmlFor="keterangan">Perihal Surat</label>
+          <textarea id="keterangan" rows="4" value={formState.keterangan} onInput={handleChange('keterangan')} />
+        </div>
+
+        <div className="inline-row">
+          <div className="form-group short">
+            <label htmlFor="wilayah">Kode Wilayah</label>
+            <input id="wilayah" value={formState.wilayah} readOnly />
+          </div>
+          {renderSelectField({
+            id: 'kode1',
+            label: 'Masalah',
+            value: formState.kode1,
+            options: kode1Options,
+            onChange: handleSelectChange('kode1', kode1Options, setKode1Options, originalKode1),
+            onFocus: handleFocusReset(setKode1Options, originalKode1)
+          })}
+          {renderSelectField({
+            id: 'kode2',
+            label: 'Angka',
+            value: formState.kode2,
+            options: kode2Options,
+            onChange: handleSelectChange('kode2', kode2Options, setKode2Options, originalKode2),
+            onFocus: handleFocusReset(setKode2Options, originalKode2),
+            disabled: !formState.kode1
+          })}
+          {renderSelectField({
+            id: 'kode3',
+            label: 'Angka',
+            value: formState.kode3,
+            options: kode3Options,
+            onChange: handleSelectChange('kode3', kode3Options, setKode3Options, originalKode3),
+            onFocus: handleFocusReset(setKode3Options, originalKode3),
+            disabled: !formState.kode2
+          })}
+        </div>
+
+        <div className="preview">
+          <strong>Preview:</strong> {`W.1-${formState.kode1Short}.${formState.kode2Short}.${formState.kode3Short}-...`}
+        </div>
+
+        <div className="inline-row">
+          <button type="submit" disabled={submitting}>
+            {submitting ? 'Menyimpan...' : 'Submit'}
+          </button>
+        </div>
+      </form>
     </div>
   );
 }
