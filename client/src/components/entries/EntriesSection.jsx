@@ -5,7 +5,7 @@ import { JENIS_SURAT_OPTIONS, STATUS, USER_ROLES } from '../../shared/enum.js';
 import '../../styles/entries.css';
 
 import EntryCard from './EntryCard.jsx';
-import SearchFilterBar from './SearchFilterBar.jsx';
+import EntriesFilter from './EntriesFilter.jsx';
 import EntriesPagination from './EntriesPagination.jsx';
 
 export default function EntriesSection({ embedded = false, refreshKey }) {
@@ -152,7 +152,7 @@ export default function EntriesSection({ embedded = false, refreshKey }) {
 
    return (
       <div className="entries-embedded">
-         <SearchFilterBar
+         <EntriesFilter
             search={search}
             setSearch={setSearch}
             filters={filters}

@@ -1,7 +1,5 @@
 import { useState, useContext } from 'preact/hooks';
 import { AuthContext } from '../shared/AuthContext';
-import FormPage from './FormPage';
-import EntriesPage from './EntriesPage';
 import logoRapai from '../assets/icons/logo-rapai.png';
 import '../styles/home.css';
 import EntriesSection from '../components/entries/EntriesSection';

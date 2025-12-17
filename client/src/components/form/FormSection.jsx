@@ -4,6 +4,7 @@ import kodeSurat from '../../data/kode-surat.json';
 import { SIFAT_SURAT, JENIS_SURAT_OPTIONS } from '../../shared/enum';
 import { submitSurat } from '../../api/surat';
 import FormSurat from './FormSurat';
+import '../../styles/form.css';
 
 export default function FormSection({ compact = false, onSuccess }) {
   const { user, isAdmin, loading } = useContext(AuthContext);

@@ -1,6 +1,6 @@
 import { STATUS, JENIS_SURAT_OPTIONS } from '../../shared/enum.js';
 
-export default function SearchFilterBar({
+export default function EntriesFilter({
   search,
   setSearch,
   filters,

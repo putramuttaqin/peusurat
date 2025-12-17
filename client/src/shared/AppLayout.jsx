@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'preact/hooks';
 import { Router } from 'preact-router';
 import { AuthContext } from './AuthContext';
 import HomePage from '../pages/HomePage';
-import FormPage from '../pages/FormPage';
 import EntriesPage from '../pages/EntriesPage';
 import Navbar from './Navbar';
 import LoginModal from './LoginModal';
@@ -12,13 +11,12 @@ export default function AppLayout() {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   useEffect(() => {
-    // Only show modal if loading is done AND we are definitely NOT logged in
-    if (loading) return; // wait for auth check to complete
+    if (loading) return;
 
     if (!isAdmin) {
       setShowLoginModal(true);
     } else {
-      setShowLoginModal(false); // Important: hide if already logged in
+      setShowLoginModal(false);
     }
   }, [loading, isAdmin]);
 
@@ -28,13 +26,17 @@ export default function AppLayout() {
   return (
     <>
       <Navbar onLoginClick={handleOpenModal} />
+
       {!loading && (
         <Router>
+          {/* Home is always accessible */}
           <HomePage path="/" setLoginModalVisible={handleOpenModal} />
-          {isAdmin && <FormPage path="/form" />}
+
+          {/* Admin-only routes */}
           {isAdmin && <EntriesPage path="/entries" />}
         </Router>
       )}
+
       {showLoginModal && <LoginModal onClose={handleCloseModal} />}
     </>
   );
