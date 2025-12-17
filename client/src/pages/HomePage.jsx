@@ -5,6 +5,7 @@ import EntriesPage from './EntriesPage';
 import logoRapai from '../assets/icons/logo-rapai.png';
 import '../styles/home.css';
 import EntriesSection from '../components/entries/EntriesSection';
+import FormSection from '../components/form/FormSection';
 
 export default function HomePage({ setLoginModalVisible }) {
    const { isAdmin } = useContext(AuthContext);
@@ -23,7 +24,7 @@ export default function HomePage({ setLoginModalVisible }) {
             {/* FORM AREA */}
             <div className="home-form-area">
                {isAdmin ? (
-                  <FormPage embedded onSuccess={triggerEntriesRefresh} />
+                  <FormSection onSuccess={triggerEntriesRefresh} />
                ) : (
                   <div className="home-login-cta">
                      <p>Login untuk mengajukan penomoran surat</p>
