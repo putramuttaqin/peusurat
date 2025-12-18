@@ -1,192 +1,126 @@
 /* ========================
-   Base Container & Layout
+   Base Form Structure
 ======================== */
-.form-container-page {
-  max-width: 670px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: #f9f9f9;
-  font-family: sans-serif;
-  color: #222;
-}
-
-.form-container h2 {
-  margin-bottom: 1rem;
-  color: #111;
-  text-align: center;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.inline-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: flex-start;
-}
-
-/* ========================
-   Form Groups & Labels
-======================== */
-.form-group {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 10ch;
-  position: relative;
-  text-align: left;
-}
-
-.form-group.full {
-  flex: 0 0 80%;
-}
-
-#kode1,
-#kode2,
-#kode3,
-#wilayah {
-  max-width: 10ch;
-  flex: 0 0 auto;
-  margin-right: 0;
-}
-
-.form-group.short {
-  display: flex;
-  flex: 0 0 auto;
-  width: max-content;
-  max-width: 100%;
-  padding: 0;
-  margin: 0;
-}
-
-label {
-  font-weight: bold;
-  font-size: 0.9rem;
-  margin-bottom: 0.3rem;
-  color: #333;
-}
-
-/* ========================
-   Input Enhancements
-======================== */
-input:focus,
-select:focus,
-textarea:focus {
-  outline: none;
-  background-color: #e6f0ff;
-  border-color: #4d90fe;
-}
-
-/* Native select arrow */
-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6H0z' fill='black'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.7rem center;
-  background-size: 0.8rem;
-  padding-right: 2rem;
-}
-
-/* ========================
-   Button Customizations
-======================== */
-button[type="submit"] {
-  background-color: #4CAF50;
-  color: white;
-}
-
-button[type="submit"]:hover {
-  background-color: #45a049;
-}
-
-button[type="submit"]:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.back-button {
-  background-color: #f44336;
-  color: white;
-}
-
-.back-button:hover {
-  background-color: #d32f2f;
-}
-
-/* ========================
-   Preview & Submit Status
-======================== */
-.preview {
-  margin: 1rem 0;
-  padding: 0.6rem;
-  background: #eef;
-  border-radius: 4px;
-  font-size: 1.1rem;
-  color: #333;
-  text-align: center;
-}
-
-.after-submit {
-  text-align: center;
-  margin-top: 1.5rem;
-}
-
-/* ========================
-   Choices.js Custom Styles
-======================== */
-.choices {
-  width: 100%;
-  display: block;
-  position: relative;
-  margin-bottom: 0;
-}
-
-.choices__inner {
-  width: 100%;
-  min-width: 39ch;
-  border: 1px solid #ccc;
+.form-surat {
+  background: #fff;
   border-radius: 6px;
-  padding: 0.5rem;
-  font-size: 0.95rem;
-  background-color: #fff;
-  box-shadow: none;
-  min-height: auto;
-  height: auto;
-  line-height: 1.2;
-  display: block;
+}
+
+.form-header {
+  margin-bottom: 12px;
+}
+
+.form-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ========================
+   Block B: Meta
+======================== */
+.form-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.form-meta select,
+.form-meta input {
+  height: 32px;
+  font-size: 13px;
+  padding: 0 8px;
+  line-height: 32px;
   box-sizing: border-box;
+}
+
+/* ========================
+    Block C: Number Builder (Normal)
+======================== */
+.form-kode {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.kode-label {
+  font-size: 12px;
+  font-weight: 500;
   text-align: left;
 }
 
-.choices__list--single {
-  padding: 0;
+.kode-builder {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
-.choices[data-type*=select-one] .choices__inner {
-  cursor: text;
+.kode-segment select,
+.kode-segment input {
+  height: 32px;
+  max-width: 65px;
+  font-size: 13px;
+  padding: 0 8px;
+  line-height: 32px;
+  box-sizing: border-box;
 }
 
-.choices__list--dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
+.kode-preview {
+  margin-top: 6px;
+  padding: 6px 8px;
+  font-size: 12px;
+  background: #eef1f6;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+/* ========================
+   Block D — Perihal
+======================== */
+.form-perihal textarea {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  resize: vertical;
   width: 100%;
-  z-index: 100;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  min-height: 100px;
 }
 
-.choices__list--dropdown .choices__item {
-  padding: 0.5rem 1rem;
+/* ========================
+   Block E — Action
+======================== */
+.form-action {
+  display: flex;
+  justify-content: flex-end;
 }
 
-.choices[data-type*=select-one]::after {
-  border-color: black transparent transparent transparent;
-  top: 45%;
+.form-action button {
+  height: 34px;
+  padding: 0 14px;
+}
+
+/* ========================
+   Compact Mode Overrides
+======================== */
+.form-surat.is-compact .form-header {
+  display: none;
+}
+
+.form-surat.is-compact .form-meta {
+  gap: 6px;
+}
+
+.form-surat.is-compact .kode-builder {
+  flex-wrap: nowrap;
+}
+
+.form-surat.is-compact .kode-segment select,
+.form-surat.is-compact .kode-segment input {
+  min-width: auto;
+  width: auto;
+  font-size: 12px;
 }

@@ -134,8 +134,9 @@
 .home-form-area {
   background: #ffffff;
   border-radius: 12px;
-  padding: 1rem;
+  padding: 3rem;
   border: 1px solid #e6e6e6;
+  /* width: max-content; */
 }
 
 /* LOGIN CTA */

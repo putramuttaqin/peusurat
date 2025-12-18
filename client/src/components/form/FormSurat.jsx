@@ -12,47 +12,32 @@ export default function FormSurat({
   onKodeChange,
   onSubmit
 }) {
-  const renderSelect = ({
-    id,
-    label,
-    value,
-    options,
-    onChange,
-    disabled
-  }) => (
-    <div className="form-group short">
-      <label htmlFor={id}>{label}</label>
-      <select id={id} value={value} onChange={onChange} disabled={disabled}>
-        <option value="" disabled>
-          Pilih...
-        </option>
-        {options.map(opt => (
-          <option key={opt.id || opt} value={opt.id || opt}>
-            {opt.name || opt}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-
   return (
-    <div className={`form-container ${compact ? 'compact' : ''}`}>
-      {!compact && <h2>Permohonan Nomor Surat</h2>}
+    <section className={`form-surat ${compact ? 'is-compact' : ''}`}>
+      {/* ───────────── Block A: Header ───────────── */}
+      {!compact && (
+        <header className="form-header">
+          <h2 className="form-title">Penomoran Surat</h2>
+        </header>
+      )}
 
-      <form onSubmit={onSubmit}>
-        <div className="inline-row">
-          {renderSelect({
-            id: 'jenisSurat',
-            label: 'Kategori Surat',
-            value: formState.jenisSurat,
-            options: jenisSuratOptions,
-            onChange: onChange('jenisSurat')
-          })}
-        </div>
+      <form className="form-body" onSubmit={onSubmit}>
+        {/* ───────────── Block B: Meta ───────────── */}
+        <section className="form-meta">
+          <div className="meta-item">
+            <select
+              value={formState.jenisSurat}
+              onChange={onChange('jenisSurat')}
+            >
+              {jenisSuratOptions.map(opt => (
+                <option key={opt.id || opt} value={opt.id || opt}>
+                  {opt.name || opt}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <div className="inline-row">
-          <div className="form-group short">
-            <label>Tanggal Surat</label>
+          <div className="meta-item">
             <input
               type="date"
               value={formState.tanggalSurat}
@@ -60,8 +45,7 @@ export default function FormSurat({
             />
           </div>
 
-          <div className="form-group short">
-            <label>Sifat Surat</label>
+          <div className="meta-item">
             <select
               value={formState.sifatSurat}
               onChange={onChange('sifatSurat')}
@@ -70,60 +54,82 @@ export default function FormSurat({
               <option value={1}>Rahasia</option>
             </select>
           </div>
-        </div>
+        </section>
 
-        <div className="form-group full">
-          <label>Perihal Surat</label>
-          <textarea
-            rows="4"
-            value={formState.keterangan}
-            onInput={onChange('keterangan')}
-          />
-        </div>
+        {/* ───────────── Block C: Number Builder ───────────── */}
+        <section className="form-kode">
+          <label className="kode-label">Kode Arsip / Surat</label>
 
-        <div className="inline-row">
-          <div className="form-group short">
-            <label>Kode Wilayah</label>
-            <input value={formState.wilayah} readOnly />
+          <div className="kode-builder">
+            <div className="kode-segment kode-wilayah">
+              <input value={formState.wilayah} readOnly />
+            </div>
+
+            <div className="kode-segment">
+              <select
+                value={formState.kode1}
+                onChange={onKodeChange('kode1')}
+              >
+                <option value="">Pilih</option>
+                {kode1Options.map(opt => (
+                  <option key={opt.id} value={opt.id}>
+                    {opt.name || opt.shortName}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="kode-segment">
+              <select
+                value={formState.kode2}
+                onChange={onKodeChange('kode2')}
+                disabled={!formState.kode1}
+              >
+                <option value="">—</option>
+                {kode2Options.map(opt => (
+                  <option key={opt.id} value={opt.id}>
+                    {opt.name || opt.shortName}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="kode-segment">
+              <select
+                value={formState.kode3}
+                onChange={onKodeChange('kode3')}
+                disabled={!formState.kode2}
+              >
+                <option value="">—</option>
+                {kode3Options.map(opt => (
+                  <option key={opt.id} value={opt.id}>
+                    {opt.name || opt.shortName}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
-          {renderSelect({
-            id: 'kode1',
-            label: 'Masalah',
-            value: formState.kode1,
-            options: kode1Options,
-            onChange: onKodeChange('kode1')
-          })}
+          <div className="kode-preview">{nomorPreview}</div>
+        </section>
 
-          {renderSelect({
-            id: 'kode2',
-            label: 'Angka',
-            value: formState.kode2,
-            options: kode2Options,
-            onChange: onKodeChange('kode2'),
-            disabled: !formState.kode1
-          })}
+        {/* ───────────── Block D: Perihal ───────────── */}
+        <section className="form-perihal">
+          <textarea
+            rows="3"
+            value={formState.keterangan}
+            onInput={onChange('keterangan')}
+            placeholder="Perihal surat"
+          />
+        </section>
 
-          {renderSelect({
-            id: 'kode3',
-            label: 'Angka',
-            value: formState.kode3,
-            options: kode3Options,
-            onChange: onKodeChange('kode3'),
-            disabled: !formState.kode2
-          })}
-        </div>
-
-        <div className="preview">
-          <strong>Preview:</strong> {nomorPreview}
-        </div>
-
-        <div className="inline-row">
+        {/* ───────────── Block E: Action ───────────── */}
+        <footer className="form-action">
           <button type="submit" disabled={submitting || !isValid}>
-            {submitting ? 'Menyimpan...' : 'Submit'}
+            {submitting ? 'Menyimpan…' : 'Submit'}
           </button>
-        </div>
+        </footer>
       </form>
-    </div>
+    </section>
   );
 }

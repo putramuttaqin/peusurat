@@ -9,6 +9,13 @@ import '../../styles/form.css';
 export default function FormSection({ compact = false, onSuccess }) {
   const { user, isAdmin, loading } = useContext(AuthContext);
 
+  function getTodayGMT7() {
+    const now = new Date();
+    const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+    const gmt7 = new Date(utc + 7 * 60 * 60000);
+    return gmt7.toISOString().slice(0, 10); // YYYY-MM-DD
+  }
+
   if (loading || !isAdmin) return null;
 
   const [formState, setFormState] = useState({
@@ -17,7 +24,7 @@ export default function FormSection({ compact = false, onSuccess }) {
     kode1: '',
     kode2: '',
     kode3: '',
-    tanggalSurat: '',
+    tanggalSurat: getTodayGMT7(),
     sifatSurat: SIFAT_SURAT.BIASA,
     keterangan: ''
   });
