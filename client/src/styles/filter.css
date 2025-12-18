@@ -1,0 +1,135 @@
+/* --------------------------------------------------
+   SECTION & HEADER
+-------------------------------------------------- */
+.entries-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.entries-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.entries-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* --------------------------------------------------
+   Filter container (grouped background)
+-------------------------------------------------- */
+.entries-filters {
+  background: #f8f9fb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+/* --------------------------------------------------
+   Filter layout (desktop default)
+-------------------------------------------------- */
+.entries-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Row 1: status + jenis */
+.filter-row-primary {
+  flex-wrap: wrap;
+}
+
+/* Row 2: search + date + actions */
+.filter-row-secondary {
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------
+   Inputs & selects (unified look)
+-------------------------------------------------- */
+.entries-filter select,
+.entries-filter input[type="text"],
+.entries-filter input[type="date"] {
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 13px;
+  background: #fff;
+}
+
+/* widths */
+.filter-row-primary .filter-item {
+  min-width: 180px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 220px;
+  max-width: 400px;
+}
+
+.date-input {
+  min-width: 150px;
+}
+
+/* --------------------------------------------------
+   Action buttons (grouped, clear)
+-------------------------------------------------- */
+.filter-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.filter-button,
+.reset-button {
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.filter-button {
+  background: #2563eb;
+  color: #fff;
+  border: 1px solid #2563eb;
+}
+
+.filter-button:hover {
+  background: #1d4ed8;
+}
+
+.reset-button {
+  background: #fff;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.reset-button:hover {
+  background: #f3f4f6;
+}
+
+/* --------------------------------------------------
+   Compact mode (vertical filters)
+-------------------------------------------------- */
+.entries-filter.is-compact .filter-row {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.entries-filter.is-compact .filter-actions {
+  flex-direction: row;
+  margin-left: 0;
+  justify-content: flex-end;
+}

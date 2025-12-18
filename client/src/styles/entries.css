@@ -3,7 +3,8 @@
 -------------------------------------------------- */
 .entries-embedded {
   width: 100%;
-  max-width: 1200px; /* or 100% if you want full bleed */
+  max-width: 1200px;
+  /* or 100% if you want full bleed */
   margin: 2rem auto;
   padding: 1rem;
   border-radius: 12px;
@@ -18,66 +19,37 @@
 }
 
 /* --------------------------------------------------
-   HEADER / FILTERS
+   Content area spacing
 -------------------------------------------------- */
-.entries-header,
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: justify;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-}
-
-.back-button {
-  background-color: #f0f0f0;
-  border: 1px solid #d0d0d0;
-  padding: 0.45rem 0.75rem;
+.entries-content {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
-  cursor: pointer;
-}
-
-/* Filters */
-.search-filter-bar {
-  max-width: 100%;
-  display: inline-block;
-}
-
-.filter-row {
+  padding: 12px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  align-items: center;
-  width: fit-content;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.filter-item {
-  flex: 0 1 200px;
-  min-width: 140px;
+.entries-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
 }
 
-.search-input {
-  flex: 0 1 240px;
-  max-width: 100%;
-  min-width: 150px;
-  padding: 0.45rem;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-}
-
-.date-input {
-  width: 12ch;
-  min-width: 140px;
-  padding: 0.35rem;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-}
-
-.filter-actions {
+.entries-footer {
+  padding-top: 8px;
+  border-top: 1px solid #e5e7eb;
   display: flex;
-  gap: 0.5rem;
-  justify-content: flex-end;
+  justify-content: center;
+}
+/* --------------------------------------------------
+   Empty / loading state (subtle)
+-------------------------------------------------- */
+.entries-state {
+  padding: 20px;
+  text-align: center;
+  color: #6b7280;
 }
 
 /* --------------------------------------------------

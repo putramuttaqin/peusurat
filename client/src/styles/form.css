@@ -95,12 +95,42 @@
 ======================== */
 .form-action {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-around;
 }
 
 .form-action button {
   height: 34px;
   padding: 0 14px;
+
+  background: #1f2937;
+  /* dark slate */
+  color: #ffffff;
+  border: 1px solid #1f2937;
+  border-radius: 6px;
+
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-action button:hover:not(:disabled) {
+  background: #111827;
+  border-color: #111827;
+}
+
+.form-action button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.form-action button:disabled {
+  background: #e5e7eb;
+  border-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
 }
 
 /* ========================

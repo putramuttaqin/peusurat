@@ -1,6 +1,7 @@
-import { STATUS, JENIS_SURAT_OPTIONS } from '../../shared/enum.js';
+import { JENIS_SURAT_OPTIONS, STATUS } from '../../shared/enum.js';
 
 export default function EntriesFilter({
+  compact = false,
   search,
   setSearch,
   filters,
@@ -9,8 +10,9 @@ export default function EntriesFilter({
   onReset
 }) {
   return (
-    <div className="search-filter-bar">
-      <div className="filter-row">
+    <div className={`entries-filter ${compact ? 'is-compact' : ''}`}>
+      {/* Row 1 */}
+      <div className="filter-row filter-row-primary">
         <select
           className="filter-item"
           value={filters.status}
@@ -48,7 +50,10 @@ export default function EntriesFilter({
           onInput={(e) => setSearch(e.target.value)}
           className="search-input"
         />
+      </div>
 
+      {/* Row 2 */}
+      <div className="filter-row filter-row-secondary">
         <input
           type="date"
           value={filters.startDate}
