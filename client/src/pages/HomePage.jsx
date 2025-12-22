@@ -57,7 +57,7 @@ export default function HomePage({ setLoginModalVisible }) {
 
          {/* SUBMISSIONS */}
          <section className="home-submissions">
-            <EntriesSection embedded refreshKey={entriesRefreshKey}/>
+            <EntriesSection refreshKey={entriesRefreshKey}/>
          </section>
 
       </div>

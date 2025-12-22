@@ -11,8 +11,7 @@ export default function EntriesFilter({
 }) {
   return (
     <div className={`entries-filter ${compact ? 'is-compact' : ''}`}>
-      {/* Row 1 */}
-      <div className="filter-row filter-row-primary">
+      <div className="filter-row">
         <select
           className="filter-item"
           value={filters.status}
@@ -50,10 +49,7 @@ export default function EntriesFilter({
           onInput={(e) => setSearch(e.target.value)}
           className="search-input"
         />
-      </div>
 
-      {/* Row 2 */}
-      <div className="filter-row filter-row-secondary">
         <input
           type="date"
           value={filters.startDate}

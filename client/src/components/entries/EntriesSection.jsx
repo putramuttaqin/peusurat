@@ -9,12 +9,12 @@ import EntryCard from './EntryCard.jsx';
 import EntriesFilter from './EntriesFilter.jsx';
 import EntriesPagination from './EntriesPagination.jsx';
 
-export default function EntriesSection({ compact = false, refreshKey }) {
+export default function EntriesSection({ refreshKey }) {
    const today = new Date();
    const thirtyDaysAgo = new Date(today.setDate(today.getDate() - 30));
    const formatDate = (date) => date.toISOString().split('T')[0];
 
-   const itemsPerPage = 10;
+   const itemsPerPage = 12;
 
    const { isAdmin, user, loading } = useContext(AuthContext);
 
@@ -136,7 +136,7 @@ export default function EntriesSection({ compact = false, refreshKey }) {
    };
 
    return (
-      <section className={`entries-section ${compact ? 'is-compact' : ''}`}>
+      <section className={`entries-section`}>
          {/* Header */}
          <header className="entries-header">
             <h2 className="entries-title">Dashboard Surat</h2>
@@ -145,7 +145,6 @@ export default function EntriesSection({ compact = false, refreshKey }) {
          {/* Filters */}
          <div className="entries-filters">
             <EntriesFilter
-               compact={compact}
                search={search}
                setSearch={setSearch}
                filters={filters}

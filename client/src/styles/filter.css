@@ -44,16 +44,6 @@
   gap: 8px;
 }
 
-/* Row 1: status + jenis */
-.filter-row-primary {
-  flex-wrap: wrap;
-}
-
-/* Row 2: search + date + actions */
-.filter-row-secondary {
-  flex-wrap: wrap;
-}
-
 /* --------------------------------------------------
    Inputs & selects (unified look)
 -------------------------------------------------- */
@@ -69,14 +59,14 @@
 }
 
 /* widths */
-.filter-row-primary .filter-item {
+.filter-row .filter-item {
   min-width: 180px;
 }
 
 .search-input {
   flex: 1;
   min-width: 220px;
-  max-width: 400px;
+  max-width: 308px;
 }
 
 .date-input {
@@ -121,15 +111,21 @@
 }
 
 /* --------------------------------------------------
-   Compact mode (vertical filters)
+   Mobile responsiveness
 -------------------------------------------------- */
-.entries-filter.is-compact .filter-row {
-  flex-direction: column;
-  align-items: stretch;
-}
+@media (max-width: 640px) {
+  .entries-filter .filter-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-.entries-filter.is-compact .filter-actions {
-  flex-direction: row;
-  margin-left: 0;
-  justify-content: flex-end;
+  .entries-filter .search-input {
+    flex: none;
+    max-width: none;
+    width: 100%;
+  }
+
+  .entries-filter .filter-actions {
+    justify-content: flex-end;
+  }
 }
