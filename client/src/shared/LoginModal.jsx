@@ -22,7 +22,7 @@ export default function LoginModal({ onClose }) {
   return (
     <div className="modal-backdrop">
       <div className="modal">
-        <h2>Login Admin</h2>
+        <h2>LOGIN USER</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"

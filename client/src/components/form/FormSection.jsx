@@ -78,7 +78,9 @@ export default function FormSection({ compact = false, onSuccess }) {
     formState.jenisSurat &&
     formState.kode1 &&
     formState.kode2 &&
-    formState.kode3;
+    formState.kode3 &&
+    formState.keterangan &&
+    formState.tanggalSurat;
 
   const handleChange = field => e => {
     const value =
@@ -127,9 +129,6 @@ export default function FormSection({ compact = false, onSuccess }) {
 
       setFormState(prev => ({
         ...prev,
-        kode1: '',
-        kode2: '',
-        kode3: '',
         keterangan: ''
       }));
     } catch (err) {

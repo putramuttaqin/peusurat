@@ -154,7 +154,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(19, 19, 18, 0.911);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -2,6 +2,7 @@ import { useState, useContext } from 'preact/hooks';
 import { AuthContext } from '../shared/AuthContext';
 import logoRapai from '../assets/icons/logo-rapai.png';
 import '../styles/home.css';
+import '../styles/animation.css';
 import EntriesSection from '../components/entries/EntriesSection';
 import FormSection from '../components/form/FormSection';
 
@@ -26,12 +27,6 @@ export default function HomePage({ setLoginModalVisible }) {
                ) : (
                   <div className="home-login-cta">
                      <p>Login untuk mengajukan penomoran surat</p>
-                     <button
-                        className="login-button"
-                        onClick={() => setLoginModalVisible(true)}
-                     >
-                        Login
-                     </button>
                   </div>
                )}
             </div>
@@ -43,14 +38,6 @@ export default function HomePage({ setLoginModalVisible }) {
                <p className="home-tagline">
                   Penomoran Surat Keluar Elektronik
                </p>
-
-               <div className="home-info-box">
-                  <ul>
-                     <li>Ajukan penomoran surat secara elektronik</li>
-                     <li>Pantau status pengajuan secara real-time</li>
-                     <li>Hubungi admin jika ada kendala</li>
-                  </ul>
-               </div>
             </aside>
 
          </section>

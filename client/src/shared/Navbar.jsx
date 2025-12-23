@@ -9,14 +9,17 @@ export default function Navbar({ onLoginClick }) {
     <header>
       <nav className="navbar">
         <div className="navbar-left">
-          <img src={logoRapai} alt="Logo RAPA'I" className="navbar-logo" />
-          <h1 className="navbar-title">PEUSURAT</h1>
+          {isAdmin ? (
+            <>
+              <h5 className="navbar-title">{user.name}</h5>
+            </>
+          ) : (<>
+          </>)}
         </div>
         {!loading && (
           <div className="navbar-right">
             {isAdmin ? (
               <>
-                <h5 className="navbar-title">{user.name}</h5>
                 <button className="navbar-button" onClick={logout}>Logout</button>
               </>
             ) : (

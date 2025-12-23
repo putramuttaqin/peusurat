@@ -99,7 +99,6 @@ export default function EntriesSection({ refreshKey }) {
       try {
          await updateEntryStatus({ id, action: aksi });
          await handleFilter(currentPage);
-         alert(`Successfully ${text}d.`);
       } catch (err) {
          alert(err.message || 'Action failed');
       } finally {
