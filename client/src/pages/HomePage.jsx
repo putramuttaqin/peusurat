@@ -35,16 +35,23 @@ export default function HomePage({ setLoginModalVisible }) {
             <aside className="home-info-area">
                <img src={logoRapai} className="home-logo" alt="Logo Rapai" />
                <h1 className="home-title">PEUSURAT</h1>
+
                <p className="home-tagline">
                   Penomoran Surat Keluar Elektronik
                </p>
-            </aside>
 
+               <div className="home-poem">
+                  <p>Malam-malam butuh surat,</p>
+                  <p>Ambil nomor harus ke kantor.</p>
+                  <p>Sekarang ada aplikasi Peusurat,</p>
+                  <p>Kapanpun dimanapun ambil nomor.</p>
+               </div>
+            </aside>
          </section>
 
          {/* SUBMISSIONS */}
          <section className="home-submissions">
-            <EntriesSection refreshKey={entriesRefreshKey}/>
+            <EntriesSection refreshKey={entriesRefreshKey} />
          </section>
 
       </div>
