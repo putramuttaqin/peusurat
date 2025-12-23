@@ -78,7 +78,6 @@ export default function FormSection({ compact = false, onSuccess }) {
     formState.jenisSurat &&
     formState.kode1 &&
     formState.kode2 &&
-    formState.kode3 &&
     formState.keterangan &&
     formState.tanggalSurat;
 
