@@ -4,7 +4,8 @@ export const JENIS_SURAT_OPTIONS = [
   'SURAT KELUAR P2L',
   'SK KAKANWIL',
   'SURAT PERINTAH',
-  'SURAT CUTI'
+  'SURAT CUTI',
+  'SURAT KELUAR P3H'
 ];
 
 export const STATUS = {
